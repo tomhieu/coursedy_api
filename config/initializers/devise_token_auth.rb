@@ -7,7 +7,7 @@ DeviseTokenAuth.setup do |config|
 
   # By default, users will need to re-authenticate after 2 weeks. This setting
   # determines how long tokens will remain valid after they are issued.
-  # config.token_lifespan = 2.weeks
+  config.token_lifespan = 1.weeks
 
   # Sets the max number of concurrent devices per user, which is 10 by default.
   # After this limit is reached, the oldest tokens will be removed.
@@ -28,7 +28,10 @@ DeviseTokenAuth.setup do |config|
   # Uncomment to enforce current_password param to be checked before all
   # attribute updates. Set it to :password if you want it to be checked only if
   # password is updated.
-  # config.check_current_password_before_update = :attributes
+  config.check_current_password_before_update = :password
+
+  # TODO remember to update redirect url
+  config.default_confirm_success_url = 'http://0.0.0.0:8088'
 
   # By default we will use callbacks for single omniauth.
   # It depends on fields like email, provider and uid.
