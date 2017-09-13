@@ -39,3 +39,21 @@ vi:
         password_change_link: "Đổi mật khẩu"
         ignore_mail_msg: "Bạn có thể bỏ qua email này nếu bạn không yêu cầu."
         no_changes_msg: "Mật khẩu của bạn sẽ không bị thay đổi nếu bạn không vào link trên."
+  activerecord:
+    models:
+      user: "Người dùng"
+    attributes:
+      user:
+        password: "Mật khẩu"
+        password_confirmation: "Mật khẩu xác nhận"
+        first_name: "Tên"
+        last_name: "Họ"
+        phone_number: "Số điện thoại"
+    errors:
+      models:
+        user:
+          attributes:
+            password_confirmation:
+              confirmation: "không đúng"
+            password:
+              too_short: "quá ngắn (Ít nhất 8 ký tự)"
