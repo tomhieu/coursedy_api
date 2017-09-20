@@ -5,7 +5,7 @@ module Api
         if current_user
           render json: current_user, each_serializer: UsersSerializer
         else
-          render json: {}
+          render_error_response('not login', :not_found)
         end
       end
     end
