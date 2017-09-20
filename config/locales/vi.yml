@@ -57,3 +57,5 @@ vi:
               confirmation: "không đúng"
             password:
               too_short: "quá ngắn (Ít nhất 8 ký tự)"
+            email:
+              taken: "Email này đã đăng ký với tài khoản khác"
