@@ -1,8 +1,8 @@
 vi:
   devise_token_auth:
     sessions:
-      not_confirmed: "A confirmation email was sent to your account at '%{email}'. You must follow the instructions in the email before your account can be activated"
-      bad_credentials: "Invalid login credentials. Please try again."
+      not_confirmed: "Bạn chưa kích hoạt tài khoản. Vui lòng kiểm tra email của bạn để kích hoạt"
+      bad_credentials: "Email hoặc Mật khẩu không đúng"
       not_supported: "Use POST /sign_in to sign in. GET is not supported."
       user_not_found: "User was not found or was not logged in."
     token_validations:
