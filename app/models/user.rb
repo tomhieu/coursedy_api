@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
           :confirmable, :omniauthable
   include DeviseTokenAuth::Concerns::User
 
+  has_many :course
+
   validates :first_name, presence: true
 
   ROLES = [:admin, :student, :teacher]

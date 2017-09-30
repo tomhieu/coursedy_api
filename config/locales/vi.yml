@@ -51,6 +51,11 @@ vi:
         phone_number: "Số điện thoại"
     errors:
       models:
+        course:
+          attributes:
+            title:
+              blank: "Vui lòng nhập tên khoá học"
+            start_date: "Ngày bắt đầu phải nhỏ hơn ngày kết thúc và lớn hơn ngày hiện tại"
         user:
           attributes:
             password_confirmation:

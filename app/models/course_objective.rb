@@ -1,0 +1,2 @@
+class CourseObjective < ApplicationRecord
+end
