@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get :current_user, to: 'users#current_api_user'
       get :validate_email, to: 'users#validate_email'
+      resources :courses
     end
   end
 end
