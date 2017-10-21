@@ -35,6 +35,8 @@ gem 'omniauth'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'rolify'
 gem 'active_model_serializers'
+gem 'carrierwave-base64'
+gem 'carrierwave'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
