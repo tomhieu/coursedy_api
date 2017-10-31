@@ -2,6 +2,10 @@ class Course < ApplicationRecord
   mount_base64_uploader :cover_image, ImageUploader
 
   belongs_to :tutor, class_name: 'User', foreign_key: :user_id
+  has_many :week_day_schedules
+  belongs_to :category
+  belongs_to :course_level
+
   validate :validate_dates
   validate :validate_creator
   validates :title, presence: true

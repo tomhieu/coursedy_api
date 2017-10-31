@@ -10,10 +10,80 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170912063224) do
+ActiveRecord::Schema.define(version: 20171030045939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_categories_on_category_id"
+  end
+
+  create_table "course_levels", force: :cascade do |t|
+    t.integer "level"
+    t.string "name"
+    t.string "description"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_course_levels_on_category_id"
+  end
+
+  create_table "course_objectives", force: :cascade do |t|
+    t.string "content"
+    t.boolean "highlight"
+    t.bigint "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_course_objectives_on_course_id"
+  end
+
+  create_table "course_sections", force: :cascade do |t|
+    t.string "title"
+    t.bigint "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_course_sections_on_course_id"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.bigint "user_id"
+    t.boolean "is_public", default: false
+    t.boolean "is_active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "period"
+    t.string "period_type"
+    t.integer "number_of_students"
+    t.integer "tuition_fee"
+    t.string "currency"
+    t.string "cover_image"
+    t.bigint "category_id"
+    t.bigint "course_level_id"
+    t.index ["category_id"], name: "index_courses_on_category_id"
+    t.index ["course_level_id"], name: "index_courses_on_course_level_id"
+    t.index ["user_id"], name: "index_courses_on_user_id"
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.string "title"
+    t.bigint "course_id"
+    t.bigint "course_section_id"
+    t.integer "period"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_lessons_on_course_id"
+    t.index ["course_section_id"], name: "index_lessons_on_course_section_id"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
@@ -24,6 +94,26 @@ ActiveRecord::Schema.define(version: 20170912063224) do
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["name"], name: "index_roles_on_name"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
+  end
+
+  create_table "time_slots", force: :cascade do |t|
+    t.time "start_time"
+    t.time "end_time"
+    t.bigint "week_day_schedule_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["week_day_schedule_id"], name: "index_time_slots_on_week_day_schedule_id"
+  end
+
+  create_table "tutors", force: :cascade do |t|
+    t.string "name"
+    t.string "title"
+    t.string "speciality"
+    t.text "description"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_tutors_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -66,4 +156,21 @@ ActiveRecord::Schema.define(version: 20170912063224) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  create_table "week_day_schedules", force: :cascade do |t|
+    t.integer "day"
+    t.bigint "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_week_day_schedules_on_course_id"
+  end
+
+  add_foreign_key "course_levels", "categories"
+  add_foreign_key "course_sections", "courses"
+  add_foreign_key "courses", "categories"
+  add_foreign_key "courses", "course_levels"
+  add_foreign_key "courses", "users"
+  add_foreign_key "lessons", "course_sections"
+  add_foreign_key "lessons", "courses"
+  add_foreign_key "time_slots", "week_day_schedules"
+  add_foreign_key "week_day_schedules", "courses"
 end

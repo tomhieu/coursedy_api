@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :course
+  has_one :tutor
 
   validates :first_name, presence: true
 

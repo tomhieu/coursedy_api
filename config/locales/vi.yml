@@ -39,6 +39,8 @@ vi:
         password_change_link: "Đổi mật khẩu"
         ignore_mail_msg: "Bạn có thể bỏ qua email này nếu bạn không yêu cầu."
         no_changes_msg: "Mật khẩu của bạn sẽ không bị thay đổi nếu bạn không vào link trên."
+    failure:
+      unauthenticated: "Vui lòng đăng nhập"
   activerecord:
     models:
       user: "Người dùng"

@@ -7,7 +7,13 @@ Rails.application.routes.draw do
     namespace :v1 do
       get :current_user, to: 'users#current_api_user'
       get :validate_email, to: 'users#validate_email'
+      resources :categories, only: [:index]
       resources :courses
+      resources :tutors, only: [:update] do
+        collection do
+          get :current_tutor, to: 'tutors#current_tutor'
+        end
+      end
     end
   end
 end
