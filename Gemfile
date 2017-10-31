@@ -37,6 +37,8 @@ gem 'rolify'
 gem 'active_model_serializers'
 gem 'carrierwave-base64'
 gem 'carrierwave'
+gem 'sunspot_rails'
+gem 'sunspot_solr'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

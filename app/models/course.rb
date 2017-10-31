@@ -11,6 +11,14 @@ class Course < ApplicationRecord
   validates :tuition_fee, numericality: true, allow_blank: true
   validates :currency, inclusion: {in: %w(vnd usd yen)}, allow_blank: true
 
+  searchable do
+    text :title, :description
+    boolean    :is_active
+    boolean    :is_public
+    time    :end_date
+    time    :start_date
+  end
+
   private
 
   def validate_creator
