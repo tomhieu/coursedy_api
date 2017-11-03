@@ -13,7 +13,12 @@ class User < ActiveRecord::Base
 
   ROLES = [:admin, :student, :teacher]
 
-  def add_role(role)
-    super if role.in?(ROLES)
+  after_create :create_tutor
+
+  private
+
+  def create_tutor
+    self.add_role(self.role) if self.role.to_sym.in?(ROLES)
+    Tutor.create(user_id: self.id, name: self.first_name)
   end
 end

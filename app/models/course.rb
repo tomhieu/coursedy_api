@@ -15,6 +15,14 @@ class Course < ApplicationRecord
   validates :tuition_fee, numericality: true, allow_blank: true
   validates :currency, inclusion: {in: %w(vnd usd yen)}, allow_blank: true
 
+  LOCATIONS = {
+    1 => "Tp. Hồ Chí Minh",
+    2 => "Hà Nội",
+    3 => "Đà Nẵng",
+    4 => "Hải Phòng",
+    5 => "Cần Thơ"
+  }
+
   searchable do
     text :title, :description
     boolean    :is_active

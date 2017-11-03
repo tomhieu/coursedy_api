@@ -1,4 +1,12 @@
 vi:
+  weekday:
+    monday: 'Thứ 2'
+    tuesday: 'Thứ 3'
+    wednesday: 'Thứ 4'
+    thursday: 'Thứ 5'
+    friday: 'Thứ 6'
+    saturday: 'Thứ 7'
+    sunday: 'Chủ Nhật'
   devise_token_auth:
     sessions:
       not_confirmed: "Bạn chưa kích hoạt tài khoản. Vui lòng kiểm tra email của bạn để kích hoạt"

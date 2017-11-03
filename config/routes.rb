@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       get :current_user, to: 'users#current_api_user'
       get :validate_email, to: 'users#validate_email'
       resources :categories, only: [:index]
+      resources :locations, only: [:index]
+      resources :weekdays, only: [:index]
       resources :courses
       resources :tutors, only: [:update] do
         collection do
