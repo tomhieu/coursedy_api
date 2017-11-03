@@ -40,6 +40,8 @@ gem 'carrierwave'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'unicorn'
+gem 'capistrano-rails'
+gem 'capistrano3-unicorn'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
