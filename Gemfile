@@ -39,6 +39,7 @@ gem 'carrierwave-base64'
 gem 'carrierwave'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
+gem 'unicorn'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -52,6 +53,8 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'capistrano'
+  gem 'capistrano-ext'
 end
 
 group :development do
