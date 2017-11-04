@@ -30,8 +30,6 @@ DeviseTokenAuth.setup do |config|
   # password is updated.
   config.check_current_password_before_update = :password
 
-  config.secret_key = ENV[ 'DEVISE_TOKEN_AUTH_SECRET_KEY' ]
-
   # TODO remember to update redirect url
   config.default_confirm_success_url = 'http://0.0.0.0:8088'
 
