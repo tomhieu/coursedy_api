@@ -4,6 +4,7 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
   config.mailer_sender = "support@ezylearning.com"
+  config.secret_key = ENV['DEVISE_SECRET_KEY'] if Rails.env.production?
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
