@@ -2,7 +2,7 @@
 lock "~> 3.10.0"
 
 set :application, "ezylearning"
-set :repo_url, "git@gitlab.com:hieupt/ezylearning_api.git"
+set :repo_url, "git@gitlab.com:hieupt/ezylearning_backend.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
