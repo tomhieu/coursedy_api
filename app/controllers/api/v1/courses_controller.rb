@@ -22,8 +22,8 @@ module Api
 
       def course_params
         params.require(:course).permit(:title, :description, :start_date, :end_date,
-                      :number_of_students, :period, :period_type, :tuition_fee,
-                      :currency, :cover_image
+                      :number_of_students, :period, :period_type, :tuition_fee, :category_id,
+                      :course_level_id, :currency, :cover_image
         )
       end
     end
