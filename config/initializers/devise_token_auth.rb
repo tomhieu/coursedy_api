@@ -31,7 +31,7 @@ DeviseTokenAuth.setup do |config|
   config.check_current_password_before_update = :password
 
   # TODO remember to update redirect url
-  config.default_confirm_success_url = 'http://0.0.0.0:8088'
+  config.default_confirm_success_url = AppSettings.host
 
   # By default we will use callbacks for single omniauth.
   # It depends on fields like email, provider and uid.
