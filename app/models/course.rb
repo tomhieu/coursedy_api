@@ -23,14 +23,6 @@ class Course < ApplicationRecord
     5 => "Cần Thơ"
   }
 
-  searchable do
-    text :title, :description
-    boolean    :is_active
-    boolean    :is_public
-    time    :end_date
-    time    :start_date
-  end
-
   private
 
   def validate_creator
