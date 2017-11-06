@@ -86,6 +86,15 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  config.action_mailer.default_url_options = {:host => 'ezylearning.com'}
+  config.action_mailer.delivery_method = :sendgrid_actionmailer
+  config.action_mailer.sendgrid_actionmailer_settings = {
+    api_key: AppSettings.sendgrid.api_key
+  }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.perform_caching = false
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
