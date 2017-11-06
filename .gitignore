@@ -22,3 +22,4 @@
 .idea/
 /public/*
 /solr/*
+/config/app_settings.yml
