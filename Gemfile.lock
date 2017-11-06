@@ -47,6 +47,7 @@ GEM
       public_suffix (~> 2.0, >= 2.0.2)
     airbrussh (1.3.0)
       sshkit (>= 1.6.1, != 1.7.0)
+    ansi (1.5.0)
     arel (8.0.0)
     bcrypt (3.1.11)
     bcrypt (3.1.11-java)
@@ -113,8 +114,6 @@ GEM
       rails (< 6)
     erubi (1.6.1)
     execjs (2.7.0)
-    faraday (0.13.1)
-      multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     ffi (1.9.18-java)
     ffi (1.9.18-x64-mingw32)
@@ -122,6 +121,7 @@ GEM
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     hashie (3.5.6)
+    hashr (0.0.22)
     i18n (0.8.6)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -143,7 +143,6 @@ GEM
     mini_portile2 (2.2.0)
     minitest (5.10.2)
     multi_json (1.12.1)
-    multipart-post (2.0.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.2.0)
@@ -163,7 +162,6 @@ GEM
     pg (0.21.0)
     pg (0.21.0-x64-mingw32)
     pg (0.21.0-x86-mingw32)
-    pr_geohash (1.0.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -219,10 +217,9 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rolify (5.1.0)
-    rsolr (2.0.2)
-      builder (>= 2.1.2)
-      faraday
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
     sass (3.5.1)
@@ -257,18 +254,18 @@ GEM
     sshkit (1.14.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    sunspot (2.2.7)
-      pr_geohash (~> 1.0)
-      rsolr (>= 1.1.1, < 3)
-    sunspot_rails (2.2.7)
-      nokogiri
-      rails (>= 3)
-      sunspot (= 2.2.7)
-    sunspot_solr (2.2.7)
     thor (0.19.4)
     thread_safe (0.3.6)
     thread_safe (0.3.6-java)
     tilt (2.0.7)
+    tire (0.6.2)
+      activemodel (>= 3.0)
+      activesupport
+      ansi
+      hashr (~> 0.0.19)
+      multi_json (~> 1.3)
+      rake
+      rest-client (~> 1.6)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.3)
@@ -331,8 +328,7 @@ DEPENDENCIES
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
-  sunspot_rails
-  sunspot_solr
+  tire
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
