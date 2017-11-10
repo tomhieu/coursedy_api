@@ -9,9 +9,14 @@ class CoursesSerializer < ActiveModel::Serializer
              :period_type,
              :tuition_fee,
              :currency,
+             :cover_image,
              :user
 
   def user
     object.tutor
+  end
+
+  def cover_image
+    object.cover_image.url
   end
 end
