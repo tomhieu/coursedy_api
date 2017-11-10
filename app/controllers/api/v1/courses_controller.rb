@@ -1,7 +1,7 @@
 module Api
   module V1
     class CoursesController < ApiController
-      skip_before_action :authenticate_user!, only: [:index]
+      skip_before_action :authenticate_user!, only: [:index, :show]
 
       def index
         render json: Course.all, each_serializer: CoursesSerializer
@@ -15,6 +15,15 @@ module Api
           render json: @course, serializer: CoursesSerializer
         else
           render_error_response(@course.errors, :unprocessable_entity)
+        end
+      end
+
+      def show
+        @course = Course.find(params[:id])
+        if current_user && current_user.id = @course.user_id || @course.is_public
+          render json: @course, serializer: CoursesSerializer
+        else
+          render_error_response('course not found')
         end
       end
 

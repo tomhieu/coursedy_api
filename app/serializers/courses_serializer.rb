@@ -8,5 +8,10 @@ class CoursesSerializer < ActiveModel::Serializer
              :period,
              :period_type,
              :tuition_fee,
-             :currency
+             :currency,
+             :user
+
+  def user
+    object.tutor
+  end
 end
