@@ -12,6 +12,14 @@ class CoursesSerializer < ActiveModel::Serializer
              :cover_image,
              :user
 
+  def start_date
+    object.start_date.strftime('%d/%m/%Y')
+  end
+
+  def end_date
+    object.end_date.strftime('%d/%m/%Y')
+  end
+
   def user
     object.tutor
   end
