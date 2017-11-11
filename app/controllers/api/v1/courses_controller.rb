@@ -4,7 +4,7 @@ module Api
       skip_before_action :authenticate_user!, only: [:index, :show]
 
       def index
-        render json: Course.all, each_serializer: CoursesSerializer
+        render json: Course.includes(:tutor).all, each_serializer: CoursesSerializer
       end
 
       def create
