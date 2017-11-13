@@ -1,5 +1,5 @@
 class UsersSerializer < ActiveModel::Serializer
-  attributes :id, :name, :phone_number, :email, :roles, :address, :date_of_birth, :gender
+  attributes :id, :name, :phone_number, :email, :roles, :address, :date_of_birth, :gender, :uid, :provider
 
   def roles
     object.roles.pluck(:name)
