@@ -10,6 +10,8 @@ class CoursesSerializer < ActiveModel::Serializer
              :tuition_fee,
              :currency,
              :cover_image,
+             :category_id,
+             :course_level_id,
              :user
 
   def start_date
