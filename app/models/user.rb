@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :course
   has_one :tutor
 
-  validates :first_name, presence: true
+  validates :name, presence: true
 
   ROLES = [:admin, :student, :teacher]
 
@@ -19,6 +19,6 @@ class User < ActiveRecord::Base
 
   def create_tutor
     self.add_role(self.role) if self.role.to_sym.in?(ROLES)
-    Tutor.create(user_id: self.id, name: self.first_name)
+    Tutor.create(user_id: self.id, name: self.name)
   end
 end
