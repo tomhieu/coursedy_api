@@ -6,6 +6,6 @@ class UsersSerializer < ActiveModel::Serializer
   end
 
   def date_of_birth
-    object.date_of_birth.strftime('%d/%m/%Y')
+    object.date_of_birth.strftime('%d/%m/%Y') if object.date_of_birth
   end
 end

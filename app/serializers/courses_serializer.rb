@@ -15,11 +15,11 @@ class CoursesSerializer < ActiveModel::Serializer
              :user
 
   def start_date
-    object.start_date.strftime('%d/%m/%Y')
+    object.start_date.strftime('%d/%m/%Y') if object.start_date
   end
 
   def end_date
-    object.end_date.strftime('%d/%m/%Y')
+    object.end_date.strftime('%d/%m/%Y') if object.end_date
   end
 
   def user
