@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_one :tutor
 
   validates :name, presence: true
+  validates :gender, inclusion: ['F', 'M'], allow_nil: true
 
   ROLES = [:admin, :student, :teacher]
 
