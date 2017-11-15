@@ -23,7 +23,7 @@ class CoursesSerializer < ActiveModel::Serializer
   end
 
   def user
-    object.tutor
+    UsersSerializer.new(object.tutor).to_h
   end
 
   def cover_image
