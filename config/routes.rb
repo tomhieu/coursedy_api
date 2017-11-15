@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :courses, except: [:new, :edit]
       resources :lessons, except: [:new, :edit]
       resources :course_sections, except: [:new, :edit]
+      resources :documents, except: [:new, :edit]
       resources :tutors, only: [:update] do
         collection do
           get :current_tutor, to: 'tutors#current_tutor'
