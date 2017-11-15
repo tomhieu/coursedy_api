@@ -1,8 +1,6 @@
 module Api
   module V1
     class CoursesController < ApiController
-      skip_before_action :authenticate_user!, only: [:index, :show]
-
       def index
         render json: Course.includes(:tutor).all, each_serializer: CoursesSerializer
       end

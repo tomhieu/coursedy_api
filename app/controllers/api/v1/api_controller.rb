@@ -13,6 +13,7 @@ module Api
                   with: :render_500
 
       before_action :authenticate_user!
+      skip_before_action :authenticate_user!, only: [:index, :show]
 
       def render_error_response(messages, error_code = nil)
         error_messages = (messages.class == Array)? messages : [messages]
