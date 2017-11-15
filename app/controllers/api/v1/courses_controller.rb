@@ -27,6 +27,22 @@ module Api
         end
       end
 
+      def update
+        @course = Course.where(id: params[:id])
+
+        if @course.update_attributes(course_params)
+          render json: @course, serializer: CoursesSerializer
+        else
+          render_error_response(@course.errors.full_messages.first, :unprocessable_entity)
+        end
+      end
+
+      def destroy
+        @course = Course.find(params[:id])
+        @course.destroy
+        render json: {id: @course.id}
+      end
+
       private
 
       def course_params
