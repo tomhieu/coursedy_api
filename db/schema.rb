@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030045939) do
+ActiveRecord::Schema.define(version: 20171115025047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,9 +69,18 @@ ActiveRecord::Schema.define(version: 20171030045939) do
     t.string "cover_image"
     t.bigint "category_id"
     t.bigint "course_level_id"
+    t.string "location"
     t.index ["category_id"], name: "index_courses_on_category_id"
     t.index ["course_level_id"], name: "index_courses_on_course_level_id"
     t.index ["user_id"], name: "index_courses_on_user_id"
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.string "item"
+    t.bigint "lesson_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_documents_on_lesson_id"
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -81,6 +90,7 @@ ActiveRecord::Schema.define(version: 20171030045939) do
     t.integer "period"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description"
     t.index ["course_id"], name: "index_lessons_on_course_id"
     t.index ["course_section_id"], name: "index_lessons_on_course_section_id"
   end
@@ -139,9 +149,11 @@ ActiveRecord::Schema.define(version: 20171030045939) do
     t.json "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "first_name"
-    t.string "last_name"
     t.string "phone_number"
+    t.string "role"
+    t.string "address"
+    t.datetime "date_of_birth"
+    t.string "gender"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -169,6 +181,7 @@ ActiveRecord::Schema.define(version: 20171030045939) do
   add_foreign_key "courses", "categories"
   add_foreign_key "courses", "course_levels"
   add_foreign_key "courses", "users"
+  add_foreign_key "documents", "lessons"
   add_foreign_key "lessons", "course_sections"
   add_foreign_key "lessons", "courses"
   add_foreign_key "time_slots", "week_day_schedules"

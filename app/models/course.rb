@@ -1,4 +1,7 @@
 class Course < ApplicationRecord
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+
   mount_base64_uploader :cover_image, ImageUploader
 
   belongs_to :tutor, class_name: 'User', foreign_key: :user_id
