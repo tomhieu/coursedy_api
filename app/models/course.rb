@@ -32,13 +32,13 @@ class Course < ApplicationRecord
 
   def validate_creator
     if !tutor || !tutor.has_role?(:teacher)
-      errors.add(user_id: I18n.t("activerecord.errors.models.course.attributes.user_id"))
+      errors.add(:user_id, I18n.t("activerecord.errors.models.course.attributes.user_id"))
     end
   end
 
   def validate_dates
     if start_date && start_date < Time.current || end_date && end_date < Time.current || start_date && end_date && start_date > end_date
-      errors.add(start_date: I18n.t("activerecord.errors.models.course.attributes.start_date"))
+      errors.add(:start_date, I18n.t("activerecord.errors.models.course.attributes.start_date"))
     end
   end
 end
