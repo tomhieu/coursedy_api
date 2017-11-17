@@ -1,6 +1,6 @@
 class Course < ApplicationRecord
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
+  # include Tire::Model::Search
+  # include Tire::Model::Callbacks
 
   mount_base64_uploader :cover_image, ImageUploader
 
