@@ -22,9 +22,9 @@ module Api
 
       def update
         @lessons = Lesson.where(id: params[:id])
-
+z
         if @lessons.update_attributes(lesson_params)
-          render json: @lessons, serializer: CourseSectionSerializer
+          render json: @lessons, serializer: LessonsSerializer
         else
           render_error_response(@lessons.errors.full_messages.first, :unprocessable_entity)
         end

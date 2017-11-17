@@ -1,5 +1,5 @@
 class LessonsSerializer < ActiveModel::Serializer
-  attributes :title, :course_id, :course_section_id, :period, :description, :documents
+  attributes :id, :title, :course_id, :course_section_id, :period, :description, :documents
 
   def documents
     result = []
