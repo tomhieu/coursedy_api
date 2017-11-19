@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
           :confirmable, :omniauthable
   include DeviseTokenAuth::Concerns::User
 
+  mount_base64_uploader :avatar, ImageUploader
+
   has_many :course
   has_one :tutor
 
