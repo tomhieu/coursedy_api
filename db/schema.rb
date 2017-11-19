@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171115025047) do
+ActiveRecord::Schema.define(version: 20171118131347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,16 @@ ActiveRecord::Schema.define(version: 20171115025047) do
     t.index ["category_id"], name: "index_courses_on_category_id"
     t.index ["course_level_id"], name: "index_courses_on_course_level_id"
     t.index ["user_id"], name: "index_courses_on_user_id"
+  end
+
+  create_table "degrees", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "tutor_id"
+    t.string "item"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tutor_id"], name: "index_degrees_on_tutor_id"
+    t.index ["user_id"], name: "index_degrees_on_user_id"
   end
 
   create_table "documents", force: :cascade do |t|
@@ -181,6 +191,8 @@ ActiveRecord::Schema.define(version: 20171115025047) do
   add_foreign_key "courses", "categories"
   add_foreign_key "courses", "course_levels"
   add_foreign_key "courses", "users"
+  add_foreign_key "degrees", "tutors"
+  add_foreign_key "degrees", "users"
   add_foreign_key "documents", "lessons"
   add_foreign_key "lessons", "course_sections"
   add_foreign_key "lessons", "courses"
