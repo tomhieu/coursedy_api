@@ -21,15 +21,7 @@ class CoursesSerializer < ActiveModel::Serializer
   def course_level
     {id: object.course_level.id, name: object.course_level.name, level: object.course_level.level} if object.course_level
   end
-
-  def start_date
-    object.start_date.strftime('%d/%m/%Y') if object.start_date
-  end
-
-  def end_date
-    object.end_date.strftime('%d/%m/%Y') if object.end_date
-  end
-
+  
   def user
     UsersSerializer.new(object.tutor).to_h
   end
