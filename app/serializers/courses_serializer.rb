@@ -10,9 +10,17 @@ class CoursesSerializer < ActiveModel::Serializer
              :tuition_fee,
              :currency,
              :cover_image,
-             :category_id,
-             :course_level_id,
-             :user
+             :user,
+             :category,
+             :course_level
+
+  def category
+    {id: object.category.id, name: object.category.name} if object.category
+  end
+
+  def course_level
+    {id: object.course_level.id, name: object.course_level.name, level: object.course_level.level} if object.course_level
+  end
 
   def start_date
     object.start_date.strftime('%d/%m/%Y') if object.start_date
