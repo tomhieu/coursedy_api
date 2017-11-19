@@ -46,6 +46,7 @@ gem 'capistrano-rvm'
 gem 'sendgrid-actionmailer'
 gem 'settingslogic'
 gem 'haml-rails'
+gem 'cancancan', '~> 2.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
