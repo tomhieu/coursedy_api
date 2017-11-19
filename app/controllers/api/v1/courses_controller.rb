@@ -26,7 +26,7 @@ module Api
       end
 
       def update
-        @course = Course.where(id: params[:id])
+        @course = Course.find(params[:id])
 
         if @course.update_attributes(course_params)
           render json: @course, serializer: CoursesSerializer
