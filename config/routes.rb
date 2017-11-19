@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       resources :tutors, only: [:update] do
         collection do
           get :current_tutor, to: 'tutors#current_tutor'
+          get :tutor_by_user, to: 'tutors#tutor_by_user'
         end
       end
     end

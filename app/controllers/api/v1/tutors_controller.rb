@@ -11,6 +11,11 @@ module Api
         render json: @tutor, serializer: TutorsSerializer
       end
 
+      def tutor_by_user
+        @tutor = User.find(params[:user_id]).tutor
+        render json: @tutor, serializer: TutorsSerializer
+      end
+
       private
 
       def tutor_params
