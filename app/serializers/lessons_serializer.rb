@@ -4,7 +4,7 @@ class LessonsSerializer < ActiveModel::Serializer
   def documents
     result = []
     object.documents.each do |doc|
-      result.push({id: doc.id, url: doc.item.url})
+      result.push({id: doc.id, url: doc.item.url, name: doc.item.file.original_filename})
     end
     result
   end
