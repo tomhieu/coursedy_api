@@ -3,4 +3,5 @@ class Tutor < ApplicationRecord
   has_many :degrees
 
   has_and_belongs_to_many :categories
+  has_and_belongs_to_many :districts
 end

@@ -1,7 +1,15 @@
 class TutorsSerializer < ActiveModel::Serializer
-  attributes :id, :title, :speciality, :description, :user_id, :degrees
+  attributes :id, :title, :description, :user_id, :degrees, :hour_rate, :highest_education, :categories, :districts
 
   def degrees
     object.degrees.map{|d| {id: d.id,url: d.item.url}}
+  end
+
+  def categories
+    object.categories.map{|c| {id: c.id, name: c.name}}
+  end
+
+  def districts
+    object.districts.map{|d| {id: d.id, name: d.name}}
   end
 end

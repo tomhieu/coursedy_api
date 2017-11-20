@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171120161901) do
+ActiveRecord::Schema.define(version: 20171120170107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,15 @@ ActiveRecord::Schema.define(version: 20171120161901) do
     t.bigint "tutor_id"
     t.index ["category_id"], name: "index_categories_tutors_on_category_id"
     t.index ["tutor_id"], name: "index_categories_tutors_on_tutor_id"
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.string "post_code"
+    t.string "country"
+    t.string "country_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "course_levels", force: :cascade do |t|
@@ -92,6 +101,22 @@ ActiveRecord::Schema.define(version: 20171120161901) do
     t.index ["user_id"], name: "index_degrees_on_user_id"
   end
 
+  create_table "districts", force: :cascade do |t|
+    t.string "name"
+    t.string "postcode"
+    t.bigint "city_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_districts_on_city_id"
+  end
+
+  create_table "districts_tutors", force: :cascade do |t|
+    t.bigint "district_id"
+    t.bigint "tutor_id"
+    t.index ["district_id"], name: "index_districts_tutors_on_district_id"
+    t.index ["tutor_id"], name: "index_districts_tutors_on_tutor_id"
+  end
+
   create_table "documents", force: :cascade do |t|
     t.string "item"
     t.bigint "lesson_id"
@@ -138,8 +163,9 @@ ActiveRecord::Schema.define(version: 20171120161901) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "tuition_fee"
+    t.integer "hour_rate"
     t.string "highest_education"
+    t.boolean "teach_online", default: false
     t.index ["user_id"], name: "index_tutors_on_user_id"
   end
 
@@ -203,6 +229,9 @@ ActiveRecord::Schema.define(version: 20171120161901) do
   add_foreign_key "courses", "users"
   add_foreign_key "degrees", "tutors"
   add_foreign_key "degrees", "users"
+  add_foreign_key "districts", "cities"
+  add_foreign_key "districts_tutors", "districts"
+  add_foreign_key "districts_tutors", "tutors"
   add_foreign_key "documents", "lessons"
   add_foreign_key "lessons", "course_sections"
   add_foreign_key "lessons", "courses"
