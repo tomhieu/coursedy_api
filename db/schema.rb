@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171120170107) do
+ActiveRecord::Schema.define(version: 20171120180641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,6 +166,7 @@ ActiveRecord::Schema.define(version: 20171120170107) do
     t.integer "hour_rate"
     t.string "highest_education"
     t.boolean "teach_online", default: false
+    t.string "currency"
     t.index ["user_id"], name: "index_tutors_on_user_id"
   end
 
