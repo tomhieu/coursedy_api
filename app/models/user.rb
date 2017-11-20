@@ -22,6 +22,6 @@ class User < ActiveRecord::Base
 
   def create_tutor
     self.add_role(self.role) if self.role.to_sym.in?(ROLES)
-    Tutor.create(user_id: self.id, name: self.name)
+    Tutor.create(user_id: self.id)
   end
 end

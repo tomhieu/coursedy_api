@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171119042827) do
+ActiveRecord::Schema.define(version: 20171120161901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,13 @@ ActiveRecord::Schema.define(version: 20171119042827) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_categories_on_category_id"
+  end
+
+  create_table "categories_tutors", force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "tutor_id"
+    t.index ["category_id"], name: "index_categories_tutors_on_category_id"
+    t.index ["tutor_id"], name: "index_categories_tutors_on_tutor_id"
   end
 
   create_table "course_levels", force: :cascade do |t|
@@ -126,13 +133,13 @@ ActiveRecord::Schema.define(version: 20171119042827) do
   end
 
   create_table "tutors", force: :cascade do |t|
-    t.string "name"
     t.string "title"
-    t.string "speciality"
     t.text "description"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tuition_fee"
+    t.string "highest_education"
     t.index ["user_id"], name: "index_tutors_on_user_id"
   end
 
@@ -187,6 +194,8 @@ ActiveRecord::Schema.define(version: 20171119042827) do
     t.index ["course_id"], name: "index_week_day_schedules_on_course_id"
   end
 
+  add_foreign_key "categories_tutors", "categories"
+  add_foreign_key "categories_tutors", "tutors"
   add_foreign_key "course_levels", "categories"
   add_foreign_key "course_sections", "courses"
   add_foreign_key "courses", "categories"
