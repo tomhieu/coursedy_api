@@ -47,3 +47,36 @@ CourseLevel.create(level: 2, name: 'N4', category: cat5)
 CourseLevel.create(level: 3, name: 'N3', category: cat5)
 CourseLevel.create(level: 4, name: 'N2', category: cat5)
 CourseLevel.create(level: 5, name: 'N1', category: cat5)
+
+districts = {
+  "Quận 1" => "quan-1",
+  "Quận 12" => "quan-12",
+  "Quận Thủ Đức" => "thu-duc",
+  "Quận 9" => "quan-9",
+  "Quận Gò Vấp" => "go-vap",
+  "Quận Bình Thạnh" => "binh-thanh",
+  "Quận Tân Bình" => "tan-binh",
+  "Quận Tân Phú" => "tan-phu",
+  "Quận Phú Nhuận" => "phu-nhuan",
+  "Quận 2" => "quan-2",
+  "Quận 3" => "quan-3",
+  "Quận 10" => "quan-10",
+  "Quận 11" => "quan-11",
+  "Quận 4" => "quan-4",
+  "Quận 5" => "quan-5",
+  "Quận 6" => "quan-6",
+  "Quận 8" => "quan-8",
+  "Quận Bình Tân" => "binh-tan",
+  "Quận 7" => "quan-7",
+  "Huyện Củ Chi" => "cu-chi",
+  "Huyện Hóc Môn" => "hoc-mon",
+  "Huyện Bình Chánh" => "binh-chanh",
+  "Huyện Nhà Bè" => "nha-be",
+  "Huyện Cần Giờ" => "can-gio"
+}
+
+city = City.create(name: "Hồ Chí Minh")
+
+districts.keys.each do |d|
+  District.create(name: d, slug: districts[d], city_id: city.id)
+end
