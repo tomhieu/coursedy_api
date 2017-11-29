@@ -10,7 +10,11 @@ Rails.application.routes.draw do
       resources :categories, only: [:index]
       resources :locations, only: [:index]
       resources :weekdays, only: [:index]
-      resources :courses, except: [:new, :edit]
+      resources :courses, except: [:new, :edit] do
+        member do
+          post :follow
+        end
+      end
       resources :lessons, except: [:new, :edit]
       resources :course_sections, except: [:new, :edit]
       resources :documents, except: [:new, :edit]

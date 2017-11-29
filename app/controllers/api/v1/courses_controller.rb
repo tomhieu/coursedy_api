@@ -41,6 +41,19 @@ module Api
         render json: {id: @course.id}
       end
 
+      def follow
+        @course = Course.find(params[:course_id])
+        email = ActionView::Base.full_sanitizer.sanitize(params[:email])
+        email = current_user.email if current_user
+        subscription = CourseSubscriber.new(course_id: @course_id, email: email)
+
+        if subscription.save
+          render json: subscription, serializer: CourseSubscriberSerializer
+        else
+          render_error_response(subscription.errors.full_messages.first)
+        end
+      end
+
       private
 
       def course_params
