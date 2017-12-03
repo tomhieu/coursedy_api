@@ -47,7 +47,7 @@ module Api
         @course = Course.find(params[:course_id])
         email = ActionView::Base.full_sanitizer.sanitize(params[:email])
         email = current_user.email if current_user
-        subscription = CourseSubscriber.new(course_id: @course_id, email: email)
+        subscription = CourseSubscriber.new(course_id: @course.id, email: email)
 
         if subscription.save
           render json: subscription, serializer: CourseSubscriberSerializer
