@@ -1,7 +1,7 @@
 module Api
   module V1
     class CoursesController < ApiController
-      skip_before_filter :authenticate_user!, only: [:follow]
+      skip_before_action :authenticate_user!, only: [:follow]
 
       def index
         render json: Course.includes(:tutor, :category, :course_level).all, each_serializer: CoursesSerializer
