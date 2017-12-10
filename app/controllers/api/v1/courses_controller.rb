@@ -44,7 +44,7 @@ module Api
       end
 
       def follow
-        @course = Course.find(params[:course_id])
+        @course = Course.find(params[:id])
         email = ActionView::Base.full_sanitizer.sanitize(params[:email])
         email = current_user.email if current_user
         subscription = CourseSubscriber.new(course_id: @course.id, email: email)
@@ -54,6 +54,12 @@ module Api
         else
           render_error_response(subscription.errors.full_messages.first)
         end
+      end
+
+      def enroll
+        @course = Course.find(params[:id])
+        @participation = Participation.create(user_id: current_user.id, course_id: @course.id)
+        render json: @participation, serializer: ParticipationsSerializer
       end
 
       private

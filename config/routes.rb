@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :courses, except: [:new, :edit] do
         member do
           post :follow
+          post :enroll
         end
       end
       resources :lessons, except: [:new, :edit]

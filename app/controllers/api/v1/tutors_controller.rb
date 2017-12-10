@@ -10,6 +10,11 @@ module Api
       def update
         @tutor = Tutor.find(params[:id])
         @tutor.update_attributes(tutor_params)
+
+        categories  = Category.where(id: params[:categories])
+        @tutor.categories = categories
+        @tutor.save
+
         render json: @tutor, serializer: TutorsSerializer
       end
 
@@ -21,7 +26,7 @@ module Api
       private
 
       def tutor_params
-        params.require(:tutor).permit(:name, :title, :speciality, :description)
+        params.require(:tutor).permit(:name, :title, :speciality, :description, :categories)
       end
     end
   end
