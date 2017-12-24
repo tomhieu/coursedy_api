@@ -6,7 +6,7 @@ class CategoriesSerializer < ActiveModel::Serializer
 
   def children
     object.children.map do |child|
-      CategoriesSerializer.new(child).to_json
+      CategoriesSerializer.new(child).as_json
     end
   end
 
