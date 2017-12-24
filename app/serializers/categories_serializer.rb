@@ -6,7 +6,7 @@ class CategoriesSerializer < ActiveModel::Serializer
 
   def children
     object.children.map do |child|
-      CategoriesSerializer.new(child).as_json
+      {id: child.id, name: child.name, course_levels: child.course_levels.map{|level| {id: level.id, name: level.name}}}
     end
   end
 
