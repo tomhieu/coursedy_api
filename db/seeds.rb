@@ -5,8 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+cate0 = Category.create(name: 'Ngoại ngữ')
 
-cate1 = Category.create(name: 'Luyện thi Toeic')
+cate1 = Category.create(name: 'Luyện thi Toeic', parent: cate0)
 CourseLevel.create(level: 1, name: '185 – 250', description: 'Beginner', category: cate1)
 CourseLevel.create(level: 2, name: '255 – 400', description: 'Elementary', category: cate1)
 CourseLevel.create(level: 3, name: '405 – 600', description: 'Low Intermediate', category: cate1)
@@ -14,14 +15,14 @@ CourseLevel.create(level: 4, name: '605 – 780', description: 'Upper Intermedia
 CourseLevel.create(level: 5, name: '785 – 900', description: 'Low Advanced', category: cate1)
 CourseLevel.create(level: 6, name: '905 - 990', description: 'Advanced', category: cate1)
 
-cate2 = Category.create(name: 'Luyện thi IELTS')
+cate2 = Category.create(name: 'Luyện thi IELTS', parent: cate0)
 CourseLevel.create(level: 1, name: '3.5 - 4.0', category: cate2)
 CourseLevel.create(level: 2, name: '4.5 - 5.0', category: cate2)
 CourseLevel.create(level: 3, name: '5.5 - 6.0', category: cate2)
 CourseLevel.create(level: 4, name: '6.5 - 7.0', category: cate2)
 CourseLevel.create(level: 5, name: '7.5 - 9.0', category: cate2)
 
-cate3 = Category.create(name: 'Tiếng Anh Giao Tiếp')
+cate3 = Category.create(name: 'Tiếng Anh Giao Tiếp', parent: cate0)
 CourseLevel.create(level: 1, name: 'Beginner', category: cate3)
 CourseLevel.create(level: 2, name: 'Elementary', category: cate3)
 CourseLevel.create(level: 3, name: 'Upper Elementary', category: cate3)
@@ -41,7 +42,7 @@ CourseLevel.create(level: 1, name: 'Cơ Bản', category: cate4)
 CourseLevel.create(level: 2, name: 'Trung Bình', category: cate4)
 CourseLevel.create(level: 3, name: 'Nâng Cao', category: cate4)
 
-cat5 = Category.create(name: 'Tiếng Nhật')
+cat5 = Category.create(name: 'Tiếng Nhật', parent: cate0)
 CourseLevel.create(level: 1, name: 'N5', category: cat5)
 CourseLevel.create(level: 2, name: 'N4', category: cat5)
 CourseLevel.create(level: 3, name: 'N3', category: cat5)
