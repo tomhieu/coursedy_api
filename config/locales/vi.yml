@@ -65,7 +65,7 @@ vi:
           attributes:
             title:
               blank: "Vui lòng nhập tên khoá học"
-            start_date: "Ngày bắt đầu phải nhỏ hơn ngày kết thúc và lớn hơn ngày hiện tại"
+            start_date: "Ngày bắt đầu phải lớn hơn ngày hiện tại"
             user_id: "Chỉ giáo viên mới được tạo khoá học"
         user:
           attributes:

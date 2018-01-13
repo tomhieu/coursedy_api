@@ -25,7 +25,7 @@ module Api
 
       def show
         @course = Course.find(params[:id])
-        if true
+        if current_user && current_user.id == @course.user_id || @course.is_public
           render json: @course, serializer: CoursesSerializer
         else
           render_error_response('course not found')
