@@ -1,12 +1,12 @@
 class Course < ApplicationRecord
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
-
-  mapping do
-    indexes :id, :index => :not_analyzed
-    indexes :title, :analyzer => 'vi_analyzer'
-    indexes :description, :analyzer => 'vi_analyzer'
-  end
+  # include Tire::Model::Search
+  # include Tire::Model::Callbacks
+  #
+  # mapping do
+  #   indexes :id, :index => :not_analyzed
+  #   indexes :title, :analyzer => 'vi_analyzer'
+  #   indexes :description, :analyzer => 'vi_analyzer'
+  # end
 
   mount_base64_uploader :cover_image, ImageUploader
 
