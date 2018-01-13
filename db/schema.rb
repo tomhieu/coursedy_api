@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180107034104) do
+ActiveRecord::Schema.define(version: 20180113050411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,14 +79,12 @@ ActiveRecord::Schema.define(version: 20180107034104) do
     t.string "title"
     t.text "description"
     t.datetime "start_date"
-    t.datetime "end_date"
     t.bigint "user_id"
     t.boolean "is_public", default: false
     t.boolean "is_active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "period"
-    t.string "period_type"
     t.integer "number_of_students"
     t.integer "tuition_fee"
     t.string "currency"
@@ -94,6 +92,7 @@ ActiveRecord::Schema.define(version: 20180107034104) do
     t.bigint "category_id"
     t.bigint "course_level_id"
     t.string "location"
+    t.boolean "is_free", default: false
     t.index ["category_id"], name: "index_courses_on_category_id"
     t.index ["course_level_id"], name: "index_courses_on_course_level_id"
     t.index ["user_id"], name: "index_courses_on_user_id"

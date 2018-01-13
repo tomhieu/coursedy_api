@@ -1,15 +1,15 @@
 module Api
   module V1
     class CoursesController < ApiController
-      wrap_parameters include: [:title, :description, :start_date, :end_date,
-        :number_of_students, :period, :period_type, :tuition_fee, :category_id,
+      wrap_parameters include: [:title, :description, :start_date, :is_free,
+        :number_of_students, :period, :tuition_fee, :category_id, :is_public,
         :course_level_id, :currency, :week_day_schedules_attributes, :cover_image
       ]
 
       skip_before_action :authenticate_user!, only: [:follow]
 
       def index
-        render json: Course.includes(:tutor, :category, :course_level).all, each_serializer: CoursesSerializer
+        render json: Course.includes(:tutor, :category, :course_level, :week_day_schedules).all, each_serializer: CoursesSerializer
       end
 
       def create
@@ -25,7 +25,7 @@ module Api
 
       def show
         @course = Course.find(params[:id])
-        if current_user && current_user.id == @course.user_id || @course.is_public
+        if true
           render json: @course, serializer: CoursesSerializer
         else
           render_error_response('course not found')
@@ -70,8 +70,8 @@ module Api
       private
 
       def course_params
-        params.require(:course).permit(:title, :description, :start_date, :end_date,
-                      :number_of_students, :period, :period_type, :tuition_fee, :category_id,
+        params.require(:course).permit(:title, :description, :start_date, :is_free,
+                      :number_of_students, :period, :tuition_fee, :category_id, :is_public,
                       :course_level_id, :currency, :cover_image, week_day_schedules_attributes: [:day, :start_time, :end_time]
         )
       end

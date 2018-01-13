@@ -15,7 +15,6 @@ class Course < ApplicationRecord
   validate :validate_creator
   validates :title, presence: true
   validates :period, numericality: true, allow_blank: true
-  validates :period_type, inclusion: {in: %w(hour day week month)}, presence: true, allow_blank: true
   validates :number_of_students, numericality: true, allow_blank: true
   validates :tuition_fee, numericality: true, allow_blank: true
   validates :currency, inclusion: {in: %w(vnd usd yen)}, allow_blank: true

@@ -3,19 +3,24 @@ class CoursesSerializer < ActiveModel::Serializer
              :title,
              :description,
              :start_date,
-             :end_date,
              :number_of_students,
              :period,
-             :period_type,
              :tuition_fee,
              :currency,
              :cover_image,
              :user,
+             :is_free,
              :category,
-             :course_level
+             :course_level,
+             :is_public,
+             :week_day_schedules
 
   def category
     {id: object.category.id, name: object.category.name} if object.category
+  end
+
+  def week_day_schedules
+    object.week_day_schedules.map{|d| {day: d.day, start_time: d.start_time.strftime('%H:%M:%S'), end_time: d.end_time.strftime('%H:%M:%S')}}
   end
 
   def course_level
