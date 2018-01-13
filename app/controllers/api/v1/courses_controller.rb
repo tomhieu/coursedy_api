@@ -1,6 +1,11 @@
 module Api
   module V1
     class CoursesController < ApiController
+      wrap_parameters include: [:title, :description, :start_date, :end_date,
+        :number_of_students, :period, :period_type, :tuition_fee, :category_id,
+        :course_level_id, :currency, :week_day_schedules_attributes, :cover_image
+      ]
+
       skip_before_action :authenticate_user!, only: [:follow]
 
       def index
@@ -67,7 +72,7 @@ module Api
       def course_params
         params.require(:course).permit(:title, :description, :start_date, :end_date,
                       :number_of_students, :period, :period_type, :tuition_fee, :category_id,
-                      :course_level_id, :currency, :cover_image
+                      :course_level_id, :currency, :cover_image, week_day_schedules_attributes: [:day, :start_time, :end_time]
         )
       end
     end

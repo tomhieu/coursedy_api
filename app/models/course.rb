@@ -9,7 +9,7 @@ class Course < ApplicationRecord
   has_many :course_sections, dependent: :destroy
   has_many :lessons, dependent: :destroy
   belongs_to :category
-  belongs_to :course_level
+  belongs_to :course_level, required: false
 
   validate :validate_dates
   validate :validate_creator
@@ -21,6 +21,8 @@ class Course < ApplicationRecord
   validates :currency, inclusion: {in: %w(vnd usd yen)}, allow_blank: true
 
   scope :published, -> { where(is_public: true) }
+
+  accepts_nested_attributes_for :week_day_schedules
 
   LOCATIONS = {
     1 => "Tp. Hồ Chí Minh",
