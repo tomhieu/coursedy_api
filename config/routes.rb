@@ -9,7 +9,6 @@ Rails.application.routes.draw do
       get :validate_email, to: 'users#validate_email'
       resources :categories, only: [:index]
       resources :locations, only: [:index]
-      resources :weekdays, only: [:index]
       resources :courses, except: [:new, :edit] do
         member do
           post :follow
