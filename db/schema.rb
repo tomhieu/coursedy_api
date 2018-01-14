@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180113050411) do
+ActiveRecord::Schema.define(version: 20180114052854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,8 +93,12 @@ ActiveRecord::Schema.define(version: 20180113050411) do
     t.bigint "course_level_id"
     t.string "location"
     t.boolean "is_free", default: false
+    t.bigint "city_id"
+    t.bigint "district_id"
     t.index ["category_id"], name: "index_courses_on_category_id"
+    t.index ["city_id"], name: "index_courses_on_city_id"
     t.index ["course_level_id"], name: "index_courses_on_course_level_id"
+    t.index ["district_id"], name: "index_courses_on_district_id"
     t.index ["user_id"], name: "index_courses_on_user_id"
   end
 
@@ -246,7 +250,9 @@ ActiveRecord::Schema.define(version: 20180113050411) do
   add_foreign_key "course_sections", "courses"
   add_foreign_key "course_subscribers", "courses"
   add_foreign_key "courses", "categories"
+  add_foreign_key "courses", "cities"
   add_foreign_key "courses", "course_levels"
+  add_foreign_key "courses", "districts"
   add_foreign_key "courses", "users"
   add_foreign_key "degrees", "tutors"
   add_foreign_key "degrees", "users"

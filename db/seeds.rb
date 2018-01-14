@@ -76,7 +76,19 @@ districts = {
   "Huyện Cần Giờ" => "can-gio"
 }
 
+CITIES = {
+  # 1 => "Tp. Hồ Chí Minh",
+  2 => "Hà Nội",
+  3 => "Đà Nẵng",
+  4 => "Hải Phòng",
+  5 => "Cần Thơ"
+}
+
 city = City.create(name: "Hồ Chí Minh")
+
+CITIES.values.each do |c|
+  City.create(name: c)
+end
 
 districts.keys.each do |d|
   District.create(name: d, slug: districts[d], city_id: city.id)

@@ -4,6 +4,8 @@ class Course < ApplicationRecord
 
   mapping do
     indexes :id, :index => :not_analyzed
+    indexes :category_id, :index => :not_analyzed
+    indexes :city_id, :index => :not_analyzed
     indexes :title, :analyzer => 'vi_analyzer'
     indexes :description, :analyzer => 'vi_analyzer'
   end
@@ -16,6 +18,8 @@ class Course < ApplicationRecord
   has_many :lessons, dependent: :destroy
   belongs_to :category
   belongs_to :course_level, required: false
+  belongs_to :city, required: false
+  belongs_to :district, required: false
 
   validate :validate_dates
   validate :validate_creator
