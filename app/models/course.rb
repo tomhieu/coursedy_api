@@ -16,6 +16,7 @@ class Course < ApplicationRecord
   has_many :week_day_schedules, dependent: :destroy
   has_many :course_sections, dependent: :destroy
   has_many :lessons, dependent: :destroy
+  has_many :comments, dependent: :destroy
   belongs_to :category
   belongs_to :course_level, required: false
   belongs_to :city, required: false
