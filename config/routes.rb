@@ -11,8 +11,11 @@ Rails.application.routes.draw do
       resources :locations, only: [:index]
       resources :courses, except: [:new, :edit] do
         member do
-          post :follow
           post :enroll
+        end
+
+        collection do
+          post :follow
         end
       end
       resources :lessons, except: [:new, :edit]

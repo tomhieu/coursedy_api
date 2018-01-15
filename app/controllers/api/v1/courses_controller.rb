@@ -49,16 +49,16 @@ module Api
       end
 
       def follow
-        @course = Course.find(params[:id])
         email = ActionView::Base.full_sanitizer.sanitize(params[:email])
         email = current_user.email if current_user
-        subscription = CourseSubscriber.new(course_id: @course.id, email: email)
+        course_ids = params[:courses] - CourseSubscriber.where(course_id: params[:courses], email: email).pluck(:course_id)
 
-        if subscription.save
-          render json: subscription, serializer: CourseSubscriberSerializer
-        else
-          render_error_response(subscription.errors.full_messages.first)
+        subscriptions = []
+        course_ids.each do |id|
+          subscriptions << CourseSubscriber.create(course_id: id, email: email)
         end
+
+        render json: subscriptions, each_serializer: CourseSubscriberSerializer
       end
 
       def enroll
