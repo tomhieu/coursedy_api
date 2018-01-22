@@ -25,11 +25,7 @@ module Api
 
       def show
         @course = Course.find(params[:id])
-        if @course.is_public
-          render json: @course, serializer: CoursesSerializer
-        else
-          render_error_response('course not found', :not_found)
-        end
+        render json: @course, serializer: CoursesSerializer
       end
 
       def update
