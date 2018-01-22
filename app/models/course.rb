@@ -30,6 +30,7 @@ class Course < ApplicationRecord
   validates :tuition_fee, numericality: true, allow_blank: true
   validates :currency, inclusion: {in: %w(vnd usd yen)}, allow_blank: true
 
+  default_scope {where(:is_public => true)}
   scope :published, -> {where(is_public: true)}
 
   accepts_nested_attributes_for :week_day_schedules
