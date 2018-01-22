@@ -28,7 +28,7 @@ module Api
         if current_user && current_user.id == @course.user_id || @course.is_public
           render json: @course, serializer: CoursesSerializer
         else
-          render_error_response('course not found')
+          render_error_response('course not found', :not_found)
         end
       end
 
