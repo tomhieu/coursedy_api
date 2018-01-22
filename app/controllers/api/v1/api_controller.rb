@@ -18,7 +18,7 @@ module Api
       def render_error_response(messages, error_code = nil)
         error_messages = (messages.class == Array)? messages : [messages]
         resp = { errors: error_messages }
-        render json: resp, status: error_code
+        render json: resp, status: error_code || 500
       end
 
       def render_success_response(data)
