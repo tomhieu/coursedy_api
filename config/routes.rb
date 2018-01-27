@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         resources :comments, only: [:create, :index]
         member do
           post :enroll
+          get :user_enrolled
         end
 
         collection do

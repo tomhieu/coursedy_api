@@ -6,7 +6,7 @@ module Api
         :course_level_id, :currency, :week_day_schedules_attributes, :cover_image
       ]
 
-      skip_before_action :authenticate_user!, only: [:follow]
+      skip_before_action :authenticate_user!, only: [:follow, :show, :index]
 
       def index
         render json: Course.includes(:tutor, :category, :course_level, :week_day_schedules).all, each_serializer: CoursesSerializer
@@ -61,6 +61,12 @@ module Api
         @course = Course.find(params[:id])
         @participation = Participation.create(user_id: current_user.id, course_id: @course.id)
         render json: @participation, serializer: ParticipationsSerializer
+      end
+
+      def user_enrolled
+        @course = Course.find(params[:id])
+        enrolled = Participation.where(user_id: current_user.id, course_id: @course.id).exists?
+        render_success_response(enrolled: enrolled)
       end
 
       private
