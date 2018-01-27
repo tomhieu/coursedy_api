@@ -10,6 +10,7 @@ module Api
       def create
         @comment = Comment.new(comment_params)
         @comment.user_id  = current_user.id
+        @comment.course_id  = params[:course_id]
 
         if @comment.save
           render json: @comment, serializer: CommentsSerializer
@@ -21,7 +22,7 @@ module Api
       private
 
       def comment_params
-        params.require(:comment).permit(:course_id, :content)
+        params.require(:comment).permit(:content)
       end
     end
   end
