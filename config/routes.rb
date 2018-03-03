@@ -18,9 +18,6 @@ Rails.application.routes.draw do
           post :view
           post :enroll
           get :user_enrolled
-        end
-
-        collection do
           post :follow
         end
       end
