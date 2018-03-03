@@ -11,7 +11,11 @@ module Api
       def index
         @courses  = Course.includes(:tutor, :category, :course_level, :week_day_schedules)
         if params[:sort_by] == 'popularity'
-          @courses = @courses.sort(views: :desc)
+          @courses = @courses.order(views: :desc)
+        elsif params[:sort_by] == 'time_desc'
+          @courses = @courses.order(created_at: :desc)
+        elsif params[:sort_by] == 'time_asc'
+          @courses = @courses.order(created_at: :asc)
         else
           @courses = @courses.all
         end
