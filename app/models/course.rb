@@ -1,13 +1,16 @@
+require 'elasticsearch/model'
+
 class Course < ApplicationRecord
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
 
   mapping do
-    indexes :id, :index => :not_analyzed
-    indexes :category_id, :index => :not_analyzed
-    indexes :city_id, :index => :not_analyzed
-    indexes :title, :analyzer => 'vi_analyzer'
-    indexes :description, :analyzer => 'vi_analyzer'
+    indexes :id, type: :integer
+    indexes :category_id, type: :integer
+    indexes :is_public, type: :boolean
+    indexes :city_id, type: :integer
+    indexes :title, analyzer: 'english'
+    indexes :description, analyzer: 'english'
   end
 
   mount_base64_uploader :cover_image, ImageUploader
