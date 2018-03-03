@@ -13,14 +13,20 @@ class CoursesSerializer < ActiveModel::Serializer
              :category,
              :course_level,
              :is_public,
-             :week_day_schedules
+             :week_day_schedules,
+             :token
+
+  def token
+    @instance_options[:view_token]
+  end
 
   def category
     {id: object.category.id, name: object.category.name} if object.category
   end
 
   def week_day_schedules
-    object.week_day_schedules.map{|d| {day: d.day, start_time: d.start_time.strftime('%H:%M:%S'), end_time: d.end_time.strftime('%H:%M:%S')}}
+    {}
+    # object.week_day_schedules.map{|d| {day: d.day, start_time: d.start_time.strftime('%H:%M:%S'), end_time: d.end_time.strftime('%H:%M:%S')}}
   end
 
   def course_level

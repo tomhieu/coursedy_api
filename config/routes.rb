@@ -10,8 +10,12 @@ Rails.application.routes.draw do
       resources :categories, only: [:index]
       resources :locations, only: [:index]
       resources :courses, except: [:new, :edit] do
+        collection do
+          get :search
+        end
         resources :comments, only: [:create, :index]
         member do
+          post :view
           post :enroll
           get :user_enrolled
         end

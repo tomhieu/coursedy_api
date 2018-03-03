@@ -9,7 +9,23 @@ module Api
       skip_before_action :authenticate_user!, only: [:follow, :show, :index]
 
       def index
+        @courses  = Course.includes(:tutor, :category, :course_level, :week_day_schedules)
+        if params[:sort_by] == 'popularity'
+          @courses = @courses.sort(views: :desc)
+        else
+          @courses = @courses.all
+        end
         render json: Course.includes(:tutor, :category, :course_level, :week_day_schedules).all, each_serializer: CoursesSerializer
+      end
+
+      def search
+        binding.pry
+      end
+
+      def view
+        @course = Course.find(params[:id])
+        CourseView.new(@course).update_course_view(params[:token])
+        render json: @course, serializer: CoursesSerializer
       end
 
       def create
@@ -25,7 +41,9 @@ module Api
 
       def show
         @course = Course.find(params[:id])
-        render json: @course, serializer: CoursesSerializer
+        # for course views count
+        token = CourseView.new(@course).new_view
+        render json: @course, serializer: CoursesSerializer, view_token: token
       end
 
       def update

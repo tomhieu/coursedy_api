@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180127043038) do
+ActiveRecord::Schema.define(version: 20180303063033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20180127043038) do
     t.boolean "is_free", default: false
     t.bigint "city_id"
     t.bigint "district_id"
+    t.integer "views", default: 0
     t.index ["category_id"], name: "index_courses_on_category_id"
     t.index ["city_id"], name: "index_courses_on_city_id"
     t.index ["course_level_id"], name: "index_courses_on_course_level_id"
