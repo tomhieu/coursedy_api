@@ -1,12 +1,14 @@
 module Api
   module V1
     class CoursesController < ApiController
+      skip_before_action :authenticate_user!, only: [:index, :search, :view]
+
       wrap_parameters include: [:title, :description, :start_date, :is_free,
         :number_of_students, :period, :tuition_fee, :category_id, :is_public,
         :course_level_id, :currency, :week_day_schedules_attributes, :cover_image
       ]
 
-      skip_before_action :authenticate_user!, only: [:follow, :show, :index]
+      skip_before_action :authenticate_user!, only: [:follow, :show, :index, :show]
 
       def index
         @courses  = Course.includes(:tutor, :category, :course_level, :week_day_schedules)
