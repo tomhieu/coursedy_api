@@ -25,7 +25,8 @@ module Api
       end
 
       def search
-        binding.pry
+        # binding.pry
+        render json: Course.includes(:tutor, :category, :course_level, :week_day_schedules).all, each_serializer: CoursesSerializer
       end
 
       def view
