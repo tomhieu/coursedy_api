@@ -25,7 +25,7 @@ class Course < ApplicationRecord
   belongs_to :city, required: false
   belongs_to :district, required: false
 
-  validate :validate_dates, on: :create, allow_blank: true
+  validate :validate_dates, on: :create
   validate :validate_creator
   validates :title, presence: true
   validates :period, numericality: true, allow_blank: true
