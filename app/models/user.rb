@@ -8,7 +8,9 @@ class User < ActiveRecord::Base
 
   mount_base64_uploader :avatar, ImageUploader
 
-  has_many :course
+  has_many :courses
+  has_many :participations
+  has_many :enrolled_courses, source: 'course', through: :participations
   has_one :tutor
 
   validates :name, presence: true

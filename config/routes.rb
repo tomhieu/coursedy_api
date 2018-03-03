@@ -5,6 +5,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :users, only: [] do
+        collection do
+          get :enrolled_courses
+        end
+      end
       get :current_user, to: 'users#current_api_user'
       get :validate_email, to: 'users#validate_email'
       resources :categories, only: [:index]

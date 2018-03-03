@@ -11,6 +11,11 @@ module Api
         end
       end
 
+      def enrolled_courses
+        render json: current_user.enrolled_courses.includes(:tutor, :category, :course_level, :week_day_schedules),
+               each_serializer: CoursesSerializer
+      end
+
       def validate_email
         if User.exists?(email: ActionView::Base.full_sanitizer.sanitize(params[:email]))
           render json: {valid: false}
