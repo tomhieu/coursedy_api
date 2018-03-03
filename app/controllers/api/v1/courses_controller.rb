@@ -4,14 +4,14 @@ module Api
       skip_before_action :authenticate_user!, only: [:index, :search, :view]
 
       wrap_parameters include: [:title, :description, :start_date, :is_free,
-        :number_of_students, :period, :tuition_fee, :category_id, :is_public,
-        :course_level_id, :currency, :week_day_schedules_attributes, :cover_image
+                                :number_of_students, :period, :tuition_fee, :category_id, :is_public,
+                                :course_level_id, :currency, :week_day_schedules_attributes, :cover_image
       ]
 
       skip_before_action :authenticate_user!, only: [:follow, :show, :index, :show]
 
       def index
-        @courses  = Course.includes(:tutor, :category, :course_level, :week_day_schedules)
+        @courses = Course.includes(:tutor, :category, :course_level, :week_day_schedules)
         if params[:sort_by] == 'popularity'
           @courses = @courses.order(views: :desc)
         elsif params[:sort_by] == 'time_desc'
@@ -25,8 +25,18 @@ module Api
       end
 
       def search
-        # binding.pry
-        render json: Course.includes(:tutor, :category, :course_level, :week_day_schedules).all, each_serializer: CoursesSerializer
+        solr_search = Course.search do
+          fulltext params[:q]
+
+          with :category_id, params[:categories]
+          with :is_public, :true
+          # order_by :published_at, :desc
+          paginate :page => params[:page] || 1, :per_page => params[:per_page] || 10
+        end
+
+        ids = solr_search.results.map(&:id)
+
+        render json: Course.where(id: ids).includes(:tutor, :category, :course_level, :week_day_schedules), each_serializer: CoursesSerializer
       end
 
       def view
@@ -91,8 +101,8 @@ module Api
 
       def course_params
         params.require(:course).permit(:title, :description, :start_date, :is_free,
-                      :number_of_students, :period, :tuition_fee, :category_id, :is_public,
-                      :course_level_id, :currency, :cover_image, week_day_schedules_attributes: [:day, :start_time, :end_time]
+                                       :number_of_students, :period, :tuition_fee, :category_id, :is_public,
+                                       :course_level_id, :currency, :cover_image, week_day_schedules_attributes: [:day, :start_time, :end_time]
         )
       end
     end

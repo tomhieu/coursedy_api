@@ -1,16 +1,14 @@
-require 'elasticsearch/model'
-
 class Course < ApplicationRecord
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
+  searchable do
+    text :title, :description
+    text :lessons do
+      comments.map { |lesson| lesson.content }
+    end
 
-  mapping do
-    indexes :id, type: :integer
-    indexes :category_id, type: :integer
-    indexes :is_public, type: :boolean
-    indexes :city_id, type: :integer
-    indexes :title, analyzer: 'english'
-    indexes :description, analyzer: 'english'
+    boolean :is_public
+    integer :category_id
+    integer :city_id
+    # time    :published_at
   end
 
   mount_base64_uploader :cover_image, ImageUploader
