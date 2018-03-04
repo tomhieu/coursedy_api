@@ -28,7 +28,9 @@ module Api
         solr_search = Course.search do
           fulltext params[:q]
 
-          with :category_id, params[:categories]
+          if !params[:categories].blank?
+            with(:category_id, params[:categories])
+          end
           with :is_public, :true
           # order_by :published_at, :desc
           paginate :page => params[:page] || 1, :per_page => params[:per_page] || 10
