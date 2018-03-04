@@ -8,6 +8,7 @@ class Course < ApplicationRecord
     boolean :is_public
     integer :category_id
     integer :city_id
+    integer :tuition_fee
     # time    :published_at
   end
 

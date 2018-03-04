@@ -21,7 +21,9 @@ class CoursesSerializer < ActiveModel::Serializer
   end
 
   def category
-    {id: object.category.id, name: object.category.name} if object.category
+    if @instance_options[:full_info]
+      {id: object.category.id, name: object.category.name} if object.category
+    end
   end
 
   def week_day_schedules
@@ -30,11 +32,15 @@ class CoursesSerializer < ActiveModel::Serializer
   end
 
   def course_level
-    {id: object.course_level.id, name: object.course_level.name, level: object.course_level.level} if object.course_level
+    if @instance_options[:full_info]
+      {id: object.course_level.id, name: object.course_level.name, level: object.course_level.level} if object.course_level
+    end
   end
   
   def user
-    UsersSerializer.new(object.tutor).to_h
+    if @instance_options[:full_info]
+      UsersSerializer.new(object.tutor).to_h
+    end
   end
 
   def cover_image

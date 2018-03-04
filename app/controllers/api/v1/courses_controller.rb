@@ -25,20 +25,33 @@ module Api
       end
 
       def search
+        categories = (params[:categories] || []) + (params[:specializes] || [])
+
         solr_search = Course.search do
           fulltext params[:q]
 
-          if !params[:categories].blank?
+          if !categories.blank?
             with(:category_id, params[:categories])
           end
+
+          if !params[:locations].blank?
+            with(:city_id, params[:locations])
+          end
+
+          if !params[:min_fee].blank?
+            with(:tuition_fee).greater_than(params[:min_fee].to_i)
+          end
+
+          if !params[:max_fee].blank?
+            with(:tuition_fee).less_than(params[:max_fee].to_i)
+          end
+
           with :is_public, :true
           # order_by :published_at, :desc
           paginate :page => params[:page] || 1, :per_page => params[:per_page] || 10
         end
 
-        ids = solr_search.results.map(&:id)
-
-        render json: Course.where(id: ids).includes(:tutor, :category, :course_level, :week_day_schedules), each_serializer: CoursesSerializer
+        render json: solr_search.results, each_serializer: CoursesSerializer
       end
 
       def view
@@ -62,7 +75,7 @@ module Api
         @course = Course.find(params[:id])
         # for course views count
         token = CourseView.new(@course).new_view
-        render json: @course, serializer: CoursesSerializer, view_token: token
+        render json: @course, serializer: CoursesSerializer, view_token: token, full_info: true
       end
 
       def update
