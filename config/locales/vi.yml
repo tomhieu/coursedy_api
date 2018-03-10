@@ -61,6 +61,17 @@ vi:
         phone_number: "Số điện thoại"
     errors:
       models:
+        tutor_rating:
+          attributes:
+            teacher_id: 'giáo viên phải là chủ của khoá học'
+            user_id: 'học viên phải tham gia khoá học mới được đánh giá giáo viên'
+            course_id: 'Khoá học chưa bắt đầu'
+            user:
+              required: 'Không tìm thấy người dùng'
+            teacher:
+              required: 'Không tìm thấy giáo viên'
+            points:
+              inclusion: 'Số điểm không đúng (phải từ 1 đến 10 )'
         course:
           attributes:
             title:

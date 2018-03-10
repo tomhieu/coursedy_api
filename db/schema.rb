@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180303072028) do
+ActiveRecord::Schema.define(version: 20180310073340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,6 +191,17 @@ ActiveRecord::Schema.define(version: 20180303072028) do
     t.index ["week_day_schedule_id"], name: "index_time_slots_on_week_day_schedule_id"
   end
 
+  create_table "tutor_ratings", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "course_id"
+    t.integer "teacher_id"
+    t.integer "points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_tutor_ratings_on_course_id"
+    t.index ["user_id"], name: "index_tutor_ratings_on_user_id"
+  end
+
   create_table "tutors", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -281,5 +292,7 @@ ActiveRecord::Schema.define(version: 20180303072028) do
   add_foreign_key "participations", "courses"
   add_foreign_key "participations", "users"
   add_foreign_key "time_slots", "week_day_schedules"
+  add_foreign_key "tutor_ratings", "courses"
+  add_foreign_key "tutor_ratings", "users"
   add_foreign_key "week_day_schedules", "courses"
 end

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         collection do
           get :enrolled_courses
           get :followed_courses
+          post :rate_teacher
         end
       end
       get :current_user, to: 'users#current_api_user'

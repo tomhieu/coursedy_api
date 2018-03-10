@@ -21,6 +21,22 @@ module Api
                each_serializer: CoursesSerializer
       end
 
+      def rate_teacher
+        course = Course.find(params[:course_id])
+        rating = TutorRating.create(
+          course_id: course.id,
+          points: params[:points],
+          teacher_id: course.user_id,
+          user_id: current_api_user.id
+        )
+
+        if rating.errors
+          render_error_response(rating.errors.first, :unprocessable_entity)
+        else
+          render json: rating, serializer: TutorRatingsSerializer
+        end
+      end
+
       def validate_email
         if User.exists?(email: ActionView::Base.full_sanitizer.sanitize(params[:email]))
           render json: {valid: false}
