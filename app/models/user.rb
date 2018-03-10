@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   mount_base64_uploader :avatar, ImageUploader
 
   has_many :courses
+  has_many :tutor_ratings
   has_many :participations
   has_many :course_subscribers
   has_many :enrolled_courses, source: 'course', through: :participations

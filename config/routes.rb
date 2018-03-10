@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       resources :documents, except: [:new, :edit]
       resources :tutors, only: [:update] do
         collection do
+          get :top_teachers
           get :current_tutor, to: 'tutors#current_tutor'
           get :tutor_by_user, to: 'tutors#tutor_by_user'
         end

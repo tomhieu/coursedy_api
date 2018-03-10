@@ -23,6 +23,12 @@ module Api
         render json: @tutor, serializer: TutorsSerializer
       end
 
+      def top_teachers
+        top_tutors = Tutor.joins(user: :tutor_ratings).order('tutor_ratings.points desc').limit(20)
+
+        render json: top_tutors, each_serializer: TutorsSerializer
+      end
+
       private
 
       def tutor_params
