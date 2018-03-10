@@ -10,7 +10,9 @@ class User < ActiveRecord::Base
 
   has_many :courses
   has_many :participations
+  has_many :course_subscribers
   has_many :enrolled_courses, source: 'course', through: :participations
+  has_many :followed_courses, source: 'course', through: :course_subscribers
   has_one :tutor
 
   validates :name, presence: true

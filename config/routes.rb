@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :users, only: [] do
         collection do
           get :enrolled_courses
+          get :followed_courses
         end
       end
       get :current_user, to: 'users#current_api_user'
