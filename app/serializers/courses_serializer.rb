@@ -9,6 +9,7 @@ class CoursesSerializer < ActiveModel::Serializer
              :currency,
              :cover_image,
              :user,
+             :user_id,
              :is_free,
              :category,
              :course_level,
@@ -28,7 +29,7 @@ class CoursesSerializer < ActiveModel::Serializer
 
   def week_day_schedules
     if @instance_options[:full_info]
-      object.week_day_schedules.map{|d| {day: d.day, start_time: d.start_time.strftime('%H:%M:%S'), end_time: d.end_time.strftime('%H:%M:%S')}}
+      object.week_day_schedules.map{|d| {day: d.day, start_time: d.start_time&.strftime('%H:%M:%S'), end_time: d.end_time&.strftime('%H:%M:%S')}}
     else
       []
     end
@@ -36,7 +37,7 @@ class CoursesSerializer < ActiveModel::Serializer
 
   def course_level
     if @instance_options[:full_info]
-      {id: object.course_level.id, name: object.course_level.name, level: object.course_level.level} if object.course_level
+      {id: object.course_level&.id, name: object.course_level&.name, level: object.course_level&.level} if object.course_level
     end
   end
   

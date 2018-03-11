@@ -21,7 +21,7 @@ module Api
         else
           @courses = @courses.all
         end
-        render json: @courses, each_serializer: CoursesSerializer
+        render json: @courses.includes(:tutor, :category, :course_level, :week_day_schedules), each_serializer: CoursesSerializer, full_info: true
       end
 
       def search
