@@ -21,7 +21,8 @@ module Api
         else
           @courses = @courses.all
         end
-        render json: @courses.includes(:tutor, :category, :course_level, :week_day_schedules), each_serializer: CoursesSerializer, full_info: true
+        @courses = paginate @courses.includes(:tutor, :category, :course_level, :week_day_schedules)
+        render json: @courses, each_serializer: CoursesSerializer, full_info: true
       end
 
       def search
@@ -51,7 +52,7 @@ module Api
           paginate :page => params[:page] || 1, :per_page => params[:per_page] || 10
         end
 
-        @courses = Course.where(id: solr_search.results.map(&:id)).includes(:tutor, :category, :course_level, :week_day_schedules)
+        @courses = paginate Course.where(id: solr_search.results.map(&:id)).includes(:tutor, :category, :course_level, :week_day_schedules)
 
         render json: @courses, each_serializer: CoursesSerializer, full_info: true
       end
