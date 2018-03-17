@@ -2,7 +2,7 @@ class TutorsSerializer < ActiveModel::Serializer
   attributes :id, :title, :description, :user_id, :user, :degrees, :hour_rate, :highest_education, :categories, :currency
 
   def user
-    if @instance_options[:full_info]
+    if @instance_options[:full_info] && user
       UsersSerializer.new(object.user).to_h
     end
   end
