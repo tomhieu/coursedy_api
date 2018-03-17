@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :course_subscribers
   has_many :enrolled_courses, source: 'course', through: :participations
   has_many :followed_courses, source: 'course', through: :course_subscribers
-  has_one :tutor
+  has_one :tutor, dependent: :destroy
 
   validates :name, presence: true
   validates :gender, inclusion: ['F', 'M'], allow_nil: true
