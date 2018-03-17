@@ -83,6 +83,10 @@ module Api
       def update
         @course = Course.find(params[:id])
 
+        if course_params[:week_day_schedules_attributes]
+          @course.week_day_schedules.destroy_all
+        end
+
         if @course.update_attributes(course_params)
           render json: @course, serializer: CoursesSerializer
         else
