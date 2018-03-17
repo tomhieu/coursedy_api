@@ -7,6 +7,24 @@ module Api
         render json: current_user.tutor, serializer: TutorsSerializer
       end
 
+      def search
+        categories = (params[:categories] || []) + (params[:specializes] || [])
+
+        solr_search = Tutor.search do
+          fulltext params[:q]
+
+          if !categories.blank?
+            with(:category_id, params[:categories])
+          end
+
+          paginate :page => params[:page] || 1, :per_page => params[:per_page] || 10
+        end
+
+        @tutors = paginate Tutor.where(id: solr_search.results.map(&:id)).includes(:user, :categories, :degrees)
+
+        render json: @tutors, each_serializer: TutorsSerializer, full_info: true
+      end
+
       def update
         @tutor = Tutor.find(params[:id])
         @tutor.update_attributes(tutor_params)

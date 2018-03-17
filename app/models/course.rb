@@ -2,7 +2,7 @@ class Course < ApplicationRecord
   searchable do
     text :title, :description
     text :lessons do
-      comments.map { |lesson| lesson.content }
+      lessons.map { |lesson| lesson.content }
     end
 
     boolean :is_public
