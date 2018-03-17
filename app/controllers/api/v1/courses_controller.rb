@@ -49,7 +49,6 @@ module Api
 
           with :is_public, :true
           # order_by :published_at, :desc
-          paginate :page => params[:page] || 1, :per_page => params[:per_page] || 10
         end
 
         @courses = paginate Course.where(id: solr_search.results.map(&:id)).includes(:tutor, :category, :course_level, :week_day_schedules)
