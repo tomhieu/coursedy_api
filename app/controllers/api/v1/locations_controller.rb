@@ -4,7 +4,7 @@ module Api
       skip_before_action :authenticate_user!
 
       def index
-        render json: City.pluck(:id, :name).to_h
+        render json: City.select(:id, :name)
       end
     end
   end
