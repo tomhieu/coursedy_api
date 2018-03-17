@@ -31,7 +31,7 @@ Rails.application.routes.draw do
       resources :lessons, except: [:new, :edit]
       resources :course_sections, except: [:new, :edit]
       resources :documents, except: [:new, :edit]
-      resources :tutors, only: [:update] do
+      resources :tutors, only: [:update, :show, :index] do
         collection do
           get :search
           get :top_teachers

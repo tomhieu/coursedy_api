@@ -25,6 +25,16 @@ module Api
         render json: @tutors, each_serializer: TutorsSerializer, full_info: true
       end
 
+      def index
+        @tutors = paginate Tutor.all.includes(:user, :categories, :degrees)
+        render json: @tutors, each_serializer: TutorsSerializer, full_info: true
+      end
+
+      def show
+        @tutor = Tutor.find(params[:id])
+        render json: @tutor, serializer: TutorsSerializer, full_info: true
+      end
+
       def update
         @tutor = Tutor.find(params[:id])
         @tutor.update_attributes(tutor_params)
