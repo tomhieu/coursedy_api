@@ -10,7 +10,7 @@ class Tutor < ApplicationRecord
     text :user do
       [user.name, user.email] if user
     end
-    integer :categories, :multiple => true do
+    integer :category_id, :multiple => true do
       categories.map(&:id)
     end
   end
