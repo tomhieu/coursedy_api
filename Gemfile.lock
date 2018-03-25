@@ -122,6 +122,9 @@ GEM
     ffi (1.9.18-java)
     ffi (1.9.18-x64-mingw32)
     ffi (1.9.18-x86-mingw32)
+    file_validators (2.1.0)
+      activemodel (>= 3.0)
+      mime-types (>= 1.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     haml (5.0.4)
@@ -377,6 +380,7 @@ DEPENDENCIES
   carrierwave-base64
   coffee-rails (~> 4.2)
   devise_token_auth
+  file_validators
   haml-rails
   jbuilder (~> 2.5)
   kaminari

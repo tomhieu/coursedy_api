@@ -61,6 +61,11 @@ vi:
         phone_number: "Số điện thoại"
     errors:
       models:
+        degree:
+          attributes:
+            item:
+              file_size_is_less_than: 'Kích thước tập tin không được quá %{count}'
+
         tutor_rating:
           attributes:
             teacher_id: 'giáo viên phải là chủ của khoá học'
