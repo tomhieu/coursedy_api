@@ -10,6 +10,7 @@ class CoursesSerializer < ActiveModel::Serializer
              :cover_image,
              :user,
              :user_id,
+             :status,
              :is_free,
              :category,
              :course_level,

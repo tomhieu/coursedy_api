@@ -1,4 +1,6 @@
 class Course < ApplicationRecord
+  enum status: [ :not_started, :started, :finished ]
+
   searchable do
     text :title, :description
     text :lessons do
