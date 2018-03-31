@@ -19,7 +19,7 @@ module Ezylearning
         origins '*'
         resource '*',
                  :headers => :any,
-                 :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+                 :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client', 'X-Total', 'X-Per-Page', 'X-Page'],
                  :methods => [:get, :post, :options, :delete, :put]
       end
     end
