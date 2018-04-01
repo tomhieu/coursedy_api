@@ -88,7 +88,7 @@ module Api
         end
 
         if @course.update_attributes(course_params)
-          render json: @course, serializer: CoursesSerializer
+          render json: @course, serializer: CoursesSerializer, full_info: true
         else
           render_error_response(@course.errors.full_messages.first, :unprocessable_entity)
         end
