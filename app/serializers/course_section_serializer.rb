@@ -4,7 +4,7 @@ class CourseSectionSerializer < ActiveModel::Serializer
   def lessons
     result = []
     object.lessons.each do |lesson|
-      result.push(LessonsWithoutDocumentSerializer.new(lesson).to_h)
+      result.push(LessonsSerializer.new(lesson).to_h)
     end
     result
   end

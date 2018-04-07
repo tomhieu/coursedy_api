@@ -16,7 +16,7 @@ module Api
       end
 
       def index
-        @section = CourseSection.where(course_id: params[:course_id]).includes(:lessons)
+        @section = CourseSection.where(course_id: params[:course_id]).includes(lessons: :documents)
         render json: @section, each_serializer: CourseSectionSerializer
       end
 
