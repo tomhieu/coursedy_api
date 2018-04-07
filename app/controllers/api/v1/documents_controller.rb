@@ -39,7 +39,7 @@ module Api
       private
 
       def document_params
-        params.require(:document).permit(:item, :lesson_id, name)
+        params.require(:document).permit(:item, :lesson_id, :name)
       end
     end
   end
