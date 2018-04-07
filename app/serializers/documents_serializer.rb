@@ -1,5 +1,5 @@
 class DocumentsSerializer < ActiveModel::Serializer
-  attributes :id, :url
+  attributes :id, :url, :name
 
   def url
     object.item.url
