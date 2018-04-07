@@ -22,7 +22,7 @@ module Api
 
       def update
         @lessons = Lesson.where(id: params[:id])
-z
+
         if @lessons.update_attributes(lesson_params)
           render json: @lessons, serializer: LessonsSerializer
         else
