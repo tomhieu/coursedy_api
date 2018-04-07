@@ -21,7 +21,7 @@ module Api
       end
 
       def update
-        @lessons = Lesson.where(id: params[:id])
+        @lessons = Lesson.find_by(id: params[:id])
 
         if @lessons.update_attributes(lesson_params)
           render json: @lessons, serializer: LessonsSerializer
