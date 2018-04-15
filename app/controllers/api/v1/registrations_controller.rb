@@ -22,7 +22,7 @@ module Api
         params.require(:registration).permit(
           :name, :address, :phone_number,
           :date_of_birth, :gender, :current_password,
-          :password_confirmation, :password
+          :password_confirmation, :password, :avatar
         )
       end
     end
