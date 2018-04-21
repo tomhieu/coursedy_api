@@ -20,7 +20,7 @@ module Ezylearning
         resource '*',
                  :headers => :any,
                  :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client', 'X-Total', 'X-Per-Page', 'X-Page'],
-                 :methods => [:get, :post, :options, :delete, :put]
+                 :methods => [:get, :post, :options, :patch, :delete, :options, :head, :put]
       end
     end
   end

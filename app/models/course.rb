@@ -4,7 +4,7 @@ class Course < ApplicationRecord
   searchable do
     text :title, :description
     text :lessons do
-      lessons.map { |lesson| lesson.content }
+      lessons.map { |lesson| lesson.description }
     end
 
     boolean :is_public
