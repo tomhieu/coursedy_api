@@ -21,7 +21,7 @@ module Api
       end
 
       def update
-        @section = CourseSection.where(id: params[:id])
+        @section = CourseSection.find(params[:id])
 
         if @section.update_attributes(section_params)
           render json: @section, serializer: CourseSectionSerializer
