@@ -2,7 +2,7 @@ class CourseRating < ApplicationRecord
   belongs_to :course
   belongs_to :user
 
-  validates :points, presence: true, inclusion: {in: [1..10]}
+  validates :points, presence: true, inclusion: {in: [1..5]}
   validate :can_rate
 
   after_create :update_course_rating

@@ -4,7 +4,7 @@ class TutorRating < ApplicationRecord
   belongs_to :course
 
   validates :teacher_id, presence: true
-  validates :points, presence: true, inclusion: {in: [1..10]}
+  validates :points, presence: true, inclusion: {in: [1..5]}
   validate :can_rate
 
   after_create :update_tutor_rating
