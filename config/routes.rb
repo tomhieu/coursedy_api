@@ -31,6 +31,7 @@ Rails.application.routes.draw do
           post :enroll
           get :user_enrolled
           post :follow
+          get :get_rating
         end
       end
       resources :lessons, except: [:new, :edit]

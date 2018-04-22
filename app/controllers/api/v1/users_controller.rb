@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < ApiController
-      skip_before_action :authenticate_user!, only: [:validate_email]
+      skip_before_action :authenticate_user!, only: [:validate_email, :get_rating]
 
       def current_api_user
         if current_user

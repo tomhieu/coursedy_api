@@ -25,6 +25,7 @@ class Course < ApplicationRecord
   belongs_to :course_level, required: false
   belongs_to :city, required: false
   belongs_to :district, required: false
+  has_many :course_ratings
 
   validate :validate_dates, on: :create
   validate :validate_creator

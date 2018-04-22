@@ -1,7 +1,7 @@
 module Api
   module V1
     class CoursesController < ApiController
-      skip_before_action :authenticate_user!, only: [:index, :search, :view]
+      skip_before_action :authenticate_user!, only: [:index, :search, :view, :get_rating]
 
       wrap_parameters include: [:title, :description, :start_date, :is_free,
                                 :number_of_students, :period, :tuition_fee, :category_id, :is_public,
@@ -125,6 +125,16 @@ module Api
         @course = Course.find(params[:id])
         enrolled = Participation.where(user_id: current_user.id, course_id: @course.id).exists?
         render_success_response(enrolled: enrolled)
+      end
+
+      def get_rating
+        course = Course.find(params[:id])
+        if course.course_ratings.count == 0
+          render json: {rating: 0} and return
+        end
+
+        course.course_ratings.sum(:points).to_f/course.course_ratings.count
+        render json: {rating: 1}
       end
 
       private

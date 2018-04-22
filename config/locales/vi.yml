@@ -76,7 +76,15 @@ vi:
             teacher:
               required: 'Không tìm thấy giáo viên'
             points:
-              inclusion: 'Số điểm không đúng (phải từ 1 đến 10 )'
+              inclusion: 'Số điểm không đúng (phải từ 1 đến 5 )'
+        course_rating:
+          attributes:
+            user_id: 'học viên phải tham gia khoá học mới được đánh giá khoá học'
+            course_id: 'Khoá học chưa bắt đầu'
+            user:
+              required: 'Không tìm thấy người dùng'
+            points:
+              inclusion: 'Số điểm không đúng (phải từ 1 đến 5 )'
         course:
           attributes:
             title:
