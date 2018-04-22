@@ -5,6 +5,6 @@ class DegreesSerializer < ActiveModel::Serializer
              :name
 
   def url
-    AppSettings.host + object.item&.url
+    AppSettings.asset_host + object.item&.url
   end
 end

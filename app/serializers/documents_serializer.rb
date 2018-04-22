@@ -2,6 +2,6 @@ class DocumentsSerializer < ActiveModel::Serializer
   attributes :id, :url, :name
 
   def url
-    object.item.url
+    AppSettings.asset_host + object.item.url
   end
 end
