@@ -37,6 +37,16 @@ module Api
         end
       end
 
+      def get_rating
+        user = User.find(params[:id])
+        if user.tutor_ratings.count == 0
+          render json: {rating: 0} and return
+        end
+
+        user.tutor_ratings.sum(:points).to_f/user.tutor_ratings.count
+        render json: {rating: 1}
+      end
+
       def validate_email
         if User.exists?(email: ActionView::Base.full_sanitizer.sanitize(params[:email]))
           render json: {valid: false}

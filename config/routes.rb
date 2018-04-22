@@ -11,6 +11,10 @@ Rails.application.routes.draw do
           get :followed_courses
           post :rate_teacher
         end
+
+        member do
+          get :get_rating
+        end
       end
       get :current_user, to: 'users#current_api_user'
       get :validate_email, to: 'users#validate_email'
