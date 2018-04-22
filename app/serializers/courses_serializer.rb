@@ -49,6 +49,6 @@ class CoursesSerializer < ActiveModel::Serializer
   end
 
   def cover_image
-    object.cover_image.url
+    AppSettings.asset_host + object.cover_image.url if object.cover_image.url
   end
 end

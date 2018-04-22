@@ -10,6 +10,6 @@ class UsersSerializer < ActiveModel::Serializer
   end
 
   def avatar
-    AppSettings.asset_host + object.avatar.url
+    AppSettings.asset_host + object.avatar.url if object.avatar.url
   end
 end
