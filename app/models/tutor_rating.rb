@@ -7,6 +7,8 @@ class TutorRating < ApplicationRecord
   validates :points, presence: true, inclusion: {in: [1..10]}
   validate :can_rate
 
+  after_create :update_tutor_rating
+
   def can_rate
     if course && course.user_id != teacher_id
       errors.add(:teacher_id, I18n.t("activerecord.errors.models.tutor_rating.attributes.teacher_id"))
@@ -19,5 +21,13 @@ class TutorRating < ApplicationRecord
     if course && course.start_date > Time.current
       errors.add(:course_id, I18n.t("activerecord.errors.models.tutor_rating.attributes.course_id"))
     end
+  end
+
+  def update_tutor_rating
+    user = self.user
+    user.update_attributes(
+      rating_count: user.rating_count + 1,
+      rating_points: user.rating_points + self.points
+    )
   end
 end

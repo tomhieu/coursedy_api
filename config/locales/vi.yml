@@ -7,6 +7,8 @@ vi:
     friday: 'Thứ 6'
     saturday: 'Thứ 7'
     sunday: 'Chủ Nhật'
+  common_errors:
+    invalid_course_id: 'Khoá học không đúng'
   devise_token_auth:
     sessions:
       not_confirmed: "Bạn chưa kích hoạt tài khoản. Vui lòng kiểm tra email của bạn để kích hoạt"

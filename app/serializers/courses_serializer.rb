@@ -16,7 +16,10 @@ class CoursesSerializer < ActiveModel::Serializer
              :course_level,
              :is_public,
              :week_day_schedules,
-             :token
+             :token,
+             :lesson_count,
+             :rating_count,
+             :rating_points
 
   def token
     @instance_options[:view_token]
