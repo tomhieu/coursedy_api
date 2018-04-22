@@ -24,7 +24,7 @@ class CoursesSerializer < ActiveModel::Serializer
 
   def category
     if @instance_options[:full_info]
-      {id: object.category.id, name: object.category.name} if object.category
+      {id: object.category.id, name: object.category.name, category_id: object.category.category_id} if object.category
     end
   end
 
