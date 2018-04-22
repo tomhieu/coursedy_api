@@ -25,6 +25,15 @@ module Api
         render json: @courses, each_serializer: CoursesSerializer, full_info: true
       end
 
+      def related_courses
+        @course = Course.find(params[:course_id])
+        @courses = Course.includes(:tutor, :category, :course_level, :week_day_schedules)
+                     .where(category_id: @course.category_id).order(created_at: :desc)
+        @courses = paginate @courses
+
+        render json: @courses, each_serializer: CoursesSerializer, full_info: true
+      end
+
       def search
         categories = (params[:categories] || []) + (params[:specializes] || [])
 

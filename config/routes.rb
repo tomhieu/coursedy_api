@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       resources :courses, except: [:new, :edit] do
         collection do
           get :search
+          get :related_courses
         end
         resources :comments, only: [:create, :index]
         member do
