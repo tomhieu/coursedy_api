@@ -26,7 +26,7 @@ module Api
       def update
         @education = TutorEducation.find(params[:id])
 
-        if @education.update_attributes(TutorEducation.params)
+        if @education.update_attributes(tutor_education_params)
           render json: @education, serializer: TutorEducationsSerializer
         else
           render_error_response(@education.errors.full_messages.first, :unprocessable_entity)
