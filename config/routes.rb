@@ -40,7 +40,7 @@ Rails.application.routes.draw do
       resources :degrees, only: [:create, :index, :destroy]
       resources :tutors, only: [:update, :show, :index] do
         resources :tutor_educations, only: [:create, :show, :update, :destroy, :index]
-        resources :tutor_work_experiencecs, only: [:create, :show, :update, :destroy, :index]
+        resources :tutor_work_experiences, only: [:create, :show, :update, :destroy, :index]
         collection do
           get :search
           get :top_teachers

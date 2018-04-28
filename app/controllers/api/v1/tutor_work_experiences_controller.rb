@@ -2,7 +2,7 @@ module Api
   module V1
     class TutorWorkExperiencesController < ApiController
       def create
-        @experience = TutorWorkExperience.new(tutor_education_params)
+        @experience = TutorWorkExperience.new(tutor_work_experience_params)
         @experience.tutor_id = params[:tutor_id]
         @experience.save
 
