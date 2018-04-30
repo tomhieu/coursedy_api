@@ -9,6 +9,8 @@ class Lesson < ApplicationRecord
 
   after_create :update_lesson_count
 
+  validates :title, presence: true
+
   private
 
   def belong_to_course
