@@ -6,6 +6,8 @@ class Tutor < ApplicationRecord
   has_and_belongs_to_many :districts
   has_many :tutor_educations
 
+  validates :title, presence: true, on: :update
+
   searchable do
     text :title, :description
     text :user do

@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
 
   ROLES = [:admin, :student, :teacher]
 
-  after_create :create_tutor
+  # after_create :create_tutor
 
   private
 
