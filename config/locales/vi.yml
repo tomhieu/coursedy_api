@@ -63,6 +63,10 @@ vi:
         phone_number: "Số điện thoại"
     errors:
       models:
+        week_day_schedule:
+          attributes:
+            start_time:
+              start_time_must_less_than_end_time: "Giờ bắt đầu phải nhỏ hơn giờ kết thúc"
         degree:
           attributes:
             item:

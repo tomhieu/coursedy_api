@@ -93,12 +93,14 @@ module Api
         @course = Course.find(params[:id])
 
         if course_params[:week_day_schedules_attributes]
-          @course.week_day_schedules.destroy_all
+          schedule_to_delete = @course.week_day_schedules.pluck(:id)
         end
 
         if @course.update_attributes(course_params)
-          render json: @course, serializer: CoursesSerializer, full_info: true
+          WeekDaySchedule.where(id: schedule_to_delete).destroy_all
+          render json: @course.reload, serializer: CoursesSerializer, full_info: true
         else
+          @course.reload.week_day_schedules.where.not(id: schedule_to_delete).destroy_all
           render_error_response(@course.errors.full_messages.first, :unprocessable_entity)
         end
       end
