@@ -63,6 +63,10 @@ vi:
         phone_number: "Số điện thoại"
     errors:
       models:
+        tutor_education:
+          attributes:
+            end_date:
+              start_and_end_date: 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc'
         week_day_schedule:
           attributes:
             start_time:
