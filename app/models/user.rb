@@ -6,10 +6,8 @@ class User < ActiveRecord::Base
           :confirmable, :omniauthable
   include DeviseTokenAuth::Concerns::User
 
-  mount_base64_uploader :avatar, AvatarUploader
-
-  before_save :update_avatar_name
-
+  mount_base64_uploader :avatar, AvatarUploader, file_name: -> (u) { u.name +  SecureRandom.hex(20)}
+  
   has_many :courses
   has_many :tutor_ratings
   has_many :participations
@@ -27,10 +25,6 @@ class User < ActiveRecord::Base
   # after_create :create_tutor
 
   private
-
-  def update_avatar_name
-    self.update_columns(:avatar_name => SecureRandom.hex(30)) if avatar_changed?
-  end
 
   def create_tutor
     self.add_role(self.role) if self.role.to_sym.in?(ROLES)

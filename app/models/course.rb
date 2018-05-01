@@ -14,7 +14,7 @@ class Course < ApplicationRecord
     # time    :published_at
   end
 
-  mount_base64_uploader :cover_image, ImageUploader
+  mount_base64_uploader :cover_image, ImageUploader, file_name: -> (c) { SecureRandom.hex(20)}
 
   belongs_to :tutor, class_name: 'User', foreign_key: :user_id
   has_many :week_day_schedules, dependent: :destroy
