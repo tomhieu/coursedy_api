@@ -13,12 +13,18 @@ module Api
 
       def enrolled_courses
         render json: current_user.enrolled_courses.includes(:tutor, :category, :course_level, :week_day_schedules),
-               each_serializer: CoursesSerializer
+               each_serializer: CoursesSerializer, full_info: true
       end
 
       def followed_courses
         render json: current_user.followed_courses.includes(:tutor, :category, :course_level, :week_day_schedules),
-               each_serializer: CoursesSerializer
+               each_serializer: CoursesSerializer, full_info: true
+      end
+
+      def courses
+        @courses = User.find(params[:id]).courses.includes(:tutor, :category, :course_level, :week_day_schedules)
+        @courses = paginate @courses
+        render json: @courses, each_serializer: CoursesSerializer, full_info: true
       end
 
       def rate_teacher

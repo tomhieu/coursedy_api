@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
         member do
           get :get_rating
+          get :courses
         end
       end
       get :current_user, to: 'users#current_api_user'
