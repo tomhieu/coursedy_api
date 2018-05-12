@@ -4,7 +4,9 @@ class TutorsSerializer < ActiveModel::Serializer
   def user
     if @instance_options[:full_info] && object.user
       user= object.user
-      {name: user.name, avatar: AppSettings.asset_host + user.avatar&.url, rating_count: user.rating_count, rating_points: user.rating_points}
+      avatar = user.avatar&.url
+      avatar = AppSettings.asset_host + avatar if avatar
+      {name: user.name, avatar: avatar, rating_count: user.rating_count, rating_points: user.rating_points}
     end
   end
 
