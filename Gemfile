@@ -53,6 +53,8 @@ gem 'kaminari'
 gem 'api-pagination'
 gem 'file_validators'
 gem 'bigbluebutton_rails'
+gem 'resque'
+gem 'resque-scheduler'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
