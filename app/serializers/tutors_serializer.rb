@@ -11,7 +11,7 @@ class TutorsSerializer < ActiveModel::Serializer
   end
 
   def degrees
-    object.degrees.map{|d| {id: d.id,url: d.item.url, name: d.item.file.original_filename}}
+    object.degrees.map{|d| DegreesSerializer.new(d).to_h}
   end
 
   def categories
