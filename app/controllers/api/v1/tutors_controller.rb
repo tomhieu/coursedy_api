@@ -60,7 +60,7 @@ module Api
       private
 
       def tutor_params
-        params.require(:tutor).permit(:name, :title, :speciality, :description, :categories)
+        params.require(:tutor).permit(:name, :title, :place_of_work, :speciality, :description, :categories)
       end
     end
   end

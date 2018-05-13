@@ -3,7 +3,7 @@ module Api
     class TutorReviewsController < ApiController
       def create
         @tutor_review = TutorReview.new(tutor_review_params)
-        @tutor_review.teacher_id = params[:teacher_id]
+        @tutor_review.teacher_id = params[:tutor_id]
         @tutor_review.save
 
         if @tutor_review.errors.messages.count > 0
@@ -42,7 +42,7 @@ module Api
       private
 
       def tutor_review_params
-        params.require(:tutor_review).permit(:content, :teacher_id)
+        params.require(:tutor_review).permit(:content, :user_id)
       end
     end
   end
