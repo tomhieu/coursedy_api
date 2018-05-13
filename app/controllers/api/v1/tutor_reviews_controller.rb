@@ -19,7 +19,8 @@ module Api
       end
 
       def index
-        @tutor_reviews = TutorReview.where(teacher_id: params[:teacher_id]).includes(:user)
+        @tutor_reviews = TutorReview.where(teacher_id: params[:tutor_id]).includes(:user)
+        @tutor_reviews = paginate @tutor_reviews
         render json: @tutor_reviews, each_serializer: TutorReviewsSerializer
       end
 
