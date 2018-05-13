@@ -11,7 +11,7 @@ module Api
       skip_before_action :authenticate_user!, only: [:follow, :show, :index, :show]
 
       def index
-        @courses = Course.includes(:tutor, :category, :course_level, :week_day_schedules)
+        @courses = Course.includes(:user, :category, :course_level, :week_day_schedules)
         if params[:sort_by] == 'popularity'
           @courses = @courses.order(views: :desc)
         elsif params[:sort_by] == 'time_desc'
@@ -21,13 +21,13 @@ module Api
         else
           @courses = @courses.all
         end
-        @courses = paginate @courses.includes(:tutor, :category, :course_level, :week_day_schedules)
+        @courses = paginate @courses.includes(:user, :category, :course_level, :week_day_schedules)
         render json: @courses, each_serializer: CoursesSerializer, full_info: true
       end
 
       def related_courses
         @course = Course.find(params[:course_id])
-        @courses = Course.includes(:tutor, :category, :course_level, :week_day_schedules)
+        @courses = Course.includes(:user, :category, :course_level, :week_day_schedules)
                      .where(category_id: @course.category_id).order(created_at: :desc)
         @courses = paginate @courses
 
@@ -60,7 +60,7 @@ module Api
           # order_by :published_at, :desc
         end
 
-        @courses = paginate Course.where(id: solr_search.results.map(&:id)).includes(:tutor, :category, :course_level, :week_day_schedules)
+        @courses = paginate Course.where(id: solr_search.results.map(&:id)).includes(:user, :category, :course_level, :week_day_schedules)
 
         render json: @courses, each_serializer: CoursesSerializer, full_info: true
       end

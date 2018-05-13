@@ -47,7 +47,7 @@ class CoursesSerializer < ActiveModel::Serializer
   
   def user
     if @instance_options[:full_info]
-      UsersSerializer.new(object.tutor).to_h
+      UsersSerializer.new(object.user).to_h
     end
   end
 
