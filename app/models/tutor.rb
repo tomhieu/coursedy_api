@@ -13,6 +13,11 @@ class Tutor < ApplicationRecord
     text :user do
       [user.name, user.email] if user
     end
+
+    string :roles, :multiple => true do
+      user.roles.map(&:name) if user
+    end
+
     integer :category_id, :multiple => true do
       categories.map(&:id)
     end
