@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     registrations: 'api/v1/registrations' # full module nesting
   }
 
+  bigbluebutton_routes :default
+  
   namespace :api do
     namespace :v1 do
       resources :users, only: [] do

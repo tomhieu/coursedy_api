@@ -10,10 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180513041306) do
+ActiveRecord::Schema.define(version: 20180519100938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bigbluebutton_attendees", force: :cascade do |t|
+    t.string "user_id"
+    t.string "external_user_id"
+    t.string "user_name"
+    t.decimal "join_time", precision: 14
+    t.decimal "left_time", precision: 14
+    t.integer "bigbluebutton_meeting_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bigbluebutton_meetings", force: :cascade do |t|
+    t.string "server_url"
+    t.string "server_secret"
+    t.integer "room_id"
+    t.string "meetingid"
+    t.string "name"
+    t.decimal "create_time", precision: 14
+    t.decimal "finish_time", precision: 14
+    t.boolean "running", default: false
+    t.boolean "recorded", default: false
+    t.integer "creator_id"
+    t.string "creator_name"
+    t.boolean "ended", default: false
+    t.string "got_stats"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meetingid", "create_time"], name: "index_bigbluebutton_meetings_on_meetingid_and_create_time", unique: true
+  end
 
   create_table "bigbluebutton_metadata", force: :cascade do |t|
     t.integer "owner_id"
@@ -26,9 +56,18 @@ ActiveRecord::Schema.define(version: 20180513041306) do
 
   create_table "bigbluebutton_playback_formats", force: :cascade do |t|
     t.integer "recording_id"
-    t.string "format_type"
+    t.integer "playback_type_id"
     t.string "url"
     t.integer "length"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bigbluebutton_playback_types", force: :cascade do |t|
+    t.string "identifier"
+    t.boolean "visible", default: false
+    t.boolean "default", default: false
+    t.boolean "downloadable", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -36,27 +75,42 @@ ActiveRecord::Schema.define(version: 20180513041306) do
   create_table "bigbluebutton_recordings", force: :cascade do |t|
     t.integer "server_id"
     t.integer "room_id"
+    t.integer "meeting_id"
     t.string "recordid"
     t.string "meetingid"
     t.string "name"
     t.boolean "published", default: false
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.decimal "start_time", precision: 14
+    t.decimal "end_time", precision: 14
     t.boolean "available", default: true
+    t.string "description"
+    t.bigint "size", default: 0
+    t.text "recording_users"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["recordid"], name: "index_bigbluebutton_recordings_on_recordid", unique: true
     t.index ["room_id"], name: "index_bigbluebutton_recordings_on_room_id"
   end
 
+  create_table "bigbluebutton_room_options", force: :cascade do |t|
+    t.integer "room_id"
+    t.string "default_layout"
+    t.boolean "presenter_share_only"
+    t.boolean "auto_start_video"
+    t.boolean "auto_start_audio"
+    t.string "background"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_bigbluebutton_room_options_on_room_id"
+  end
+
   create_table "bigbluebutton_rooms", force: :cascade do |t|
-    t.integer "server_id"
     t.integer "owner_id"
     t.string "owner_type"
     t.string "meetingid"
     t.string "name"
-    t.string "attendee_password"
-    t.string "moderator_password"
+    t.string "attendee_key"
+    t.string "moderator_key"
     t.string "welcome_msg"
     t.string "logout_url"
     t.string "voice_bridge"
@@ -64,22 +118,33 @@ ActiveRecord::Schema.define(version: 20180513041306) do
     t.integer "max_participants"
     t.boolean "private", default: false
     t.boolean "external", default: false
-    t.string "param"
-    t.boolean "record", default: false
+    t.string "slug"
+    t.boolean "record_meeting", default: false
     t.integer "duration", default: 0
+    t.string "attendee_api_password"
+    t.string "moderator_api_password"
+    t.decimal "create_time", precision: 14
+    t.string "moderator_only_message"
+    t.boolean "auto_start_recording", default: false
+    t.boolean "allow_start_stop_recording", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["meetingid"], name: "index_bigbluebutton_rooms_on_meetingid", unique: true
-    t.index ["server_id"], name: "index_bigbluebutton_rooms_on_server_id"
-    t.index ["voice_bridge"], name: "index_bigbluebutton_rooms_on_voice_bridge", unique: true
+  end
+
+  create_table "bigbluebutton_server_configs", force: :cascade do |t|
+    t.integer "server_id"
+    t.text "available_layouts"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "bigbluebutton_servers", force: :cascade do |t|
     t.string "name"
     t.string "url"
-    t.string "salt"
+    t.string "secret"
     t.string "version"
-    t.string "param"
+    t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
