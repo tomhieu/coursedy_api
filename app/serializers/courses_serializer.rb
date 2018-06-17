@@ -19,7 +19,14 @@ class CoursesSerializer < ActiveModel::Serializer
              :token,
              :lesson_count,
              :rating_count,
-             :rating_points
+             :rating_points,
+             :bigbluebutton_room
+
+  def bigbluebutton_room
+    if @instance_options[:bbb]
+      {slug: object.bigbluebutton_room.slug}
+    end
+  end
 
   def token
     @instance_options[:view_token]

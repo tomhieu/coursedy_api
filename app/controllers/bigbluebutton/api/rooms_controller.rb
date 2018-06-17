@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 require 'bigbluebutton_api'
 
-class Bigbluebutton::Api::RoomsController < ApplicationController
+class Bigbluebutton::Api::RoomsController < Api::V1::ApiController
   include BigbluebuttonRails::APIControllerMethods
 
   skip_before_action :verify_authenticity_token
   before_action :authenticate_user!
-  before_action :authenticate_api
 
   before_action :validate_pagination, only: :index
 
@@ -50,13 +49,7 @@ class Bigbluebutton::Api::RoomsController < ApplicationController
   end
 
   def join
-    # map "meta[_-]" to "userdata-"
-    options = params.select{ |k,v| k.match(/^meta[-_]/) }
-    unless options.blank?
-      options = options.map{ |k,v| { k.gsub(/^meta[-_]/, 'userdata-') => v } }.reduce(:merge)
-    end
-
-    join_internal(@user_name, @user_role, current_user.id, options)
+    join_internal(@user_name, @user_role, current_user.id)
   end
 
   def join_mobile
@@ -67,7 +60,7 @@ class Bigbluebutton::Api::RoomsController < ApplicationController
 
   protected
 
-  def join_internal(username, role, id, options)
+  def join_internal(username, role, id)
     begin
       # first check if we have to create the room and if the user can do it
       unless @room.fetch_is_running?
@@ -80,7 +73,7 @@ class Bigbluebutton::Api::RoomsController < ApplicationController
       end
 
       # room created and running, try to join it
-      url = @room.parameterized_join_url(username, role, id, options, current_user)
+      url = @room.parameterized_join_url(username, role, id, {}, current_user)
 
       unless url.nil?
 
@@ -150,13 +143,7 @@ class Bigbluebutton::Api::RoomsController < ApplicationController
     @room.request_headers["x-forwarded-for"] = request.remote_ip if @room.present?
   end
 
-  def authenticate_api
-    authorization = request.headers["Authorization"]
-    secret = authorization.gsub(/^Bearer /, '') if authorization.present?
-    server_secret = BigbluebuttonRails.configuration.api_secret
-    if server_secret != '' &&
-       (server_secret.nil? || secret.blank? || secret != server_secret)
-      error_forbidden
-    end
+  def error_room_not_running
+    render_error_response('not found', 404)
   end
 end

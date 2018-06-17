@@ -87,7 +87,7 @@ module Api
         @course = Course.find(params[:id])
         # for course views count
         token = CourseView.new(@course).new_view
-        render json: @course, serializer: CoursesSerializer, view_token: token, full_info: true
+        render json: @course, serializer: CoursesSerializer, view_token: token, full_info: true, bbb: true
       end
 
       def update
