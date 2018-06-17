@@ -13,6 +13,8 @@ class Course < ApplicationRecord
   belongs_to :city, required: false
   belongs_to :district, required: false
   has_many :course_ratings
+  belongs_to :bigbluebutton_room
+  has_many :participations
 
   validate :validate_dates, on: :create
   validate :validate_creator
@@ -21,6 +23,8 @@ class Course < ApplicationRecord
   validates :number_of_students, numericality: true, allow_blank: true
   validates :tuition_fee, numericality: true, allow_blank: true
   validates :currency, inclusion: {in: %w(vnd usd yen)}, allow_blank: true
+
+  after_create :setup_bbb_room
 
   searchable do
     text :title, :description
@@ -64,5 +68,25 @@ class Course < ApplicationRecord
     if start_date && start_date < Time.current
       errors.add(:start_date, I18n.t("activerecord.errors.models.course.attributes.start_date"))
     end
+  end
+
+  def setup_bbb_room
+    bbb_room = BigbluebuttonRoom.create(
+      owner_id: self.user_id,
+      meetingid: BigbluebuttonRoom.new.unique_meetingid,
+      max_participants: 6,
+      record_meeting: false,
+      duration: 90,
+      auto_start_recording: false,
+      name: self.title,
+      slug: "#{self.id}-#{self.title}",
+      owner_type: 'User',
+      private: true,
+      moderator_key: "#{SecureRandom.uuid}-#{Time.now.to_i}",
+      attendee_key: "#{SecureRandom.uuid}-#{Time.now.to_i}"
+    )
+
+    self.bigbluebutton_room = bbb_room
+    self.save
   end
 end

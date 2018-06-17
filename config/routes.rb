@@ -3,7 +3,15 @@ Rails.application.routes.draw do
     registrations: 'api/v1/registrations' # full module nesting
   }
 
-  bigbluebutton_routes :default
+  namespace :bigbluebutton do
+    namespace :api, defaults: {format: :json} do
+      resources :rooms, only: [:index] do
+        member do
+          get :join
+        end
+      end
+    end
+  end
   
   namespace :api do
     namespace :v1 do

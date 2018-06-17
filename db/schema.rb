@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180519100938) do
+ActiveRecord::Schema.define(version: 20180617050921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -255,6 +255,8 @@ ActiveRecord::Schema.define(version: 20180519100938) do
     t.integer "lesson_count", default: 0
     t.integer "rating_count", default: 0
     t.integer "rating_points", default: 0
+    t.bigint "bigbluebutton_room_id"
+    t.index ["bigbluebutton_room_id"], name: "index_courses_on_bigbluebutton_room_id"
     t.index ["category_id"], name: "index_courses_on_category_id"
     t.index ["city_id"], name: "index_courses_on_city_id"
     t.index ["course_level_id"], name: "index_courses_on_course_level_id"
@@ -465,6 +467,7 @@ ActiveRecord::Schema.define(version: 20180519100938) do
   add_foreign_key "course_sections", "courses"
   add_foreign_key "course_subscribers", "courses"
   add_foreign_key "course_subscribers", "users"
+  add_foreign_key "courses", "bigbluebutton_rooms"
   add_foreign_key "courses", "categories"
   add_foreign_key "courses", "cities"
   add_foreign_key "courses", "course_levels"
