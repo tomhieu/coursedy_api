@@ -93,3 +93,11 @@ end
 districts.keys.each do |d|
   District.create(name: d, slug: districts[d], city_id: city.id)
 end
+
+BigbluebuttonServer.create(
+  name: 'server-1',
+  url: 'http://classroom.coursedy.com//bigbluebutton/api',
+  secret: '1OkiLm6abMGsaLDLc79ukxGXB2LRXhA4i3u1EY7c',
+  version: '1.0',
+  slug: 'server-1'
+)
