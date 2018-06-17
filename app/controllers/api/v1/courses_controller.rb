@@ -78,6 +78,7 @@ module Api
         if @course.save
           render json: @course, serializer: CoursesSerializer
         else
+          p @course.errors.full_messages.join(', ')
           render_error_response(@course.errors, :unprocessable_entity)
         end
       end

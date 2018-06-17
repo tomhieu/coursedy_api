@@ -13,7 +13,7 @@ class Course < ApplicationRecord
   belongs_to :city, required: false
   belongs_to :district, required: false
   has_many :course_ratings
-  belongs_to :bigbluebutton_room
+  belongs_to :bigbluebutton_room, required: false
   has_many :participations
 
   validate :validate_dates, on: :create
@@ -79,14 +79,15 @@ class Course < ApplicationRecord
       duration: 90,
       auto_start_recording: false,
       name: self.title,
-      slug: "#{self.id}-#{self.title}",
+      slug: "#{self.id}-#{self.title}".gsub(' ', '-'),
       owner_type: 'User',
       private: true,
-      moderator_key: "#{SecureRandom.uuid}-#{Time.now.to_i}",
-      attendee_key: "#{SecureRandom.uuid}-#{Time.now.to_i}"
+      moderator_key: SecureRandom.base64(10),
+      attendee_key: SecureRandom.base64(10)
     )
 
     self.bigbluebutton_room = bbb_room
     self.save
+    bbb_room
   end
 end
