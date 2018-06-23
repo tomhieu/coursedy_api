@@ -130,7 +130,7 @@ class Bigbluebutton::Api::RoomsController < Api::V1::ApiController
       @room.fetch_is_running?
     rescue StandardError => e
       @errors = [BigbluebuttonRails::APIError.new(e.to_s, 500)]
-      render 'bigbluebutton/api/error'
+      error_room_not_running
     end
     @room.is_running?
   end
