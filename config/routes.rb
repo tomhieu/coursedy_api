@@ -20,11 +20,11 @@ Rails.application.routes.draw do
           get :enrolled_courses
           get :followed_courses
           post :rate_teacher
+          get :courses
         end
 
         member do
           get :get_rating
-          get :courses
         end
       end
       get :current_user, to: 'users#current_api_user'

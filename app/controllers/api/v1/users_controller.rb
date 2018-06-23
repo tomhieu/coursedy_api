@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < ApiController
-      skip_before_action :authenticate_user!, only: [:validate_email, :get_rating, :courses]
+      skip_before_action :authenticate_user!, only: [:validate_email, :get_rating]
 
       def current_api_user
         if current_user
@@ -22,7 +22,7 @@ module Api
       end
 
       def courses
-        @courses = User.find(params[:id]).courses.includes(:user, :category, :course_level, :week_day_schedules)
+        @courses = current_user.courses.includes(:user, :category, :course_level, :week_day_schedules)
         @courses = paginate @courses
         render json: @courses, each_serializer: CoursesSerializer, full_info: true
       end
