@@ -24,7 +24,7 @@ class CoursesSerializer < ActiveModel::Serializer
 
   def bigbluebutton_room
     if @instance_options[:bbb]
-      {slug: object.bigbluebutton_room.slug}
+      {slug: object.bigbluebutton_room.slug} if object.bigbluebutton_room.present?
     end
   end
 
