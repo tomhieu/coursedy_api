@@ -35,6 +35,8 @@ Rails.application.routes.draw do
         collection do
           get :search
           get :related_courses
+          get :upcomming_classes
+          get :upcomming_teaching_classes
         end
         resources :comments, only: [:create, :index]
         member do

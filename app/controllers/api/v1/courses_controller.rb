@@ -25,6 +25,34 @@ module Api
         render json: @courses, each_serializer: CoursesSerializer, full_info: true
       end
 
+      def upcomming_classes
+        current_wday = Time.current.strftime("%A").downcase
+        current_minute = Time.current.min + Time.current.hour * 60
+
+        @course = Course.where(status: :started).joins(:participations)\
+                    .where(participations: {user_id: current_user.id})\
+                    .joins(:week_day_schedules).where(week_day_schedules: {day: current_wday})\
+                    .where("DATE_PART('hour', start_time) * 60 + DATE_PART('minute', start_time) < ?", current_minute)\
+                    .where("DATE_PART('hour', end_time) * 60 + DATE_PART('minute', end_time) > ?", current_minute)
+        @course = @course.includes(:user, :category, :course_level, :week_day_schedules)
+
+        render json: @courses, each_serializer: CoursesSerializer, full_info: true
+      end
+
+      def upcomming_teaching_classes
+        current_wday = Time.current.strftime("%A").downcase
+        current_minute = Time.current.min + Time.current.hour * 60
+
+        @course = Course.where(status: :started)
+                    .where(user_id: current_user.id)\
+                    .joins(:week_day_schedules).where(week_day_schedules: {day: current_wday})\
+                    .where("DATE_PART('hour', start_time) * 60 + DATE_PART('minute', start_time) < ?", current_minute)\
+                    .where("DATE_PART('hour', end_time) * 60 + DATE_PART('minute', end_time) > ?", current_minute)
+        @course = @course.includes(:user, :category, :course_level, :week_day_schedules)
+
+        render json: @courses, each_serializer: CoursesSerializer, full_info: true
+      end
+
       def related_courses
         @course = Course.find(params[:course_id])
         @courses = Course.includes(:user, :category, :course_level, :week_day_schedules)
@@ -143,7 +171,7 @@ module Api
       private
 
       def course_params
-        params.require(:course).permit(:title, :description, :start_date, :is_free,
+        params.require(:course).permit(:title, :description, :start_date, :is_free, :status,
                                        :number_of_students, :period, :tuition_fee, :category_id, :is_public,
                                        :course_level_id, :currency, :cover_image, week_day_schedules_attributes: [:day, :start_time, :end_time]
         )
