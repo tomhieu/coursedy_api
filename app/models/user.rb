@@ -20,14 +20,22 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :gender, inclusion: ['F', 'M'], allow_nil: true
 
+  after_create :create_tutor
+
   ROLES = [:admin, :student, :teacher]
+  DEFAULT_ROLE = :student
+  CLIENT_ROLE = ROLES - [:admin]
 
   # after_create :create_tutor
 
   private
 
   def create_tutor
-    self.add_role(self.role) if self.role.to_sym.in?(ROLES)
-    Tutor.create(user_id: self.id)
+    role = self.role.to_sym.in?(CLIENT_ROLE) ? self.role : DEFAULT_ROLE
+    self.add_role(role)
+    if self.has_role?(:teacher)
+      self.add_role(:student)
+      Tutor.create(user_id: self.id)
+    end
   end
 end
