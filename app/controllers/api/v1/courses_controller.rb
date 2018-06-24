@@ -30,12 +30,12 @@ module Api
         current_wday = Time.current.strftime("%A").downcase
         current_minute = Time.current.min + Time.current.hour * 60
 
-        @course = Course.where(status: :started).joins(:participations)\
+        @courses = Course.where(status: :started).joins(:participations)\
                     .where(participations: {user_id: current_user.id})\
                     .joins(:week_day_schedules).where(week_day_schedules: {day: current_wday})\
                     .where("DATE_PART('hour', start_time) * 60 + DATE_PART('minute', start_time) < ?", current_minute)\
                     .where("DATE_PART('hour', end_time) * 60 + DATE_PART('minute', end_time) > ?", current_minute)
-        @course = @course.includes(:user, :category, :course_level, :week_day_schedules)
+        @courses = @courses.includes(:user, :category, :course_level, :week_day_schedules)
 
         render json: @courses, each_serializer: CoursesSerializer, full_info: true
       end
@@ -44,12 +44,12 @@ module Api
         current_wday = Time.current.strftime("%A").downcase
         current_minute = Time.current.min + Time.current.hour * 60
 
-        @course = Course.where(status: :started)\
+        @courses = Course.where(status: :started)\
                     .where(user_id: current_user.id)\
                     .joins(:week_day_schedules).where(week_day_schedules: {day: current_wday})\
                     .where("DATE_PART('hour', start_time) * 60 + DATE_PART('minute', start_time) < ?", current_minute)\
                     .where("DATE_PART('hour', end_time) * 60 + DATE_PART('minute', end_time) > ?", current_minute)
-        @course = @course.includes(:user, :category, :course_level, :week_day_schedules)
+        @courses = @courses.includes(:user, :category, :course_level, :week_day_schedules)
 
         render json: @courses, each_serializer: CoursesSerializer, full_info: true
       end
