@@ -9,21 +9,22 @@ module Api
       ]
 
       skip_before_action :authenticate_user!, only: [:follow, :show, :index, :show]
+      before_action :check_course_owner, only: [:show, :update]
 
-      def index
-        @courses = Course.includes(:user, :category, :course_level, :week_day_schedules)
-        if params[:sort_by] == 'popularity'
-          @courses = @courses.order(views: :desc)
-        elsif params[:sort_by] == 'time_desc'
-          @courses = @courses.order(created_at: :desc)
-        elsif params[:sort_by] == 'time_asc'
-          @courses = @courses.order(created_at: :asc)
-        else
-          @courses = @courses.all
-        end
-        @courses = paginate @courses.includes(:user, :category, :course_level, :week_day_schedules)
-        render json: @courses, each_serializer: CoursesSerializer, full_info: true
-      end
+      # def index
+      #   @courses = Course.includes(:user, :category, :course_level, :week_day_schedules)
+      #   if params[:sort_by] == 'popularity'
+      #     @courses = @courses.order(views: :desc)
+      #   elsif params[:sort_by] == 'time_desc'
+      #     @courses = @courses.order(created_at: :desc)
+      #   elsif params[:sort_by] == 'time_asc'
+      #     @courses = @courses.order(created_at: :asc)
+      #   else
+      #     @courses = @courses.all
+      #   end
+      #   @courses = paginate @courses.includes(:user, :category, :course_level, :week_day_schedules)
+      #   render json: @courses, each_serializer: CoursesSerializer, full_info: true
+      # end
 
       def upcomming_classes
         current_wday = Time.current.strftime("%A").downcase
@@ -43,7 +44,7 @@ module Api
         current_wday = Time.current.strftime("%A").downcase
         current_minute = Time.current.min + Time.current.hour * 60
 
-        @course = Course.where(status: :started)
+        @course = Course.where(status: :started)\
                     .where(user_id: current_user.id)\
                     .joins(:week_day_schedules).where(week_day_schedules: {day: current_wday})\
                     .where("DATE_PART('hour', start_time) * 60 + DATE_PART('minute', start_time) < ?", current_minute)\
@@ -112,15 +113,11 @@ module Api
       end
 
       def show
-        @course = Course.find(params[:id])
-        # for course views count
         token = CourseView.new(@course).new_view
         render json: @course, serializer: CoursesSerializer, view_token: token, full_info: true, bbb: true
       end
 
       def update
-        @course = Course.find(params[:id])
-
         if course_params[:week_day_schedules_attributes]
           schedule_to_delete = @course.week_day_schedules.pluck(:id)
         end
@@ -169,6 +166,13 @@ module Api
       end
 
       private
+
+      def check_course_owner
+        @course = Course.unscoped.find(params[:id])
+        if (!current_user || @course.user_id != current_user.id) && !@course.is_public
+          render_error_response('not found', 404)
+        end
+      end
 
       def course_params
         params.require(:course).permit(:title, :description, :start_date, :is_free, :status,

@@ -31,7 +31,7 @@ Rails.application.routes.draw do
       get :validate_email, to: 'users#validate_email'
       resources :categories, only: [:index]
       resources :locations, only: [:index]
-      resources :courses, except: [:new, :edit] do
+      resources :courses, except: [:new, :edit, :index] do
         collection do
           get :search
           get :related_courses
