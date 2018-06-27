@@ -26,7 +26,17 @@ class User < ActiveRecord::Base
   DEFAULT_ROLE = :student
   CLIENT_ROLE = ROLES - [:admin]
 
-  # after_create :create_tutor
+  def admin?
+    has_role? :admin
+  end
+
+  def teacher?
+    has_role? :teacher
+  end
+
+  def student?
+    has_role? :student
+  end
 
   private
 

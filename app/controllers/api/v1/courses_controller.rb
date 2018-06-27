@@ -8,7 +8,7 @@ module Api
                                 :course_level_id, :currency, :week_day_schedules_attributes, :cover_image
       ]
 
-      skip_before_action :authenticate_user!, only: [:follow, :show, :index, :show]
+      skip_before_action :authenticate_user!, only: [:follow, :show, :index]
       before_action :check_course_owner, only: [:show, :update]
 
       def index
@@ -22,6 +22,11 @@ module Api
         else
           @courses = @courses.all
         end
+
+        @courses.each do |course|
+          authorize course
+        end
+
         @courses = paginate @courses.includes(:user, :category, :course_level, :week_day_schedules)
         render json: @courses, each_serializer: CoursesSerializer, full_info: true
       end
@@ -37,7 +42,11 @@ module Api
                     .where("DATE_PART('hour', end_time) * 60 + DATE_PART('minute', end_time) > ?", current_minute)
         @courses = @courses.includes(:user, :category, :course_level, :week_day_schedules)
 
-        render json: @courses, each_serializer: CoursesSerializer, full_info: true
+        @courses.each do |course|
+          authorize course, :index?
+        end
+
+        render json: @courses, each_serializer: CoursesSerializer, full_info: true, bbb: true
       end
 
       def upcomming_teaching_classes
@@ -51,7 +60,11 @@ module Api
                     .where("DATE_PART('hour', end_time) * 60 + DATE_PART('minute', end_time) > ?", current_minute)
         @courses = @courses.includes(:user, :category, :course_level, :week_day_schedules)
 
-        render json: @courses, each_serializer: CoursesSerializer, full_info: true
+        @courses.each do |course|
+          authorize course
+        end
+
+        render json: @courses, each_serializer: CoursesSerializer, full_info: true, bbb: true
       end
 
       def related_courses
@@ -59,6 +72,10 @@ module Api
         @courses = Course.includes(:user, :category, :course_level, :week_day_schedules)
                      .where(category_id: @course.category_id).order(created_at: :desc)
         @courses = paginate @courses
+
+        @courses.each do |course|
+          authorize course, :index?
+        end
 
         render json: @courses, each_serializer: CoursesSerializer, full_info: true
       end
@@ -91,6 +108,10 @@ module Api
 
         @courses = paginate Course.where(id: solr_search.results.map(&:id)).includes(:user, :category, :course_level, :week_day_schedules)
 
+        @courses.each do |course|
+          authorize course, :index?
+        end
+
         render json: @courses, each_serializer: CoursesSerializer, full_info: true
       end
 
@@ -101,6 +122,7 @@ module Api
       end
 
       def create
+        authorize Course
         @course = Course.new(course_params)
         @course.user_id = current_user.id
 
@@ -114,10 +136,12 @@ module Api
 
       def show
         token = CourseView.new(@course).new_view
+        authorize @course
         render json: @course, serializer: CoursesSerializer, view_token: token, full_info: true, bbb: true
       end
 
       def update
+        authorize @course
         if course_params[:week_day_schedules_attributes]
           schedule_to_delete = @course.week_day_schedules.pluck(:id)
         end
@@ -133,6 +157,7 @@ module Api
 
       def destroy
         @course = Course.find(params[:id])
+        authorize @course
         @course.destroy
         render json: {id: @course.id}
       end
@@ -157,6 +182,7 @@ module Api
 
       def get_rating
         course = Course.find(params[:id])
+        authorize course, :show?
         if course.course_ratings.count == 0
           render json: {rating: 0} and return
         end

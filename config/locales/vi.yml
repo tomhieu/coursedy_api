@@ -63,6 +63,9 @@ vi:
         phone_number: "Số điện thoại"
     errors:
       models:
+        participation:
+          attributes:
+            user_id: "Bạn không thể đăng ký khoá học của mình"
         tutor_education:
           attributes:
             end_date:
