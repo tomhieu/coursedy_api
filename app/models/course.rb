@@ -83,7 +83,8 @@ class Course < ApplicationRecord
       owner_type: 'User',
       private: true,
       moderator_key: SecureRandom.base64(10),
-      attendee_key: SecureRandom.base64(10)
+      attendee_key: SecureRandom.base64(10),
+      moderator_api_password: SecureRandom.uuid
     )
 
     self.bigbluebutton_room = bbb_room
