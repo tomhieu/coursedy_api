@@ -170,6 +170,7 @@ module Api
 
       def enroll
         @course = Course.find(params[:id])
+        authorize @course, :show?
         @participation = Participation.create(user_id: current_user.id, course_id: @course.id)
         render json: @participation, serializer: ParticipationsSerializer
       end
