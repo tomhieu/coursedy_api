@@ -40,6 +40,7 @@ Rails.application.routes.draw do
         end
         resources :comments, only: [:create, :index]
         member do
+          get :participants
           post :view
           post :enroll
           get :user_enrolled

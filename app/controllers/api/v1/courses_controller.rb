@@ -175,6 +175,15 @@ module Api
         render json: @participation, serializer: ParticipationsSerializer
       end
 
+      def participants
+        @course = Course.find(params[:id])
+        authorize @course, :update?
+
+        user_ids = Participation.where(course_id: @course.id).pluck(:user_id)
+        @users = User.where(id: user_ids)
+        render json: @users, each_serializer: UsersSerializer
+      end
+
       def user_enrolled
         @course = Course.find(params[:id])
         enrolled = Participation.where(user_id: current_user.id, course_id: @course.id).exists?
