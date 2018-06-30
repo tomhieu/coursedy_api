@@ -20,7 +20,8 @@ class CoursesSerializer < ActiveModel::Serializer
              :lesson_count,
              :rating_count,
              :rating_points,
-             :bigbluebutton_room
+             :bigbluebutton_room,
+             :student_count
 
   def bigbluebutton_room
     if @instance_options[:bbb]
