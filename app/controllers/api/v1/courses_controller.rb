@@ -3,7 +3,7 @@ module Api
     class CoursesController < ApiController
       skip_before_action :authenticate_user!, only: [:index, :search, :view, :get_rating]
 
-      wrap_parameters include: [:title, :description, :start_date, :is_free,
+      wrap_parameters include: [:title, :description, :start_date, :is_free, :status,
                                 :number_of_students, :period, :tuition_fee, :category_id, :is_public,
                                 :course_level_id, :currency, :week_day_schedules_attributes, :cover_image
       ]
