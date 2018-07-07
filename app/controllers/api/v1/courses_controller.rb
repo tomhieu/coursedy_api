@@ -61,7 +61,7 @@ module Api
         @courses = @courses.includes(:user, :category, :course_level, :week_day_schedules)
 
         @courses.each do |course|
-          authorize course
+          authorize course, :show?
         end
 
         render json: @courses, each_serializer: CoursesSerializer, full_info: true, bbb: true
