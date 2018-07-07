@@ -63,6 +63,9 @@ vi:
         phone_number: "Số điện thoại"
     errors:
       models:
+        account:
+          attributes:
+            balance: "Số dư tài khoản phải lớn hơn 0"
         participation:
           attributes:
             user_id: "Bạn không thể đăng ký khoá học của mình"

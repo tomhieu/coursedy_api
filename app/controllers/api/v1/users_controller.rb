@@ -11,6 +11,11 @@ module Api
         end
       end
 
+      def accounts
+        @accounts = current_user.accounts
+        render json: @accounts, each_serializer: AccountsSerializer
+      end
+
       def enrolled_courses
         render json: current_user.enrolled_courses.includes(:user, :category, :course_level, :week_day_schedules),
                each_serializer: CoursesSerializer, full_info: true

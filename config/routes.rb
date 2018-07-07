@@ -15,12 +15,14 @@ Rails.application.routes.draw do
   
   namespace :api do
     namespace :v1 do
+      resources :accounts, only: [:show, :update, :index]
       resources :users, only: [] do
         collection do
           get :enrolled_courses
           get :followed_courses
           post :rate_teacher
           get :courses
+          get :accounts
         end
 
         member do

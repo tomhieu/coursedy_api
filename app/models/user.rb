@@ -16,15 +16,17 @@ class User < ActiveRecord::Base
   has_many :followed_courses, source: 'course', through: :course_subscribers
   has_one :tutor, dependent: :destroy
   has_many :tutor_reviews, foreign_key: :teacher_id
+  has_many :accounts, dependent: :destroy
 
   validates :name, presence: true
   validates :gender, inclusion: ['F', 'M'], allow_nil: true
 
   after_create :create_tutor
+  after_create :create_accounts
 
-  ROLES = [:admin, :student, :teacher]
+  ROLES = [:admin, :student, :teacher].freeze
   DEFAULT_ROLE = :student
-  CLIENT_ROLE = ROLES - [:admin]
+  CLIENT_ROLE = (ROLES - [:admin]).freeze
 
   def admin?
     has_role? :admin
@@ -46,6 +48,13 @@ class User < ActiveRecord::Base
     if self.has_role?(:teacher)
       self.add_role(:student)
       Tutor.create(user_id: self.id)
+    end
+    self.update_attributes(role: role)
+  end
+
+  def create_accounts
+    Account::CURRENCIES.each do |c|
+      self.accounts.create(currency: c)
     end
   end
 end

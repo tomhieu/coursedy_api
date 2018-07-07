@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180630040941) do
+ActiveRecord::Schema.define(version: 20180707081645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.bigint "balance", default: 0
+    t.bigint "user_id"
+    t.string "currency"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
 
   create_table "bigbluebutton_attendees", force: :cascade do |t|
     t.string "user_id"
@@ -458,6 +467,7 @@ ActiveRecord::Schema.define(version: 20180630040941) do
     t.index ["course_id"], name: "index_week_day_schedules_on_course_id"
   end
 
+  add_foreign_key "accounts", "users"
   add_foreign_key "categories_tutors", "categories"
   add_foreign_key "categories_tutors", "tutors"
   add_foreign_key "comments", "courses"
