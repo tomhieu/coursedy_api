@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180707081645) do
+ActiveRecord::Schema.define(version: 20180707094203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -333,6 +333,20 @@ ActiveRecord::Schema.define(version: 20180707081645) do
     t.index ["user_id"], name: "index_participations_on_user_id"
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.bigint "from_user_id"
+    t.bigint "to_user_id"
+    t.bigint "course_id"
+    t.bigint "amount"
+    t.string "currency"
+    t.bigint "service_fee"
+    t.float "service_fee_rate"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_payments_on_course_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -493,6 +507,7 @@ ActiveRecord::Schema.define(version: 20180707081645) do
   add_foreign_key "lessons", "courses"
   add_foreign_key "participations", "courses"
   add_foreign_key "participations", "users"
+  add_foreign_key "payments", "courses"
   add_foreign_key "time_slots", "week_day_schedules"
   add_foreign_key "tutor_educations", "tutors"
   add_foreign_key "tutor_ratings", "courses"

@@ -69,6 +69,7 @@ vi:
         participation:
           attributes:
             user_id: "Bạn không thể đăng ký khoá học của mình"
+            course_id: "Bạn không có đủ tiền trong tài khoản để đăng ký khoá học này"
         tutor_education:
           attributes:
             end_date:

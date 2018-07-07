@@ -28,6 +28,10 @@ class User < ActiveRecord::Base
   DEFAULT_ROLE = :student
   CLIENT_ROLE = (ROLES - [:admin]).freeze
 
+  def account(c)
+    account.where(currency: c).first
+  end
+
   def admin?
     has_role? :admin
   end

@@ -171,7 +171,29 @@ module Api
       def enroll
         @course = Course.find(params[:id])
         authorize @course, :show?
-        @participation = Participation.create(user_id: current_user.id, course_id: @course.id)
+
+        account = current_user.account(:@course.currency)
+
+        account.with_lock do
+          raise("not enough balance") if account.balance < @course.tuition_fee
+
+          @participation = Participation.create(
+            user_id: current_user.id,
+            course_id: @course.id
+          )
+
+          Payment.create(
+            from_user_id: current_user.id,
+            to_user_id: @course.user_id,
+            amount: @course.tuition_fee,
+            currency: @course.currency,
+            service_fee: (@course.tuition_fee * AppSettings.service_fee.to_f/100).ceil,
+            service_fee_rate: AppSettings.service_fee.to_f/100
+          )
+
+          account.update_attributes(balance: account.balance - @course.tuition_fee)
+        end
+
         render json: @participation, serializer: ParticipationsSerializer
       end
 

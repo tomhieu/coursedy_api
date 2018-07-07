@@ -21,8 +21,10 @@ class Course < ApplicationRecord
   validates :title, presence: true
   validates :period, numericality: true, allow_blank: true
   validates :number_of_students, numericality: true, allow_blank: true
-  validates :tuition_fee, numericality: true, allow_blank: true
-  validates :currency, inclusion: {in: %w(vnd usd yen)}, allow_blank: true
+  validates :tuition_fee, numericality: {greater_than_or_equal_to: 0}
+  validates :currency, inclusion: {in: Account::CURRENCIES}
+  validates_presence_of :currency
+  validates_presence_of :tuition_fee
 
   after_create :setup_bbb_room
 

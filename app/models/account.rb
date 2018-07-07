@@ -3,12 +3,12 @@ class Account < ApplicationRecord
   validates_uniqueness_of :currency, scope: :user_id
   validate :account_must_greater_than_zero
 
-  CURRENCIES = [:vnd, :yen, :usd]
+  CURRENCIES = ['vnd', 'yen', 'usd']
 
   private
 
   def account_must_greater_than_zero
-    if account.balance < 0
+    if balance < 0
       errors.add(:balance, I18n.t('activerecord.errors.models.account.attributes.balance'))
     end
   end
