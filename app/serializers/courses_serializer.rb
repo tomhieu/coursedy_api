@@ -41,7 +41,7 @@ class CoursesSerializer < ActiveModel::Serializer
 
   def week_day_schedules
     if @instance_options[:full_info]
-      object.week_day_schedules.map{|d| {day: d.day, start_time: d.start_time&.strftime('%H:%M:%S'), end_time: d.end_time&.strftime('%H:%M:%S')}}
+      object.week_day_schedules.map{|d| {day: d.day, start_time: d.start_time&.utc&.strftime('%H:%M:%S'), end_time: d.end_time&.utc&.strftime('%H:%M:%S')}}
     else
       []
     end
