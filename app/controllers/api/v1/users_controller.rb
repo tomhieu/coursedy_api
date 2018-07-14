@@ -27,11 +27,18 @@ module Api
       end
 
       def courses
-        @courses = Course.unscoped.where(user_id: current_user.id)
-                     .includes(:user, :category, :course_level, :week_day_schedules)
+        if params[:id].present?
+          @courses = Course.where(user_id: params[:id])
+        else
+          @courses = Course.unscoped.where(user_id: current_user.id)
+        end
+
+        @courses = @courses.includes(:user, :category, :course_level, :week_day_schedules)
+
         unless params[:status].blank?
           @courses = @courses.where(status: params[:status])
         end
+
         @courses = paginate @courses
         render json: @courses, each_serializer: CoursesSerializer, full_info: true
       end

@@ -25,6 +25,20 @@ module Api
         render json: @tutors, each_serializer: TutorsSerializer, full_info: true
       end
 
+      def courses
+        tutor = Tutor.find(params[:id])
+        @courses = Course.where(user_id: tutor.user_id)
+
+        @courses = @courses.includes(:user, :category, :course_level, :week_day_schedules)
+
+        unless params[:status].blank?
+          @courses = @courses.where(status: params[:status])
+        end
+
+        @courses = paginate @courses
+        render json: @courses, each_serializer: CoursesSerializer, full_info: true
+      end
+
       def index
         @tutors = paginate Tutor.all.includes(:user, :categories, :degrees)
         render json: @tutors, each_serializer: TutorsSerializer, full_info: true

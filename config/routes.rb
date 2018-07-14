@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
         member do
           get :get_rating
+          get :courses
         end
       end
       get :current_user, to: 'users#current_api_user'
@@ -63,6 +64,10 @@ Rails.application.routes.draw do
           get :top_teachers
           get :current_tutor, to: 'tutors#current_tutor'
           get :tutor_by_user, to: 'tutors#tutor_by_user'
+        end
+
+        member do
+          get :courses
         end
       end
     end
