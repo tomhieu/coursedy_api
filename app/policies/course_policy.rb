@@ -7,7 +7,7 @@ class CoursePolicy
   end
 
   def create?
-    user.teacher? || user.admin?
+    user && (user.teacher? || user.admin?)
   end
 
   def show?
@@ -21,7 +21,7 @@ class CoursePolicy
   end
 
   def update?
-    user.admin? || course.user_id == user.id
+    user && (user.admin? || course.user_id == user.id)
   end
 
   def destroy?

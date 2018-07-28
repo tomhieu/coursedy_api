@@ -7,19 +7,19 @@ class CourseSectionPolicy
   end
 
   def create?
-    user.teacher? || user.admin?
+    user && (user.teacher? || user.admin?)
   end
 
   def show?
-    user.admin? || course_section.course.user_id == user.id || course_section.course.is_public
+    user && (user.admin? || course_section.course.user_id == user.id) || course_section.course.is_public
   end
 
   def index?
-    user.admin? || course_section.course.user_id == user.id || course_section.course.is_public
+    user && (user.admin? || course_section.course.user_id == user.id) || course_section.course.is_public
   end
 
   def update?
-    user.admin? || course_section.course.user_id == user.id
+    user && (user.admin? || course_section.course.user_id == user.id)
   end
 
   def destroy?

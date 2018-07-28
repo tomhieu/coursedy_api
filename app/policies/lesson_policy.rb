@@ -11,11 +11,11 @@ class LessonPolicy
   end
 
   def show?
-    user.admin? || lesson.course.user_id == user.id || lesson.course.is_public
+    user && (user.admin? || lesson.course.user_id == user.id) || lesson.course.is_public
   end
 
   def index?
-    user.admin? || lesson.course.user_id == user.id || lesson.course.is_public
+    user && (user.admin? || lesson.course.user_id == user.id) || lesson.course.is_public
   end
 
   def update?

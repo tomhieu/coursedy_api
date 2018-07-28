@@ -11,11 +11,11 @@ class WeekDaySchedulePolicy
   end
 
   def show?
-    user.admin? || week_day_schedule.course.user_id == user.id || week_day_schedule.course.is_public
+    user && (user.admin? || week_day_schedule.course.user_id == user.id) || week_day_schedule.course.is_public
   end
 
   def index?
-    user.admin? || week_day_schedule.course.user_id == user.id || week_day_schedule.course.is_public
+    user && (user.admin? || week_day_schedule.course.user_id == user.id) || week_day_schedule.course.is_public
   end
 
   def update?

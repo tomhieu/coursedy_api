@@ -7,15 +7,15 @@ class AccountPolicy
   end
 
   def show?
-    user.admin? || user.id == account.user_id
+    user && (user.admin? || user.id == account.user_id)
   end
 
   def create?
-    false
+    user && user.admin?
   end
 
   def update?
-    user.admin?
+    user && user.admin?
   end
 
   def destroy?

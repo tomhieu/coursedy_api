@@ -3,6 +3,8 @@ class Lesson < ApplicationRecord
   belongs_to :course_section
   has_many :documents, dependent: :destroy
 
+  enum status: [:not_started, :started, :finished]
+
   default_scope {where(:published => true)}
 
   validate :belong_to_course

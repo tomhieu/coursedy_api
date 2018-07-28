@@ -7,7 +7,7 @@ class TutorPolicy
   end
 
   def create?
-    user.teacher? || user.admin?
+    user.admin?
   end
 
   def update?
