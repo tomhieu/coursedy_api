@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'api/v1/auth', controllers: {
-    registrations: 'api/v1/registrations' # full module nesting
+    registrations: 'api/v1/registrations', # full module nesting
+    passwords: 'api/v1/passwords'
   }
 
   namespace :bigbluebutton do
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
   
   namespace :api do
     namespace :v1 do
+      resources :change_password_requests, only: [:create]
       resources :accounts, only: [:show, :update, :index]
       resources :users, only: [] do
         collection do

@@ -9,6 +9,7 @@ vi:
     sunday: 'Chủ Nhật'
   common_errors:
     invalid_course_id: 'Khoá học không đúng'
+    email_not_found: 'Không tìm thấy email'
   devise_token_auth:
     sessions:
       not_confirmed: "Bạn chưa kích hoạt tài khoản. Vui lòng kiểm tra email của bạn để kích hoạt"
