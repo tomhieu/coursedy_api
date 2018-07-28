@@ -57,6 +57,7 @@ vi:
       user: "Người dùng"
     attributes:
       user:
+        current_password: 'Mật khẩu hiện tại'
         password: "Mật khẩu"
         password_confirmation: "Mật khẩu xác nhận"
         first_name: "Tên"
@@ -111,6 +112,8 @@ vi:
             user_id: "Chỉ giáo viên mới được tạo khoá học"
         user:
           attributes:
+            current_password:
+              invalid: 'không đúng'
             password_confirmation:
               confirmation: "không đúng"
             password:
