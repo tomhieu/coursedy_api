@@ -3,5 +3,5 @@ class TutorRatingsSerializer < ActiveModel::Serializer
              :course_id,
              :teacher_id,
              :user_id,
-             :points
+             :points, :created_at, :updated_at
 end

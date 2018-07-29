@@ -1,5 +1,5 @@
 class CourseSectionSerializer < ActiveModel::Serializer
-  attributes :id, :title, :course_id, :lessons
+  attributes :id, :title, :course_id, :lessons, :created_at, :updated_at
 
   def lessons
     result = []
