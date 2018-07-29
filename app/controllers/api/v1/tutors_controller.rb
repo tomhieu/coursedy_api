@@ -1,7 +1,7 @@
 module Api
   module V1
     class TutorsController < ApiController
-      skip_before_action :authenticate_user!, only: [:tutor_by_user, :top_teachers, :index, :show, :search]
+      skip_before_action :authenticate_user!, only: [:tutor_by_user, :top_teachers, :index, :show, :search, :courses]
 
       def current_tutor
         render json: current_user.tutor, serializer: TutorsSerializer
