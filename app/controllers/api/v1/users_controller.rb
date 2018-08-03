@@ -11,6 +11,25 @@ module Api
         end
       end
 
+      def connect_facebook
+        if !params[:email] || !params[:name] || !params[:token] || !FacebookService.verify_user_token(params[:token], params[:app_user_id])
+          render_error_response('Unauthorized', 401) and return
+        end
+
+        if user = User.find_by(email: params[:email])
+          user.facebook_id = params[:app_user_id]
+          user.save
+        else
+          user = User.create(
+            email: params[:email],
+            password: SecureRandom.hex(20),
+            name: params[:name],
+            facebook_id: params[:app_user_id]
+          )
+        end
+
+      end
+
       def accounts
         @accounts = current_user.accounts
         render json: @accounts, each_serializer: AccountsSerializer
