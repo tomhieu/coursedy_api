@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < ApiController
-      skip_before_action :authenticate_user!, only: [:validate_email, :get_rating, :connect_facebook]
+      skip_before_action :authenticate_user!, only: [:validate_email, :get_rating, :connect_facebook, :connect_google]
 
       def current_api_user
         if current_user
@@ -27,6 +27,32 @@ module Api
             password: SecureRandom.hex(20),
             name: response['name'],
             facebook_id: response['id']
+          )
+        end
+
+        client_id, token = user.create_token
+
+        user.save
+
+        render json: {client_id: client_id, token: token, uid: user.email}
+      end
+
+      def connect_google
+        response = GoogleService.verify_user_token(params[:token])
+
+        unless response['email'] && response['aud'] == GoogleService.client_id
+          render_error_response('Unauthorized', 401) and return
+        end
+
+        if user = User.find_by(email: response['email'])
+          user.google_id = response['sub']
+          user.save
+        else
+          user = User.create(
+            email: response['email'],
+            password: SecureRandom.hex(20),
+            name: response['name'],
+            google_id: response['sub']
           )
         end
 

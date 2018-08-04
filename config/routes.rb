@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       resources :users, only: [] do
         collection do
           post :connect_facebook
+          post :connect_google
           get :enrolled_courses
           get :followed_courses
           post :rate_teacher
