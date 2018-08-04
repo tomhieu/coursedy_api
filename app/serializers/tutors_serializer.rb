@@ -6,7 +6,7 @@ class TutorsSerializer < ActiveModel::Serializer
       user= object.user
       avatar = user.avatar&.url
       avatar = AppSettings.asset_host + avatar if avatar
-      {name: user.name, avatar: avatar, rating_count: user.rating_count, rating_points: user.rating_points}
+      {name: user.name, avatar: avatar, rating_count: user.rating_count, rating_points: user.rating_points, email: user.email, date_of_birth: user.date_of_birth}
     end
   end
 
