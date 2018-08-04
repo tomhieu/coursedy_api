@@ -40,7 +40,12 @@ module Api
       end
 
       def index
-        @tutors = paginate Tutor.all.includes(:user, :categories, :degrees)
+        if params[:status]
+          @tutors = paginate Tutor.where(status: params[:status]).includes(:user, :categories, :degrees)
+        else
+          @tutors = paginate Tutor.all.includes(:user, :categories, :degrees)
+        end
+
         render json: @tutors, each_serializer: TutorsSerializer, full_info: true
       end
 
