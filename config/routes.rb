@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       resources :accounts, only: [:show, :update, :index]
       resources :users, only: [] do
         collection do
+          get :get_user
           post :connect_facebook
           post :connect_google
           get :enrolled_courses

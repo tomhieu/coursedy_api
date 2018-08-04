@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < ApiController
-      skip_before_action :authenticate_user!, only: [:validate_email, :get_rating, :connect_facebook, :connect_google]
+      skip_before_action :authenticate_user!, only: [:validate_email, :get_rating, :connect_facebook, :connect_google, :get_user]
 
       def current_api_user
         if current_user
@@ -9,6 +9,10 @@ module Api
         else
           render_error_response('not login', :not_found)
         end
+      end
+
+      def get_user
+        render json: {exist: User.where(email: params[:email]).exists?}
       end
 
       def connect_facebook
@@ -26,7 +30,8 @@ module Api
             email: response['email'],
             password: SecureRandom.hex(20),
             name: response['name'],
-            facebook_id: response['id']
+            facebook_id: response['id'],
+            role: params[:role]
           )
         end
 
@@ -52,7 +57,8 @@ module Api
             email: response['email'],
             password: SecureRandom.hex(20),
             name: response['name'],
-            google_id: response['sub']
+            google_id: response['sub'],
+            role: params[:role]
           )
         end
 
