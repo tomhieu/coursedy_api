@@ -17,8 +17,7 @@ class FacebookService
     end
 
     def verify_user_token(token, app_user_id)
-      response = HttpService.call(:get, "#{endpoint}/debug_token?input_token=#{token}&access_token=#{access_token}")['data']
-      response['is_valid'] && app_user_id == response['user_id']
+      HttpService.call(:get, "#{endpoint}/v3.1/#{app_user_id}?access_token=#{token}&fields=email,id,name")
     end
   end
 end

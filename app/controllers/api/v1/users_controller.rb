@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < ApiController
-      skip_before_action :authenticate_user!, only: [:validate_email, :get_rating]
+      skip_before_action :authenticate_user!, only: [:validate_email, :get_rating, :connect_facebook]
 
       def current_api_user
         if current_user
@@ -12,22 +12,29 @@ module Api
       end
 
       def connect_facebook
-        if !params[:email] || !params[:name] || !params[:token] || !FacebookService.verify_user_token(params[:token], params[:app_user_id])
+        response = FacebookService.verify_user_token(params[:token], params[:app_user_id])
+
+        unless response['email'] && response['id'] == params[:app_user_id]
           render_error_response('Unauthorized', 401) and return
         end
 
-        if user = User.find_by(email: params[:email])
-          user.facebook_id = params[:app_user_id]
+        if user = User.find_by(email: response['email'])
+          user.facebook_id = response['id']
           user.save
         else
           user = User.create(
-            email: params[:email],
+            email: response['email'],
             password: SecureRandom.hex(20),
-            name: params[:name],
-            facebook_id: params[:app_user_id]
+            name: response['name'],
+            facebook_id: response['id']
           )
         end
 
+        client_id, token = user.create_token
+
+        user.save
+
+        render json: {client_id: client_id, token: token, uid: user.email}
       end
 
       def accounts
