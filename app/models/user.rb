@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   DEFAULT_ROLE = :student
   CLIENT_ROLE = (ROLES - [:admin]).freeze
 
-  def account(c)
+  def account(c='vnd')
     accounts.where(currency: c).first
   end
 

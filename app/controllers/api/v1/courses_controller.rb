@@ -175,7 +175,7 @@ module Api
         @course = Course.find(params[:id])
         authorize @course, :show?
 
-        account = current_user.account(@course.currency)
+        account = current_user.account
         error = nil
 
         begin

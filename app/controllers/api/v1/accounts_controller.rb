@@ -9,7 +9,7 @@ module Api
       end
 
       def index
-        @accounts = User.find(params[:user_id])
+        @accounts = User.find(params[:user_id]).accounts
         @accounts.each do |a|
           authorize a, :show?
         end

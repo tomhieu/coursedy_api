@@ -8,11 +8,9 @@ class Payment < ApplicationRecord
   validates_presence_of :from_user_id
   validates_presence_of :to_user_id
   validates_presence_of :amount
-  validates_presence_of :currency
   validates_presence_of :service_fee
   validates :amount, numericality: {greater_than: 0}
   validates :service_fee, numericality: {greater_than: 0}
-  validates :currency, inclusion: {in: Account::CURRENCIES}
 
   after_update :refund_or_transfer
 
@@ -23,12 +21,12 @@ class Payment < ApplicationRecord
       #   send notification email to users
     elsif status == 'released'
       #   send notification email to users
-      payment_receiver_account = self.to_user.account(currency)
+      payment_receiver_account = self.to_user.account
     elsif status == 'cancelled'
-      payment_receiver_account = self.from_user.account(currency)
+      payment_receiver_account = self.from_user.account
     end
 
-    payment_receiver_account.with_lock do
+    payment_receiver_˙account.with_lock do
       payment_receiver_account.updte_attributes(
         balance: payment_receiver_account.balance + amount - service_fee
       )

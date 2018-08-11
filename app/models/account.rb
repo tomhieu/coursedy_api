@@ -3,7 +3,7 @@ class Account < ApplicationRecord
   validates_uniqueness_of :currency, scope: :user_id
   validate :account_must_greater_than_zero
 
-  CURRENCIES = ['vnd', 'yen', 'usd']
+  CURRENCIES = ['vnd']
 
   private
 
