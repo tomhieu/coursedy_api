@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   CLIENT_ROLE = (ROLES - [:admin]).freeze
 
   def account(c)
-    account.where(currency: c).first
+    accounts.where(currency: c).first
   end
 
   def admin?
