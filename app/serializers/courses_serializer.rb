@@ -6,7 +6,6 @@ class CoursesSerializer < ActiveModel::Serializer
              :number_of_students,
              :period,
              :tuition_fee,
-             :currency,
              :cover_image,
              :user,
              :user_id,
