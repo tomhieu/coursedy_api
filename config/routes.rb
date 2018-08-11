@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   
   namespace :api do
     namespace :v1 do
+      resources :exchange_rates, only: [:index]
       resources :change_password_requests, only: [:create]
       resources :accounts, only: [:show, :update, :index]
       resources :users, only: [] do

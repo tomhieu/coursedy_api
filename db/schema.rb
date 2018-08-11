@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180804143545) do
+ActiveRecord::Schema.define(version: 20180811092700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -251,7 +251,6 @@ ActiveRecord::Schema.define(version: 20180804143545) do
     t.integer "period"
     t.integer "number_of_students"
     t.integer "tuition_fee"
-    t.string "currency"
     t.string "cover_image"
     t.bigint "category_id"
     t.bigint "course_level_id"
@@ -338,7 +337,6 @@ ActiveRecord::Schema.define(version: 20180804143545) do
     t.bigint "to_user_id"
     t.bigint "course_id"
     t.bigint "amount"
-    t.string "currency"
     t.bigint "service_fee"
     t.float "service_fee_rate"
     t.integer "status", default: 0
