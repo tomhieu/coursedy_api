@@ -1,7 +1,7 @@
 module Api
   module V1
     class CoursesController < ApiController
-      skip_before_action :authenticate_user!, only: [:index, :search, :view, :get_rating]
+      skip_before_action :authenticate_user!, only: [:index, :search, :view, :get_rating, :related_courses]
 
       wrap_parameters include: [:title, :description, :start_date, :is_free, :status,
                                 :number_of_students, :period, :tuition_fee, :category_id, :is_public,
@@ -182,16 +182,19 @@ module Api
             course_id: @course.id
           )
 
-          Payment.create(
+          payment = Payment.create(
             from_user_id: current_user.id,
             to_user_id: @course.user_id,
             amount: @course.tuition_fee,
             currency: @course.currency,
             service_fee: (@course.tuition_fee * AppSettings.service_fee.to_f/100).ceil,
-            service_fee_rate: AppSettings.service_fee.to_f/100
+            service_fee_rate: AppSettings.service_fee.to_f/100,
+            course_id: @course.id
           )
 
           account.update_attributes(balance: account.balance - @course.tuition_fee)
+
+          raise 'cannot enroll' unless @participation.errors.messages.blank? && payment.errors.messages.blank? && account.errors.messages.blank?
         end
 
         render json: @participation, serializer: ParticipationsSerializer

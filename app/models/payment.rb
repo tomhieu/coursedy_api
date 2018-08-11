@@ -10,8 +10,8 @@ class Payment < ApplicationRecord
   validates_presence_of :amount
   validates_presence_of :currency
   validates_presence_of :service_fee
-  validates :amount, numericality: {greater_than_or_equal_to: 0}
-  validates :service_fee, numericality: {greater_than_or_equal_to: 0}
+  validates :amount, numericality: {greater_than: 0}
+  validates :service_fee, numericality: {greater_than: 0}
   validates :currency, inclusion: {in: Account::CURRENCIES}
 
   after_update :refund_or_transfer
