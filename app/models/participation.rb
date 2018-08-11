@@ -10,7 +10,7 @@ class Participation < ApplicationRecord
   private
 
   def not_course_owner
-    errors.add(:user_id, I18n.t("activerecord.errors.models.participation.attributes.user_id")) if course.user_id == self.user_id
+    errors.add(:user_id, I18n.t("activerecord.errors.models.participation.attributes.user_id.owner")) if course.user_id == self.user_id
   end
 
   def increase_student_count

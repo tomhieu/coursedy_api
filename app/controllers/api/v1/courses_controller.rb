@@ -206,7 +206,7 @@ module Api
         rescue NotEnoughBalance => e
           error = 'not enough balance'
         rescue CourseOwnerEnroll => e
-          error = 'Owner cannot enroll'
+          error = @participation.errors.messages.first[1][0]
         end
 
         render_error_response(error, 402) and return if error
