@@ -193,7 +193,6 @@ module Api
               from_user_id: current_user.id,
               to_user_id: @course.user_id,
               amount: @course.tuition_fee,
-              currency: @course.currency,
               service_fee: (@course.tuition_fee * AppSettings.service_fee.to_f/100).ceil,
               service_fee_rate: AppSettings.service_fee.to_f/100,
               course_id: @course.id
@@ -251,7 +250,7 @@ module Api
       def course_params
         params.require(:course).permit(:title, :description, :start_date, :is_free, :status,
                                        :number_of_students, :period, :tuition_fee, :category_id, :is_public,
-                                       :course_level_id, :currency, :cover_image, week_day_schedules_attributes: [:day, :start_time, :end_time]
+                                       :course_level_id, :cover_image, week_day_schedules_attributes: [:day, :start_time, :end_time]
         )
       end
     end
