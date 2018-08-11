@@ -1,5 +1,8 @@
 module Api
   module V1
+    class NotEnoughBalance < Exception; end
+    class CourseOwnerEnroll < Exception; end
+
     class CoursesController < ApiController
       skip_before_action :authenticate_user!, only: [:index, :search, :view, :get_rating, :related_courses]
 
@@ -173,30 +176,40 @@ module Api
         authorize @course, :show?
 
         account = current_user.account(@course.currency)
+        error = nil
 
-        account.with_lock do
-          raise("not enough balance") if account.balance < @course.tuition_fee
+        begin
+          account.with_lock do
+            raise NotEnoughBalance if account.balance < @course.tuition_fee
 
-          @participation = Participation.create(
-            user_id: current_user.id,
-            course_id: @course.id
-          )
+            @participation = Participation.create(
+              user_id: current_user.id,
+              course_id: @course.id
+            )
 
-          payment = Payment.create(
-            from_user_id: current_user.id,
-            to_user_id: @course.user_id,
-            amount: @course.tuition_fee,
-            currency: @course.currency,
-            service_fee: (@course.tuition_fee * AppSettings.service_fee.to_f/100).ceil,
-            service_fee_rate: AppSettings.service_fee.to_f/100,
-            course_id: @course.id
-          )
+            raise CourseOwnerEnroll unless @participation.errors.messages.blank?
 
-          account.update_attributes(balance: account.balance - @course.tuition_fee)
+            payment = Payment.create(
+              from_user_id: current_user.id,
+              to_user_id: @course.user_id,
+              amount: @course.tuition_fee,
+              currency: @course.currency,
+              service_fee: (@course.tuition_fee * AppSettings.service_fee.to_f/100).ceil,
+              service_fee_rate: AppSettings.service_fee.to_f/100,
+              course_id: @course.id
+            )
 
-          raise 'cannot enroll' unless @participation.errors.messages.blank? && payment.errors.messages.blank? && account.errors.messages.blank?
+            account.update_attributes(balance: account.balance - @course.tuition_fee)
+
+            raise NotEnoughBalance unless payment.errors.messages.blank? && account.errors.messages.blank?
+          end
+        rescue NotEnoughBalance => e
+          error = 'not enough balance'
+        rescue CourseOwnerEnroll => e
+          error = 'Owner cannot enroll'
         end
 
+        render_error_response(error, 402) and return if error
         render json: @participation, serializer: ParticipationsSerializer
       end
 
