@@ -8,10 +8,10 @@ class User < ActiveRecord::Base
 
   mount_base64_uploader :avatar, AvatarUploader, file_name: -> (u) { u.name +  SecureRandom.hex(20)}
   
-  has_many :courses
-  has_many :tutor_ratings
-  has_many :participations
-  has_many :course_subscribers
+  has_many :courses, dependent: :destroy
+  has_many :tutor_ratings, dependent: :destroy
+  has_many :participations, dependent: :destroy
+  has_many :course_subscribers, dependent: :destroy
   has_many :enrolled_courses, source: 'course', through: :participations
   has_many :followed_courses, source: 'course', through: :course_subscribers
   has_one :tutor, dependent: :destroy

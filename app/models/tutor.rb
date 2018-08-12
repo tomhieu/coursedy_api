@@ -4,7 +4,7 @@ class Tutor < ApplicationRecord
 
   has_and_belongs_to_many :categories
   has_and_belongs_to_many :districts
-  has_many :tutor_educations
+  has_many :tutor_educations, dependent: :destroy
 
   validates :title, presence: true, on: :update
 
