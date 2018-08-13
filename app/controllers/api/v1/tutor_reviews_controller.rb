@@ -4,6 +4,7 @@ module Api
       def create
         @tutor_review = TutorReview.new(tutor_review_params)
         @tutor_review.teacher_id = params[:tutor_id]
+        @tutor_review.user_id = current_user.id
         @tutor_review.save
 
         if @tutor_review.errors.messages.count > 0
