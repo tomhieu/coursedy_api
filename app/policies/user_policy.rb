@@ -1,4 +1,4 @@
-class UserPloicy
+class UserPolicy
   attr_reader :user, :profile
 
   def initialize(user, profile)
