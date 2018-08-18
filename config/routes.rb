@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       resources :exchange_rates, only: [:index]
       resources :change_password_requests, only: [:create]
       resources :accounts, only: [:show, :update, :index]
-      resources :users, only: [] do
+      resources :users, only: [:show] do
         collection do
           get :get_user
           post :connect_facebook

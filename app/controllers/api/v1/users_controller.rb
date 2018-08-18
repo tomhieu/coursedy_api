@@ -3,6 +3,13 @@ module Api
     class UsersController < ApiController
       skip_before_action :authenticate_user!, only: [:validate_email, :get_rating, :connect_facebook, :connect_google, :get_user]
 
+      def show
+        @user = User.find(params[:id])
+        authorize @user
+
+        render json: @user, serializer: UsersSerializer
+      end
+
       def current_api_user
         if current_user
           render json: current_user, serializer: UsersSerializer
