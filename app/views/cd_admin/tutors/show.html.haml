@@ -1,0 +1,43 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @cd_admin_tutor.title
+%p
+  %b Description:
+  = @cd_admin_tutor.description
+%p
+  %b User Name:
+  = @cd_admin_tutor.user.name
+%p
+  %b User Email:
+  = @cd_admin_tutor.user.email
+%p
+  %b Specialties:
+  = @cd_admin_tutor.categories.map(&:name).join(', ')
+%div.mb-3
+  %b Degrees:
+  - @cd_admin_tutor.tutor_educations.each do |a|
+    %p= link_to a.item.file.original_filename, a.item.url, target: '_blank'
+%p
+  %b Hour rate:
+  = @cd_admin_tutor.hour_rate
+%p
+  %b Highest education:
+  = @cd_admin_tutor.highest_education
+%p
+  %b Teach online:
+  = @cd_admin_tutor.teach_online
+%p
+  %b Currency:
+  = @cd_admin_tutor.currency
+%p
+  %b Place of work:
+  = @cd_admin_tutor.place_of_work
+%p
+  %b Status:
+  = @cd_admin_tutor.status
+
+= link_to 'Edit', edit_cd_admin_tutor_path(@cd_admin_tutor)
+\|
+= link_to 'Back', cd_admin_tutors_path

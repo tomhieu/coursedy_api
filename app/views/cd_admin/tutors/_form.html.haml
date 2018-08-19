@@ -1,0 +1,36 @@
+.row
+  .col-sm-6
+    = form_for [:cd_admin, @cd_admin_tutor] do |f|
+      - if @cd_admin_tutor.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@cd_admin_tutor.errors.count, "error")} prohibited this cd_admin_tutor from being saved:"
+          %ul
+            - @cd_admin_tutor.errors.full_messages.each do |message|
+              %li= message
+
+      .form-group
+        = f.label :title
+        = f.text_field :title, class: 'form-control'
+      .form-group
+        = f.label :description
+        = f.text_area :description, class: 'form-control'
+      .form-group
+        = f.label :hour_rate
+        = f.number_field :hour_rate, class: 'form-control'
+      .form-group
+        = f.label :highest_education
+        = f.text_field :highest_education, class: 'form-control'
+      .form-group
+        = f.label :teach_online
+        = f.check_box :teach_online, class: 'form-control'
+      .form-group
+        = f.label :currency
+        = f.text_field :currency, class: 'form-control'
+      .form-group
+        = f.label :place_of_work
+        = f.text_field :place_of_work, class: 'form-control'
+      .form-group
+        = f.label :status
+        = f.select :status, Tutor::statuses.to_a.map{|x| [x[0], x[0]]}, {}, class: 'form-control'
+      .actions
+        = f.submit 'Save', class: 'btn btn-primary'

@@ -1,0 +1,2 @@
+module CdAdmin::TutorsHelper
+end

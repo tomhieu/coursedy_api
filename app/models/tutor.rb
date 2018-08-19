@@ -8,7 +8,7 @@ class Tutor < ApplicationRecord
 
   validates :title, presence: true, on: :update
 
-  enum status: [ :pending, :verified, :rejected ]
+  enum status: [ :pending, :rejected, :verified ]
 
   searchable do
     text :title, :description

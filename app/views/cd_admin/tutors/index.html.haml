@@ -1,0 +1,45 @@
+%h1 Tutor List
+
+%table.table
+  %thead
+    %tr
+      %th ID
+      %th Title
+      %th Description
+      %th User Name
+      %th User Email
+      %th Hour rate
+      %th Highest education
+      %th Teach online
+      %th Currency
+      %th Place of work
+      %th Status
+      %th
+
+  %tbody
+    - @cd_admin_tutors.each do |cd_admin_tutor|
+      %tr
+        %td= cd_admin_tutor.id
+        %td= cd_admin_tutor.title
+        %td= cd_admin_tutor.description
+        %td= link_to cd_admin_tutor.user.name, cd_admin_tutor_path(cd_admin_tutor)
+        %td= cd_admin_tutor.user.email
+        %td= cd_admin_tutor.hour_rate
+        %td= cd_admin_tutor.highest_education
+        %td= cd_admin_tutor.teach_online
+        %td= cd_admin_tutor.currency
+        %td= cd_admin_tutor.place_of_work
+        %td{style: "padding-top: 20px"}
+          - if cd_admin_tutor.status == 'rejected'
+            %span.bg-danger.text-white.p-2= cd_admin_tutor.status
+          - if cd_admin_tutor.status == 'verified'
+            %span.bg-success.text-white.p-2= cd_admin_tutor.status
+          - if cd_admin_tutor.status == 'pending'
+            %span.bg-warning.text-white.p-2= cd_admin_tutor.status
+        %td
+          = link_to 'Edit', edit_cd_admin_tutor_path(cd_admin_tutor), role: 'button', class: 'btn btn-primary'
+%br
+%hr
+= paginate @cd_admin_tutors
+
+%br

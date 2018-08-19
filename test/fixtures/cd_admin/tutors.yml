@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyString
+  user: one
+  hour_rate: 1
+  highest_education: MyString
+  teach_online: false
+  currency: MyString
+  place_of_work: MyString
+  status: 1
+
+two:
+  title: MyString
+  description: MyString
+  user: two
+  hour_rate: 1
+  highest_education: MyString
+  teach_online: false
+  currency: MyString
+  place_of_work: MyString
+  status: 1
