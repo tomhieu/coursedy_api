@@ -1,0 +1,13 @@
+.row.text-center{style: 'margin-top: 50px'}
+  .col-sm-6
+    .card{:style => "width: 18rem;"}
+      .card-body
+        %h5.card-title Pending Tutors
+        %h3.card-text= @tutor_count
+        %a.btn.btn-primary{:href => cd_admin_tutors_path}  View
+  .col-sm-6
+    .card{:style => "width: 18rem;"}
+      .card-body
+        %h5.card-title Pending Course
+        %h3.card-text= @course_count
+        %a.btn.btn-primary{:href => cd_admin_courses_path} View

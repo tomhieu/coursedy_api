@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   namespace :cd_admin do
+    resources :pages, only: [:index]
     resources :tutors, only: [:show, :edit, :update, :destroy, :index]
     resources :courses, only: [:show, :edit, :update, :destroy, :index]
   end
