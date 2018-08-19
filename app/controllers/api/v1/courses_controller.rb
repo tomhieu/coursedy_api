@@ -106,6 +106,7 @@ module Api
           end
 
           with :is_public, :true
+          with :verification_status, 2
           # order_by :published_at, :desc
         end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180811092700) do
+ActiveRecord::Schema.define(version: 20180819055512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -265,6 +265,7 @@ ActiveRecord::Schema.define(version: 20180811092700) do
     t.integer "rating_points", default: 0
     t.bigint "bigbluebutton_room_id"
     t.integer "student_count", default: 0
+    t.integer "verification_status", default: 0
     t.index ["bigbluebutton_room_id"], name: "index_courses_on_bigbluebutton_room_id"
     t.index ["category_id"], name: "index_courses_on_category_id"
     t.index ["city_id"], name: "index_courses_on_city_id"

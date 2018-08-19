@@ -1,5 +1,6 @@
 class Course < ApplicationRecord
   enum status: [ :not_started, :started, :finished ]
+  enum verification_status: [ :pending, :rejected, :approved ]
 
   mount_base64_uploader :cover_image, ImageUploader, file_name: -> (c) { SecureRandom.hex(20)}
 
@@ -37,14 +38,15 @@ class Course < ApplicationRecord
     end
 
     boolean :is_public
+    integer :verification_status
     integer :category_id
     integer :city_id
     integer :tuition_fee
     # time    :published_at
   end
 
-  default_scope {where(:is_public => true)}
-  scope :published, -> {where(is_public: true)}
+  default_scope {where(is_public: true, verification_status: 'approved')}
+  scope :published, -> {where(is_public: true, verification_status: 'approved')}
 
   accepts_nested_attributes_for :week_day_schedules
 
