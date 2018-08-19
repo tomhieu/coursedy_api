@@ -17,8 +17,16 @@
   = @cd_admin_tutor.categories.map(&:name).join(', ')
 %div.mb-3
   %b Degrees:
-  - @cd_admin_tutor.tutor_educations.each do |a|
+  - @cd_admin_tutor.degrees.each do |a|
     %p= link_to a.item.file.original_filename, a.item.url, target: '_blank'
+%div.mb-3
+  %b Education:
+  - @cd_admin_tutor.tutor_educations.each do |a|
+    .ml-5
+      %div= a.title
+      %div= a.graduated_from
+      %div= a.description
+      %hr
 %p
   %b Hour rate:
   = @cd_admin_tutor.hour_rate

@@ -46,6 +46,14 @@
   %b Rating points:
   = @cd_admin_course.rating_points
 
+.mb-3
+  %b Lessons:
+  - @cd_admin_course.lessons.each do |lesson|
+    .ml-5
+      %div= lesson.title
+      %div= lesson.description
+      %hr
+
 = link_to 'Edit', edit_cd_admin_course_path(@cd_admin_course)
 \|
 = link_to 'Back', cd_admin_courses_path
