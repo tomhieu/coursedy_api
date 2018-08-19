@@ -16,8 +16,8 @@
   %b Is public:
   = @cd_admin_course.is_public
 %p
-  %b Is active:
-  = @cd_admin_course.is_active
+  %b Verification Status:
+  = @cd_admin_course.verification_status.upcase
 %p
   %b Period:
   = @cd_admin_course.period
