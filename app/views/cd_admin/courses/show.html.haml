@@ -62,22 +62,22 @@
   .col-sm-2
     = form_for [:cd_admin, @cd_admin_course] do |f|
       .form-group.d-none
-        = f.label :status
-        = f.select :status, Course::verification_statuses.to_a.map{|x| [x[0], x[0]]}, {selected: Course::APPROVED}, class: 'form-control'
+        = f.label :verification_statuse
+        = f.select :verification_statuse, Course::verification_statuses.to_a.map{|x| [x[0], x[0]]}, {selected: Course::APPROVED}, class: 'form-control'
       .actions
         = f.submit 'Approve', class: 'btn btn-primary'
   .col-sm-2
-    = form_for [:cd_admin, @cd_admin_tutor] do |f|
+    = form_for [:cd_admin, @cd_admin_course] do |f|
       .form-group.d-none
-        = f.label :status
-        = f.select :status, Course::verification_statuses.to_a.map{|x| [x[0], x[0]]}, {selected: Course::REJECTED}, class: 'form-control'
+        = f.label :verification_statuse
+        = f.select :verification_statuse, Course::verification_statuses.to_a.map{|x| [x[0], x[0]]}, {selected: Course::REJECTED}, class: 'form-control'
       .actions
         = f.submit 'Reject', class: 'btn btn-danger'
   .col-sm-2
-    = form_for [:cd_admin, @cd_admin_tutor] do |f|
+    = form_for [:cd_admin, @cd_admin_course] do |f|
       .form-group.d-none
-        = f.label :status
-        = f.select :status, Course::verification_statuses.to_a.map{|x| [x[0], x[0]]}, {selected: Course::PENDING}, class: 'form-control'
+        = f.label :verification_statuse
+        = f.select :verification_statuse, Course::verification_statuses.to_a.map{|x| [x[0], x[0]]}, {selected: Course::PENDING}, class: 'form-control'
       .actions
         = f.submit 'Reset', class: 'btn btn-warning'
 
