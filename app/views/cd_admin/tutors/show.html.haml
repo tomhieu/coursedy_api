@@ -44,8 +44,33 @@
   = @cd_admin_tutor.place_of_work
 %p
   %b Status:
-  = @cd_admin_tutor.status
+  %span{style: 'color: #007bff; text-transform: capitalize; margin-left: 20px'}= @cd_admin_tutor.status.upcase
 
-= link_to 'Edit', edit_cd_admin_tutor_path(@cd_admin_tutor)
-\|
-= link_to 'Back', cd_admin_tutors_path
+.row
+  .col-sm-2
+    = form_for [:cd_admin, @cd_admin_tutor] do |f|
+      .form-group.d-none
+        = f.label :status
+        = f.select :status, Tutor::statuses.to_a.map{|x| [x[0], x[0]]}, {selected: Tutor::VERIFIED}, class: 'form-control'
+      .actions
+        = f.submit 'Approve', class: 'btn btn-primary'
+  .col-sm-2
+    = form_for [:cd_admin, @cd_admin_tutor] do |f|
+      .form-group.d-none
+        = f.label :status
+        = f.select :status, Tutor::statuses.to_a.map{|x| [x[0], x[0]]}, {selected: Tutor::REJECTED}, class: 'form-control'
+      .actions
+        = f.submit 'Reject', class: 'btn btn-danger'
+  .col-sm-2
+    = form_for [:cd_admin, @cd_admin_tutor] do |f|
+      .form-group.d-none
+        = f.label :status
+        = f.select :status, Tutor::statuses.to_a.map{|x| [x[0], x[0]]}, {selected: Tutor::PENDING}, class: 'form-control'
+      .actions
+        = f.submit 'Reset', class: 'btn btn-warning'
+
+.row
+  .col-sm-12.mt-5.mb-5
+    = link_to 'Edit', edit_cd_admin_tutor_path(@cd_admin_tutor)
+    \|
+    = link_to 'Back', cd_admin_tutors_path
