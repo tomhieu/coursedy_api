@@ -17,7 +17,7 @@ module Api
             with(:category_id, params[:categories])
           end
 
-          with :status, 2
+          with :status, Tutor::VERIFIED
         end
 
         @tutors = paginate Tutor.where(id: solr_search.results.map(&:id)).includes(:user, :categories, :degrees)
