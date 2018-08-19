@@ -40,12 +40,12 @@
         %td= cd_admin_course.rating_count
         %td= cd_admin_course.rating_points
         %td{style: "padding-top: 20px"}
-          - if cd_admin_tutor.status == 'rejected'
-            %span.bg-danger.text-white.p-2= cd_admin_tutor.verification_status
-          - if cd_admin_tutor.status == 'approved'
-            %span.bg-success.text-white.p-2= cd_admin_tutor.verification_status
-          - if cd_admin_tutor.status == 'pending'
-            %span.bg-warning.text-white.p-2= cd_admin_tutor.verification_status
+          - if cd_admin_course.status == 'rejected'
+            %span.bg-danger.text-white.p-2= cd_admin_course.verification_status
+          - if cd_admin_course.status == 'approved'
+            %span.bg-success.text-white.p-2= cd_admin_course.verification_status
+          - if cd_admin_course.status == 'pending'
+            %span.bg-warning.text-white.p-2= cd_admin_course.verification_status
         %td= link_to 'Edit', edit_cd_admin_course_path(cd_admin_course), role: 'button', class: 'btn btn-primary'
 %br
 %hr
