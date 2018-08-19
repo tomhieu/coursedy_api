@@ -11,13 +11,13 @@ class CoursePolicy
   end
 
   def show?
-    return course.is_public unless user.present?
-    user.admin? || course.user_id == user.id || course.is_public
+    return course.public? unless user.present?
+    user.admin? || course.user_id == user.id || course.public?
   end
 
   def index?
     return course.is_public unless user.present?
-    user.admin? || course.user_id == user.id || course.is_public
+    user.admin? || course.user_id == user.id || course.public?
   end
 
   def update?

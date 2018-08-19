@@ -1,0 +1,53 @@
+%h1 Listing cd_admin_courses
+
+%table.table
+  %thead
+    %tr
+      %th ID
+      %th Title
+      %th Description
+      %th Start date
+      %th User ID
+      %th Is public
+      %th Period
+      %th Number of students
+      %th Tuition fee
+      %th Cover image
+      %th Category
+      %th Views
+      %th Status
+      %th Rating count
+      %th Rating points
+      %th Verification Status
+      %th
+
+  %tbody
+    - @cd_admin_courses.each do |cd_admin_course|
+      %tr
+        %td= cd_admin_course.id
+        %td= cd_admin_course.title
+        %td= cd_admin_course.description
+        %td= cd_admin_course.start_date
+        %td= cd_admin_course.user_id
+        %td= cd_admin_course.is_public
+        %td= cd_admin_course.period
+        %td= cd_admin_course.number_of_students
+        %td= cd_admin_course.tuition_fee
+        %td= cd_admin_course.cover_image
+        %td= cd_admin_course.category_id
+        %td= cd_admin_course.views
+        %td= cd_admin_course.status
+        %td= cd_admin_course.rating_count
+        %td= cd_admin_course.rating_points
+        %td{style: "padding-top: 20px"}
+          - if cd_admin_tutor.status == 'rejected'
+            %span.bg-danger.text-white.p-2= cd_admin_tutor.verification_status
+          - if cd_admin_tutor.status == 'approved'
+            %span.bg-success.text-white.p-2= cd_admin_tutor.verification_status
+          - if cd_admin_tutor.status == 'pending'
+            %span.bg-warning.text-white.p-2= cd_admin_tutor.verification_status
+        %td= link_to 'Edit', edit_cd_admin_course_path(cd_admin_course), role: 'button', class: 'btn btn-primary'
+%br
+%hr
+= paginate @cd_admin_courses
+%br

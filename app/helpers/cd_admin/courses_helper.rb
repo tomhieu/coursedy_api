@@ -1,0 +1,2 @@
+module CdAdmin::CoursesHelper
+end

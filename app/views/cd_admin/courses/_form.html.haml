@@ -1,0 +1,54 @@
+.row
+  .col-sm-6
+    = form_for [:cd_admin, @cd_admin_course] do |f|
+      - if @cd_admin_course.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@cd_admin_course.errors.count, "error")} prohibited this cd_admin_course from being saved:"
+          %ul
+            - @cd_admin_course.errors.full_messages.each do |message|
+              %li= message
+
+      .form-group
+        = f.label :title
+        = f.text_field :title, class: 'form-control'
+      .form-group
+        = f.label :description
+        = f.text_area :description, class: 'form-control'
+      .form-group
+        = f.label :is_public
+        = f.check_box :is_public, class: 'form-control'
+      .form-group
+        = f.label :period
+        = f.number_field :period, class: 'form-control'
+      .form-group
+        = f.label :number_of_students
+        = f.number_field :number_of_students, class: 'form-control'
+      .form-group
+        = f.label :tuition_fee
+        = f.number_field :tuition_fee, class: 'form-control'
+      .form-group
+        = f.label :category_id
+        = f.number_field :category_id, class: 'form-control'
+      .form-group
+        = f.label :course_level_id
+        = f.number_field :course_level_id, class: 'form-control'
+      .form-group
+        = f.label :location
+        = f.text_field :location, class: 'form-control'
+      .form-group
+        = f.label :views
+        = f.number_field :views, class: 'form-control'
+      .form-group
+        = f.label :status
+        = f.number_field :status, class: 'form-control'
+      .form-group
+        = f.label :rating_count
+        = f.number_field :rating_count, class: 'form-control'
+      .form-group
+        = f.label :rating_points
+        = f.number_field :rating_points, class: 'form-control'
+      .form-group
+        = f.label :verification_status
+        = f.number_field :verification_status, class: 'form-control'
+      .form-group
+        = f.submit 'Save', class: 'btn btn-primary'

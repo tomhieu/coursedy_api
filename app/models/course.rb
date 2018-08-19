@@ -45,6 +45,14 @@ class Course < ApplicationRecord
     # time    :published_at
   end
 
+  PENDING = 'pending'
+  REJECTED = 'rejected'
+  APPROVED = 'approved'
+
+  NOT_STARTED = 'not_started'
+  STARTED = 'started'
+  FINISHED = 'finished'
+
   default_scope {where(is_public: true, verification_status: 'approved')}
   scope :published, -> {where(is_public: true, verification_status: 'approved')}
 
@@ -57,6 +65,10 @@ class Course < ApplicationRecord
     4 => "Hải Phòng",
     5 => "Cần Thơ"
   }
+
+  def public?
+    is_public && verification_status == APPROVED
+  end
 
   private
 

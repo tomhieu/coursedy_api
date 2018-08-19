@@ -1,0 +1,51 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @cd_admin_course.title
+%p
+  %b Description:
+  = @cd_admin_course.description
+%p
+  %b Start date:
+  = @cd_admin_course.start_date
+%p
+  %b User:
+  = @cd_admin_course.user_id
+%p
+  %b Is public:
+  = @cd_admin_course.is_public
+%p
+  %b Is active:
+  = @cd_admin_course.is_active
+%p
+  %b Period:
+  = @cd_admin_course.period
+%p
+  %b Number of students:
+  = @cd_admin_course.number_of_students
+%p
+  %b Tuition fee:
+  = @cd_admin_course.tuition_fee
+%p
+  %b Cover image:
+  = @cd_admin_course.cover_image
+%p
+  %b Category:
+  = @cd_admin_course.category_id
+%p
+  %b Views:
+  = @cd_admin_course.views
+%p
+  %b Status:
+  = @cd_admin_course.status
+%p
+  %b Rating count:
+  = @cd_admin_course.rating_count
+%p
+  %b Rating points:
+  = @cd_admin_course.rating_points
+
+= link_to 'Edit', edit_cd_admin_course_path(@cd_admin_course)
+\|
+= link_to 'Back', cd_admin_courses_path

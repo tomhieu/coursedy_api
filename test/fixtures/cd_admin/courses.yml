@@ -1,0 +1,47 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  start_date: 2018-08-19 12:39:17
+  user_id: 1
+  is_public: false
+  is_active: false
+  created_at: 2018-08-19 12:39:17
+  updated_at: 2018-08-19 12:39:17
+  period: 1
+  number_of_students: 1
+  tuition_fee: 1
+  cover_image: MyString
+  category_id: 1
+  course_level_id: 1
+  location: MyString
+  city_id: 1
+  district_id: 1
+  views: 1
+  status: 1
+  rating_count: 1
+  rating_points: 1
+
+two:
+  title: MyString
+  description: MyText
+  start_date: 2018-08-19 12:39:17
+  user_id: 1
+  is_public: false
+  is_active: false
+  created_at: 2018-08-19 12:39:17
+  updated_at: 2018-08-19 12:39:17
+  period: 1
+  number_of_students: 1
+  tuition_fee: 1
+  cover_image: MyString
+  category_id: 1
+  course_level_id: 1
+  location: MyString
+  city_id: 1
+  district_id: 1
+  views: 1
+  status: 1
+  rating_count: 1
+  rating_points: 1

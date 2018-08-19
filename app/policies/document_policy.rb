@@ -11,11 +11,11 @@ class DocumentPolicy
   end
 
   def show?
-    user && (user.admin? || document.lesson.course.user_id == user.id) || document.lesson.course.is_public
+    user && (user.admin? || document.lesson.course.user_id == user.id) || document.lesson.course.public?
   end
 
   def index?
-    user && (user.admin? || document.lesson.course.user_id == user.id) || document.lesson.course.is_public
+    user && (user.admin? || document.lesson.course.user_id == user.id) || document.lesson.course.public?
   end
 
   def update?

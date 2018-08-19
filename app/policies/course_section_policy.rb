@@ -11,11 +11,11 @@ class CourseSectionPolicy
   end
 
   def show?
-    user && (user.admin? || course_section.course.user_id == user.id) || course_section.course.is_public
+    user && (user.admin? || course_section.course.user_id == user.id) || course_section.course.public?
   end
 
   def index?
-    user && (user.admin? || course_section.course.user_id == user.id) || course_section.course.is_public
+    user && (user.admin? || course_section.course.user_id == user.id) || course_section.course.public?
   end
 
   def update?
