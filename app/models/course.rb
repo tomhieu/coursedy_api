@@ -73,7 +73,7 @@ class Course < ApplicationRecord
   private
 
   def validate_creator
-    if !user.tutor || !user.has_role?(:teacher)
+    unless (user.teacher? || user.admin?)
       errors.add(:user_id, I18n.t("activerecord.errors.models.course.attributes.user_id"))
     end
   end
