@@ -26,14 +26,15 @@
       %tr
         %td= cd_admin_course.id
         %td= cd_admin_course.title
-        %td= cd_admin_course.description
+        %td= cd_admin_course.description.first(50)
         %td= cd_admin_course.start_date
         %td= cd_admin_course.user_id
         %td= cd_admin_course.is_public
         %td= cd_admin_course.period
         %td= cd_admin_course.number_of_students
         %td= cd_admin_course.tuition_fee
-        %td= cd_admin_course.cover_image
+        %td
+          %img{src: "#{AppSettings.host}/#{cd_admin_course.cover_image}", width: 100, height: 50}
         %td= cd_admin_course.category_id
         %td= cd_admin_course.views
         %td= cd_admin_course.status
