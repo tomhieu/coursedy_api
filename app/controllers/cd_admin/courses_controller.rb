@@ -22,7 +22,7 @@ module CdAdmin
     def update
       respond_to do |format|
         if @cd_admin_course.update(cd_admin_course_params)
-          format.html {redirect_to @cd_admin_course, notice: 'Course was successfully updated.'}
+          format.html {redirect_to cd_admin_course_path(@cd_admin_course), notice: 'Course was successfully updated.'}
           format.json {render :show, status: :ok, location: @cd_admin_course}
         else
           format.html {render :edit}
