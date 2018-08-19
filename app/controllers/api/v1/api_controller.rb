@@ -7,6 +7,8 @@ module Api
 
       rescue_from ActiveRecord::RecordNotFound,
                   with: :render_404
+      rescue_from Pundit::NotAuthorizedError,
+                  with: :render_404
       rescue_from ActionController::UnpermittedParameters,
                   ActionController::ParameterMissing,
                   ActiveRecord::RecordInvalid,
