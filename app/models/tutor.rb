@@ -10,15 +10,19 @@ class Tutor < ApplicationRecord
 
   enum status: [ :pending, :rejected, :verified ]
 
+  PENDING = 'pending'
+  REJECTED = 'rejected'
+  VERIFIED = 'verified'
+
+  default_scope {where(status: 'verified')}
+
   searchable do
     text :title, :description
     text :user do
       [user.name, user.email] if user
     end
 
-    string :roles, :multiple => true do
-      user.roles.map(&:name) if user
-    end
+    integer :status
 
     integer :category_id, :multiple => true do
       categories.map(&:id)

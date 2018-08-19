@@ -6,7 +6,7 @@ module CdAdmin
     # GET /cd_admin/tutors
     # GET /cd_admin/tutors.json
     def index
-      @cd_admin_tutors = ::Tutor.includes(:user, :categories, :tutor_educations).order(:status).page(params[:page] || 1)
+      @cd_admin_tutors = ::Tutor.unscoped.includes(:user, :categories, :tutor_educations).order(:status).page(params[:page] || 1)
     end
 
     # GET /cd_admin/tutors/1
