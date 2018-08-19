@@ -25,7 +25,7 @@
     - @cd_admin_courses.each do |cd_admin_course|
       %tr
         %td= cd_admin_course.id
-        %td= cd_admin_course.title
+        %td= link_to cd_admin_course.title, cd_admin_course_path(cd_admin_course)
         %td= cd_admin_course.description&.first(50)
         %td= cd_admin_course.start_date
         %td= cd_admin_course.user_id
