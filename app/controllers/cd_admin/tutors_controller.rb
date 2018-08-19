@@ -46,7 +46,7 @@ module CdAdmin
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_cd_admin_tutor
-      @cd_admin_tutor = ::Tutor.find(params[:id])
+      @cd_admin_tutor = ::Tutor.unscoped.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
