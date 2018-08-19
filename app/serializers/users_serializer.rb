@@ -1,5 +1,9 @@
 class UsersSerializer < ActiveModel::Serializer
-  attributes :id, :name, :phone_number, :email, :roles, :address, :date_of_birth, :gender, :avatar, :rating_count, :rating_points, :created_at, :updated_at
+  attributes :id, :name, :phone_number, :email, :balance, :roles, :address, :date_of_birth, :gender, :avatar, :rating_count, :rating_points, :created_at, :updated_at
+
+  def balance
+    object.account.balance
+  end
 
   def roles
     object.roles.pluck(:name)
