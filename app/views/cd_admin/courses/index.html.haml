@@ -26,7 +26,7 @@
       %tr
         %td= cd_admin_course.id
         %td= cd_admin_course.title
-        %td= cd_admin_course.description.first(50)
+        %td= cd_admin_course.description&.first(50)
         %td= cd_admin_course.start_date
         %td= cd_admin_course.user_id
         %td= cd_admin_course.is_public

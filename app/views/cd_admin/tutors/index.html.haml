@@ -21,7 +21,7 @@
       %tr
         %td= cd_admin_tutor.id
         %td= cd_admin_tutor.title
-        %td= cd_admin_tutor.description.first(50)
+        %td= cd_admin_tutor.description&.first(50)
         %td= link_to cd_admin_tutor.user.name, cd_admin_tutor_path(cd_admin_tutor)
         %td= cd_admin_tutor.user.email
         %td= cd_admin_tutor.hour_rate
