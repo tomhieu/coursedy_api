@@ -27,9 +27,7 @@ module Api
 
         end
 
-        search_results = solr_search.results
-
-        @tutors = paginate Tutor.where(status: Tutor::VERIFIED, id: search_results.map(&:id)).includes(:user, :categories, :degrees)
+        @tutors = paginate Tutor.where(id: solr_search.results.map(&:id)).includes(:user, :categories, :degrees)
 
         render json: @tutors, each_serializer: TutorsSerializer, full_info: true
       end

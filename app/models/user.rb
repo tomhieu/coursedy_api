@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
     self.add_role(role)
     if self.has_role?(:teacher)
       self.add_role(:student)
-      Tutor.create(user_id: self.id)
+      Tutor.unscoped.create(user_id: self.id)
     end
     self.update_attributes(role: role)
   end

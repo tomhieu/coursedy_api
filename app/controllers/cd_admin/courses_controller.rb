@@ -5,7 +5,7 @@ module CdAdmin
     # GET /cd_admin/courses
     # GET /cd_admin/courses.json
     def index
-      @cd_admin_courses = ::Course.unscoped.where(is_public: true).order(:verification_status).page(params[:page] || 1)
+      @cd_admin_courses = ::Course.unscoped.order(:verification_status).page(params[:page] || 1)
     end
 
     # GET /cd_admin/courses/1

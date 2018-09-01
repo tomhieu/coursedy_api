@@ -98,7 +98,7 @@ module Api
           fulltext params[:q]
 
           if !categories.blank?
-            with(:category_id, params[:categories])
+            with(:category_id, categories)
           end
 
           if !params[:min_fee].blank?
@@ -109,8 +109,6 @@ module Api
             with(:tuition_fee).less_than(params[:max_fee].to_i)
           end
 
-          with :is_public, :true
-          with :verification_status, Course::APPROVED
           # order_by :published_at, :desc
         end
 
@@ -138,7 +136,7 @@ module Api
 
       def create
         authorize Course
-        @course = Course.new(course_params)
+        @course = Course.unscoped.new(course_params)
         @course.user_id = current_user.id
 
         if @course.save
