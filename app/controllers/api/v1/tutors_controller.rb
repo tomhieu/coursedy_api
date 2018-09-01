@@ -8,19 +8,28 @@ module Api
       end
 
       def search
-        categories = (params[:categories] || []) + (params[:specializes] || [])
+        specializes = params[:specializes] || []
+        categories = params[:categories] || []
+
+        if specializes.blank?
+          sub_categories = Category.where(category_id: categories).map(&:id)
+          categories += sub_categories
+        else
+          categories += specializes
+        end
 
         solr_search = Tutor.search do
           fulltext params[:q]
 
           if !categories.blank?
-            with(:category_id, params[:categories])
+            with(:category_id, categories)
           end
 
-          with :status, Tutor::VERIFIED
         end
 
-        @tutors = paginate Tutor.where(id: solr_search.results.map(&:id)).includes(:user, :categories, :degrees)
+        search_results = solr_search.results
+
+        @tutors = paginate Tutor.where(status: Tutor::VERIFIED, id: search_results.map(&:id)).includes(:user, :categories, :degrees)
 
         render json: @tutors, each_serializer: TutorsSerializer, full_info: true
       end

@@ -84,17 +84,21 @@ module Api
       end
 
       def search
-        categories = (params[:categories] || []) + (params[:specializes] || [])
+        specializes = params[:specializes] || []
+        categories = params[:categories] || []
+
+        if specializes.blank?
+          sub_categories = Category.where(category_id: categories).map(&:id)
+          categories += sub_categories
+        else
+          categories += specializes
+        end
 
         solr_search = Course.search do
           fulltext params[:q]
 
           if !categories.blank?
             with(:category_id, params[:categories])
-          end
-
-          if !params[:locations].blank?
-            with(:city_id, params[:locations])
           end
 
           if !params[:min_fee].blank?
@@ -110,7 +114,14 @@ module Api
           # order_by :published_at, :desc
         end
 
-        @courses = paginate Course.where(id: solr_search.results.map(&:id)).includes(:user, :category, :course_level, :week_day_schedules)
+        if params[:week_day].blank?
+          @courses = paginate Course.where(id: solr_search.results.map(&:id))
+                                  .includes(:user, :category, :course_level, :week_day_schedules)
+        else
+          @courses = paginate Course.joins(:week_day_schedules)
+                                  .where(id: solr_search.results.map(&:id), week_day_schedules: {day: params[:week_day]})
+                                  .includes(:user, :category, :course_level, :week_day_schedules)
+        end
 
         @courses.each do |course|
           authorize course, :index?

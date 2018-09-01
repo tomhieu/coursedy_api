@@ -14,8 +14,6 @@ class Tutor < ApplicationRecord
   REJECTED = 'rejected'
   VERIFIED = 'verified'
 
-  default_scope {where(status: 'verified')}
-
   searchable do
     text :title, :description
     text :user do
