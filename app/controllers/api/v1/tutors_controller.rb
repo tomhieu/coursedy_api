@@ -4,7 +4,9 @@ module Api
       skip_before_action :authenticate_user!, only: [:tutor_by_user, :top_teachers, :index, :show, :search, :courses]
 
       def current_tutor
-        render json: current_user.tutor, serializer: TutorsSerializer
+        @current_tutor = Tutor.unscoped.where(user_id: current_user.id)
+                             .includes(:user, :categories, :degrees).first
+        render json: @current_tutor, serializer: TutorsSerializer
       end
 
       def search
