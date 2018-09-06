@@ -42,7 +42,6 @@ class Course < ApplicationRecord
     integer :category_id
     integer :city_id
     integer :tuition_fee
-    # time    :published_at
   end
 
   PENDING = 'pending'

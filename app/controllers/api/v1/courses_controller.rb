@@ -86,6 +86,7 @@ module Api
       def search
         specializes = params[:specializes] || []
         categories = params[:categories] || []
+        orderBy = params[:order_by]
 
         if specializes.blank?
           sub_categories = Category.where(category_id: categories).map(&:id)
@@ -109,7 +110,6 @@ module Api
             with(:tuition_fee).less_than(params[:max_fee].to_i)
           end
 
-          # order_by :published_at, :desc
         end
 
         if params[:week_day].blank?
@@ -119,6 +119,20 @@ module Api
           @courses = paginate Course.joins(:week_day_schedules)
                                   .where(id: solr_search.results.map(&:id), week_day_schedules: {day: params[:week_day]})
                                   .includes(:user, :category, :course_level, :week_day_schedules)
+        end
+
+        if orderBy == 'popularity'
+          @courses = @courses.order(views: :desc)
+        elsif orderBy == 'time_desc'
+          # TODO should use publish_at here
+          @courses = @courses.order(created_at: :desc)
+        elsif orderBy == 'time_asc'
+          # TODO should use publish_at here
+          @courses = @courses.order(created_at: :asc)
+        elsif orderBy == 'price_desc'
+          @courses = @courses.order(tuition_fee: :desc)
+        elsif orderBy == 'price_asc'
+          @courses = @courses.order(tuition_fee: :asc)
         end
 
         @courses.each do |course|
