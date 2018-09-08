@@ -1,5 +1,5 @@
 class Lesson < ApplicationRecord
-  belongs_to :course, -> { unscoped.where(id: self.course_id).first }
+  belongs_to :course, -> { unscope(where: [:verification_status, :is_public]) }
   belongs_to :course_section
   has_many :documents, dependent: :destroy
 
