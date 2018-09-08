@@ -3,6 +3,10 @@ module Api
     class UsersController < ApiController
       skip_before_action :authenticate_user!, only: [:validate_email, :get_rating, :connect_facebook, :connect_google, :get_user]
 
+      def my_notifications
+        render json: @user.notifications, each_serializer: NotificationsSerializer
+      end
+
       def show
         @user = User.find(params[:id])
         authorize @user

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
           post :connect_facebook
           post :connect_google
           get :enrolled_courses
+          get :my_notifications
           get :followed_courses
           post :rate_teacher
           get :courses

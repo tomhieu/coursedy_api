@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180908080306) do
+ActiveRecord::Schema.define(version: 20180908083044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -324,6 +324,18 @@ ActiveRecord::Schema.define(version: 20180908080306) do
     t.index ["course_section_id"], name: "index_lessons_on_course_section_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.string "content"
+    t.string "note_type"
+    t.boolean "already_read"
+    t.string "target_link"
+    t.bigint "user_id"
+    t.string "image_link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "participations", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "course_id"
@@ -513,6 +525,7 @@ ActiveRecord::Schema.define(version: 20180908080306) do
   add_foreign_key "documents", "lessons"
   add_foreign_key "lessons", "course_sections"
   add_foreign_key "lessons", "courses"
+  add_foreign_key "notifications", "users"
   add_foreign_key "participations", "courses"
   add_foreign_key "participations", "users"
   add_foreign_key "payments", "courses"
