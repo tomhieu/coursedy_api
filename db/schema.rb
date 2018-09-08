@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180819055512) do
+ActiveRecord::Schema.define(version: 20180908045527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -422,6 +422,10 @@ ActiveRecord::Schema.define(version: 20180819055512) do
     t.string "currency"
     t.string "place_of_work"
     t.integer "status", default: 0
+    t.string "facebook"
+    t.string "linkedin"
+    t.string "google_plus"
+    t.string "tweeter"
     t.index ["user_id"], name: "index_tutors_on_user_id"
   end
 
