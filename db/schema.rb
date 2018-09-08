@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180908045527) do
+ActiveRecord::Schema.define(version: 20180908080306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -276,10 +276,10 @@ ActiveRecord::Schema.define(version: 20180908045527) do
 
   create_table "degrees", force: :cascade do |t|
     t.bigint "user_id"
+    t.bigint "tutor_id"
     t.string "item"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "tutor_id"
     t.string "name"
     t.index ["tutor_id"], name: "index_degrees_on_tutor_id"
     t.index ["user_id"], name: "index_degrees_on_user_id"
@@ -463,6 +463,7 @@ ActiveRecord::Schema.define(version: 20180908045527) do
     t.integer "rating_points", default: 0
     t.string "facebook_id"
     t.string "google_id"
+    t.string "country_code"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -504,6 +505,7 @@ ActiveRecord::Schema.define(version: 20180908045527) do
   add_foreign_key "courses", "course_levels"
   add_foreign_key "courses", "districts"
   add_foreign_key "courses", "users"
+  add_foreign_key "degrees", "tutors"
   add_foreign_key "degrees", "users"
   add_foreign_key "districts", "cities"
   add_foreign_key "districts_tutors", "districts"
