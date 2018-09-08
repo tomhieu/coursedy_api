@@ -4,7 +4,7 @@ class LessonPolicy
   def initialize(user, lesson)
     @user = user
     @lesson = lesson
-    @course = Course.unscoped.where(id: @lesson.course_id)
+    @course = Course.unscoped.where(id: @lesson.course_id).first
   end
 
   def create?

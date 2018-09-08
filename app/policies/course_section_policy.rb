@@ -4,7 +4,7 @@ class CourseSectionPolicy
   def initialize(user, course_section)
     @user = user
     @course_section = course_section
-    @course = Course.unscoped.where(id: course_section.course_id)
+    @course = Course.unscoped.where(id: course_section.course_id).first
   end
 
   def create?
