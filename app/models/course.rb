@@ -92,7 +92,7 @@ class Course < ApplicationRecord
       duration: 90,
       auto_start_recording: false,
       name: self.title,
-      slug: "#{self.id}-#{self.title}".gsub(' ', '-'),
+      slug: "room-#{self.id}",
       owner_type: 'User',
       private: true,
       moderator_key: SecureRandom.base64(10),
