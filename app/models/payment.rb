@@ -17,21 +17,22 @@ class Payment < ApplicationRecord
   private
 
   def refund_or_transfer
-    return unless status_changed?
+    if status_changed?
+      if status == 'confirmed'
+        PaymentConfirmedWorker.perform_in(2.days, self.id)
+        return
+      elsif status == 'released'
+        #   send notification email to users
+        payment_receiver_account = self.to_user.account
+      elsif status == 'cancelled'
+        payment_receiver_account = self.from_user.account
+      end
 
-    if status == 'confirmed'
-      #   send notification email to users
-    elsif status == 'released'
-      #   send notification email to users
-      payment_receiver_account = self.to_user.account
-    elsif status == 'cancelled'
-      payment_receiver_account = self.from_user.account
-    end
-
-    payment_receiver_˙account.with_lock do
-      payment_receiver_account.updte_attributes(
-        balance: payment_receiver_account.balance + amount - service_fee
-      )
+      payment_receiver_account.with_lock do
+        payment_receiver_account.update_attributes(
+          balance: payment_receiver_account.balance + amount - service_fee
+        )
+      end
     end
   end
 end
