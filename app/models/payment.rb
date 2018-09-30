@@ -17,6 +17,8 @@ class Payment < ApplicationRecord
   private
 
   def refund_or_transfer
+    return unless status_changed?
+
     if status == 'confirmed'
       #   send notification email to users
     elsif status == 'released'
