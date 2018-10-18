@@ -4,10 +4,41 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style>
       /* Email styles need to be inline */
+      .mail-header {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .mail-body {
+        background-color: #f5f5f5;
+        max-width: 500px;
+        margin: 20px auto;
+      }
+      .mail-footer {
+        color: #FFFFFF;
+        background-color: #364247;
+        max-width: 500px;
+        margin: 5px auto;
+      }
     </style>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="mail-header">
+      <a class="coursedy-logo"><%= image_tag('logo_coursedy.png') %></a>
+    </div>
+    <div class="mail-body">
+      <%= yield %>
+    </div>
+    <div class="mail-footer">
+      <span>Copyright © 2018 Coursedy</span>
+      <div class="term-and-privacy">
+        <div>Quy định</div>
+        <div>Chính sách bảo mật</div>
+      </div>
+      <div class="social-network">
+        <a><%= image_tag('facebook.png') %></a>
+        <a><%= image_tag('google_plus.png') %></a>
+      </div>
+    </div>
   </body>
 </html>
