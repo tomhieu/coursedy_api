@@ -107,13 +107,15 @@
     <p class="action-link"><%= link_to t('.confirm_account_link'), confirmation_url(@resource, {confirmation_token: @token, config: message['client-config'].to_s, redirect_url: message['redirect-url']}).html_safe %></p>
   </div>
 
-  <div class="complete_teacher_profile">
-    <div class="step-title"><%= t(".teacher_guide_title")%></div>
-    <div class="step-content"><%= t(".teacher_guide_message")%></div>
-    <div class="action-link">
-      <a href="https://coursedy.com/dashboard/account"><%=t('.teacher_guide_button')%></a>
-    </div>
-  </div>
+  <% if @resource.role == 'teacher' %>
+      <div class="complete_teacher_profile">
+        <div class="step-title"><%= t(".teacher_guide_title")%></div>
+        <div class="step-content"><%= t(".teacher_guide_message")%></div>
+        <div class="action-link">
+          <a href="https://coursedy.com/dashboard/account"><%=t('.teacher_guide_button')%></a>
+        </div>
+      </div>
+  <% end %>
 </div>
 <div class="mail-footer">
   <div class="term-and-privacy">
