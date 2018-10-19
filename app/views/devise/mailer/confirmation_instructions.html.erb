@@ -93,38 +93,38 @@
 </div>
 <div class="mail-body">
   <div class="header">
-    <p class="welcome-title"><%= t(".welcome_message", name: @resource.name) %></p>
+    <p class="welcome-title"><%= t(".welcome_message", name: @resource.name, locale: @resource.country_code == 'VN' ? 'vi' : 'en') %></p>
     <% if @resource.role == 'teacher' %>
-        <p class="welcome-message"><%= t(".some_guides_message", action: t(".teacher_action")) %> </p>
+        <p class="welcome-message"><%= t(".some_guides_message", action: t(".teacher_action"), locale: @resource.country_code == 'VN' ? 'vi' : 'en') %> </p>
     <% else %>
-        <p class="welcome-message"><%= t(".some_guides_message", action: t(".student_action")) %> </p>
+        <p class="welcome-message"><%= t(".some_guides_message", action: t(".student_action"), locale: @resource.country_code == 'VN' ? 'vi' : 'en') %> </p>
     <% end %>
   </div>
 
   <div class="validate_email">
-    <div class="step-title"><%= t(".ativation_guide_title")%></div>
-    <div class="step-content"><%= t(".ativation_guide_message")%></div>
-    <p class="action-link"><%= link_to t('.confirm_account_link'), confirmation_url(@resource, {confirmation_token: @token, config: message['client-config'].to_s, redirect_url: message['redirect-url']}).html_safe %></p>
+    <div class="step-title"><%= t(".ativation_guide_title", locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></div>
+    <div class="step-content"><%= t(".ativation_guide_message", locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></div>
+    <p class="action-link"><%= link_to t('.confirm_account_link', locale: @resource.country_code == 'VN' ? 'vi' : 'en'), confirmation_url(@resource, {confirmation_token: @token, config: message['client-config'].to_s, redirect_url: message['redirect-url']}).html_safe %></p>
   </div>
 
   <% if @resource.role == 'teacher' %>
       <div class="complete_teacher_profile">
-        <div class="step-title"><%= t(".teacher_guide_title")%></div>
-        <div class="step-content"><%= t(".teacher_guide_message")%></div>
+        <div class="step-title"><%= t(".teacher_guide_title", locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></div>
+        <div class="step-content"><%= t(".teacher_guide_message", locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></div>
         <div class="action-link">
-          <a href="https://coursedy.com/dashboard/account"><%=t('.teacher_guide_button')%></a>
+          <a href="https://coursedy.com/dashboard/account"><%=t('.teacher_guide_button', locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></a>
         </div>
       </div>
   <% end %>
 </div>
 <div class="mail-footer">
   <div class="term-and-privacy">
-    <a class="active-link" href="www.coursedy.com/help"><%=t('.footer.question')%></a>
-    <a class="active-link border-left" href="www.coursedy.com/privacy"><%=t('.footer.policy')%></a>
-    <a class="active-link border-left" href="www.coursedy.com/term"><%=t('.footer.term')%></a>
+    <a class="active-link" href="www.coursedy.com/help"><%=t('.footer.question', locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></a>
+    <a class="active-link border-left" href="www.coursedy.com/privacy"><%=t('.footer.policy', locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></a>
+    <a class="active-link border-left" href="www.coursedy.com/term"><%=t('.footer.term', locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></a>
   </div>
   <div class="connect-us">
-    <span><%=t('.footer.connect_us')%></span>
+    <span><%=t('.footer.connect_us', locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></span>
   </div>
   <div class="social-network">
     <a href="https://www.facebook.com/Coursedy-180847969290072/?eid=ARCURchDiKGhVAHos36Yc4ZpElEG3ktOX1j1voilgomOeNSoFzlxfDLPiof7H4dDGyJ9DI-fTKnM7kG8">
