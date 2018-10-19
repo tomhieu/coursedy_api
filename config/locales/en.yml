@@ -31,3 +31,19 @@
 
 en:
   hello: "Hello world"
+  devise:
+      mailer:
+        confirmation_instructions:
+          hello: "Hello %{name} !"
+          welcome_message: 'Welcome %{name} to Coursedy'
+          some_guides_message: 'You have been registered Coursedy account successfully. We are very happy you give us a try. Before start %{action} on Coursedy. Please do some small things as below:'
+          teacher_action: "teaching"
+          student_action: "learning"
+          confirm_account_link: 'Activate your account'
+        reset_password_instructions:
+          request_reset_link_msg: "Someone want to change your password. Please click on the link below to change your password."
+          password_change_link: "Change password"
+          ignore_mail_msg: "You can ignore such email if it's not your requirement."
+          no_changes_msg: "Your password will be kept as it is if you don't click on such link"
+      failure:
+        unauthenticated: "Please sign in"
