@@ -49,7 +49,7 @@ class Bigbluebutton::Api::RoomsController < Api::V1::ApiController
   end
 
   def join
-    join_internal(@user_name, @user_role, current_user.id)
+    join_internal(@user_name, @user_role, current_user.id, params[:lesson_id])
   end
 
   def join_mobile
@@ -60,7 +60,7 @@ class Bigbluebutton::Api::RoomsController < Api::V1::ApiController
 
   protected
 
-  def join_internal(username, role, id)
+  def join_internal(username, role, id, lesson_id)
     begin
       # first check if we have to create the room and if the user can do it
       unless @room.fetch_is_running?
@@ -73,7 +73,7 @@ class Bigbluebutton::Api::RoomsController < Api::V1::ApiController
       end
 
       # room created and running, try to join it
-      url = @room.parameterized_join_url(username, role, id, {joinViaHtml5: true}, current_user)
+      url = @room.parameterized_join_url(username, role, id, {joinViaHtml5: true, logoutURL: "https://coursedy.com/lessons/#{lesson_id}/review"}, current_user)
 
       unless url.nil?
 
