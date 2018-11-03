@@ -31,6 +31,10 @@ module Api
 
         @tutors = paginate Tutor.where(id: solr_search.results.map(&:id)).includes(:user, :categories, :degrees)
 
+        @tutors.each do |tutor|
+          authorize tutor, :show?
+        end
+
         render json: @tutors, each_serializer: TutorsSerializer, full_info: true
       end
 
@@ -60,11 +64,13 @@ module Api
 
       def show
         @tutor = Tutor.find(params[:id])
+        authorize @tutor
         render json: @tutor, serializer: TutorsSerializer, full_info: true
       end
 
       def update
         @tutor = Tutor.find(params[:id])
+        authorize @tutor
         @tutor.update_attributes(tutor_params)
 
         categories  = Category.where(id: params[:categories])
