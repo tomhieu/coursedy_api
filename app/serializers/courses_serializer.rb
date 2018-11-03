@@ -15,6 +15,7 @@ class CoursesSerializer < ActiveModel::Serializer
              :course_level,
              :is_public,
              :week_day_schedules,
+             :lessons,
              :token,
              :lesson_count,
              :rating_count,
