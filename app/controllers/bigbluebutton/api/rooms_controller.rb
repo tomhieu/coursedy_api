@@ -79,7 +79,7 @@ class Bigbluebutton::Api::RoomsController < Api::V1::ApiController
       end
 
       # room created and running, try to join it
-      url = @room.parameterized_join_url(username, role, id, {joinViaHtml5: true}, current_user)
+      url = @room.parameterized_join_url(username, role, id, {joinViaHtml5: true, avatarURL: current_user.avatar&.url}, current_user)
 
       unless url.nil?
 
