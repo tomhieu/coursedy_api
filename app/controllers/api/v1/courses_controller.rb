@@ -60,6 +60,7 @@ module Api
         @courses = Course.where(status: :started)\
                     .where(user_id: current_user.id)\
                     .joins(:week_day_schedules).where(week_day_schedules: {day: current_wday})\
+                    .joins(:lessons).where(lesson: {status: Lesson::NOT_STARTED})
                     .where("DATE_PART('hour', start_time) * 60 + DATE_PART('minute', start_time) < ?", current_minute)\
                     .where("DATE_PART('hour', end_time) * 60 + DATE_PART('minute', end_time) > ?", current_minute)
         @courses = @courses.includes(:user, :category, :course_level, :week_day_schedules, :lessons)

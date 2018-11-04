@@ -320,7 +320,7 @@ ActiveRecord::Schema.define(version: 20180920063433) do
     t.datetime "updated_at", null: false
     t.text "description"
     t.boolean "published", default: false
-    t.integer "status"
+    t.integer "status", default: 0
     t.index ["course_id"], name: "index_lessons_on_course_id"
     t.index ["course_section_id"], name: "index_lessons_on_course_section_id"
   end

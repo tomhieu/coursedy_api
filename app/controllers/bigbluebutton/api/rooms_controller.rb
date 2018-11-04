@@ -64,8 +64,14 @@ class Bigbluebutton::Api::RoomsController < Api::V1::ApiController
     begin
       # first check if we have to create the room and if the user can do it
       unless @room.fetch_is_running?
+        # update logout url for teaching room
+        started_lesson = Lesson.find(lesson_id)
+        @room.logout_url = "https://coursedy.com/lessons/#{lesson_id}/review"
+        @room.name = started_lesson.title
         if bigbluebutton_can_create?(@room, role) && @room.create_meeting(current_user, request)
-            logger.info "Meeting created: id: #{@room.meetingid}, name: #{@room.name}, created_by: #{username}, time: #{Time.now.iso8601}"
+          # update lesson status is started after meeting is created
+          started_lesson.update(status: Lesson::STARTED)
+          logger.info "Meeting created: id: #{@room.meetingid}, name: #{@room.name}, created_by: #{username}, time: #{Time.now.iso8601}"
         else
           error_room_not_running
           return
@@ -73,7 +79,7 @@ class Bigbluebutton::Api::RoomsController < Api::V1::ApiController
       end
 
       # room created and running, try to join it
-      url = @room.parameterized_join_url(username, role, id, {joinViaHtml5: true, logoutURL: "https://coursedy.com/lessons/#{lesson_id}/review"}, current_user)
+      url = @room.parameterized_join_url(username, role, id, {joinViaHtml5: true}, current_user)
 
       unless url.nil?
 
