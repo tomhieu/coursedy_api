@@ -97,7 +97,8 @@ class Course < ApplicationRecord
       private: true,
       moderator_key: SecureRandom.base64(10),
       attendee_key: SecureRandom.base64(10),
-      moderator_api_password: SecureRandom.uuid
+      moderator_api_password: SecureRandom.uuid,
+      allow_start_stop_recording: false
     )
 
     self.bigbluebutton_room = bbb_room
