@@ -43,8 +43,22 @@ vi:
     mailer:
       confirmation_instructions:
         hello: "Chào %{name} !"
-        confirm_link_msg: 'Bạn đã đăng ký thành viên EzyLearning thành công. Để kích hoạt tài khoản, vui lòng nhấp vào link bên dưới:'
+        welcome_message: "Chào mừng %{name} đến với Coursedy"
+        some_guides_message: "Bạn đã đăng ký thành công tài khoản tại Coursedy. Chúng tôi xin chân thành cảm ơn bạn đã tin tưởng và sử dụng Coursedy. Dưới đây là một số hướng dẫn để bắt đầu %{action} trên ứng dụng Coursedy."
+        teacher_action: "dạy"
+        student_action: "học"
         confirm_account_link: 'Kích hoạt tài khoản'
+        ativation_guide_title: "1. Xác nhận tài khoản"
+        ativation_guide_message: "Để xác nhận tài khoản xin click vào nút phía dưới."
+        teacher_guide_title: "2. Hoàn thiện hồ sơ cá nhân."
+        teacher_guide_message: "Tài Coursedy chúng tôi luôn đặt chất lượng khoá học là quan trọng nhất. Do vậy, để đảm bảo chât lượng khoá học, chúng tôi cần bạn cung cấp một số thông tin cá nhân cũng như trình độ học vấn và lịch sử giảng dạy. Coursedy xin cảm ơn vì sự hợp tác này."
+        teacher_guide_button: "Hoàn thiện hồ sơ"
+        footer:
+          question: "Giải quyết thắc mắc"
+          policy: "Chính sách"
+          term: "Quy định"
+          connect_us: "Kết nối với chúng tôi"
+          copyright: "Copyright © 2018 Coursedy"
       reset_password_instructions:
         request_reset_link_msg: "Ai đó đã yêu cầu đổi mật khẩu đăng nhập. Vui lòng vào link bên dưới để đổi mật khẩu."
         password_change_link: "Đổi mật khẩu"

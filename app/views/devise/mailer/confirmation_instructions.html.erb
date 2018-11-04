@@ -1,5 +1,141 @@
-<p><%= t(".hello", name: @email).capitalize %>!</p>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <style>
+    /* Email styles need to be inline */
+    .mail-header {
+      max-width: 500px;
+      margin: 0 auto;
+    }
 
-<p><%= t '.confirm_link_msg' %> </p>
+    .coursedy-logo {
+      margin-left: -20px;
+    }
+    .mail-body {
+      background-color: #f5f5f5;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .mail-footer {
+      color: #FFFFFF;
+      background-color: #424E55;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    a.active-link {
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 0 5px;
+    }
+    .validate_email, .complete_teacher_profile {
+      margin: 0 10px;
+    }
+    .welcome-title {
+      font-size: 30px;
+      font-weight: 700;
+      margin: 10px 50px;
+      line-height: 37px;
+    }
+    .welcome-message {
+      text-align: center;
+      margin: 25px 10px;
+    }
+    .step-title {
+      color: #1CABA0;
+    }
+    .step-content {
+      padding-left: 10px;
+    }
+    .action-link {
+      text-align: center;
+      margin-top: 20px;
+      line-height: 40px;
+    }
+    .action-link a {
+      height: 40px;
+      min-width: 100px;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 14px;
+      transition: width 2s;
+      padding: 12px 40px;
+      outline: none;
+      background-color: #FF7F45;
+      border: none;
+      border-radius: 100px;
+      width: 200px;
+      text-decoration: none;
+    }
+    .action-link a:hover {
+      border: 1px solid #FF7F45;
+      color: #FF7F45;
+      background-color: transparent;
+    }
+    .border-left {
+      border-left: 1px solid #FFFFFF;
+    }
+    .connect-us {
+      margin: 12px 0 5px 0;
+    }
+    .copy-right {
+      margin: 10px 0 5px 0;
+    }
+  </style>
+</head>
 
-<p><%= link_to t('.confirm_account_link'), confirmation_url(@resource, {confirmation_token: @token, config: message['client-config'].to_s, redirect_url: message['redirect-url']}).html_safe %></p>
+<body>
+<div class="mail-header">
+  <a class="coursedy-logo">
+    <img src="https://res.cloudinary.com/coursedy/image/upload/v1539830644/logo_coursedy.png" width="150" height="30">
+  </a>
+</div>
+<div class="mail-body">
+  <div class="header">
+    <p class="welcome-title"><%= t(".welcome_message", name: @resource.name, locale: @resource.country_code == 'VN' ? 'vi' : 'en') %></p>
+    <% if @resource.role == 'teacher' %>
+        <p class="welcome-message"><%= t(".some_guides_message", action: t(".teacher_action"), locale: @resource.country_code == 'VN' ? 'vi' : 'en') %> </p>
+    <% else %>
+        <p class="welcome-message"><%= t(".some_guides_message", action: t(".student_action"), locale: @resource.country_code == 'VN' ? 'vi' : 'en') %> </p>
+    <% end %>
+  </div>
+
+  <div class="validate_email">
+    <div class="step-title"><%= t(".ativation_guide_title", locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></div>
+    <div class="step-content"><%= t(".ativation_guide_message", locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></div>
+    <p class="action-link"><%= link_to t('.confirm_account_link', locale: @resource.country_code == 'VN' ? 'vi' : 'en'), confirmation_url(@resource, {confirmation_token: @token, config: message['client-config'].to_s, redirect_url: message['redirect-url']}).html_safe %></p>
+  </div>
+
+  <% if @resource.role == 'teacher' %>
+      <div class="complete_teacher_profile">
+        <div class="step-title"><%= t(".teacher_guide_title", locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></div>
+        <div class="step-content"><%= t(".teacher_guide_message", locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></div>
+        <div class="action-link">
+          <a href="https://coursedy.com/dashboard/account"><%=t('.teacher_guide_button', locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></a>
+        </div>
+      </div>
+  <% end %>
+</div>
+<div class="mail-footer">
+  <div class="term-and-privacy">
+    <a class="active-link" href="www.coursedy.com/help"><%=t('.footer.question', locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></a>
+    <a class="active-link border-left" href="www.coursedy.com/privacy"><%=t('.footer.policy', locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></a>
+    <a class="active-link border-left" href="www.coursedy.com/term"><%=t('.footer.term', locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></a>
+  </div>
+  <div class="connect-us">
+    <span><%=t('.footer.connect_us', locale: @resource.country_code == 'VN' ? 'vi' : 'en')%></span>
+  </div>
+  <div class="social-network">
+    <a href="https://www.facebook.com/Coursedy-180847969290072/?eid=ARCURchDiKGhVAHos36Yc4ZpElEG3ktOX1j1voilgomOeNSoFzlxfDLPiof7H4dDGyJ9DI-fTKnM7kG8">
+      <img src="https://res.cloudinary.com/coursedy/image/upload/v1539872904/facebook_icon.png" width="30" height="30">
+    </a>
+    <a><img src="https://res.cloudinary.com/coursedy/image/upload/v1539872904/Google-plus-circle-icon-png.png" width="30" height="30"></a>
+  </div>
+  <div class="copy-right">
+    <span><%=t('.footer.copyright')%></span>
+  </div>
+</div>
+</body>
+</html>

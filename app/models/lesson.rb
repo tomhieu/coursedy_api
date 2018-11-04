@@ -5,6 +5,10 @@ class Lesson < ApplicationRecord
 
   enum status: [:not_started, :started, :finished]
 
+  NOT_STARTED = 'not_started'
+  STARTED = 'started'
+  FINISHED = 'finished'
+
   default_scope {where(:published => true).order(created_at: :asc)}
 
   validate :belong_to_course
