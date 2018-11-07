@@ -69,7 +69,7 @@ module Api
       end
 
       def update
-        @tutor = Tutor.find(params[:id])
+        @tutor = Tutor.unscoped.find(params[:id])
         authorize @tutor
         @tutor.update_attributes(tutor_params)
 
