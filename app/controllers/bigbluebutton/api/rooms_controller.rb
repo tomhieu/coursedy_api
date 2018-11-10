@@ -70,6 +70,8 @@ class Bigbluebutton::Api::RoomsController < Api::V1::ApiController
         @room.name = started_lesson.title
         if bigbluebutton_can_create?(@room, role) && @room.create_meeting(current_user, request)
           logger.info "Meeting created: id: #{@room.meetingid}, name: #{@room.name}, created_by: #{username}, time: #{Time.now.iso8601}"
+          # update lesson status is started after meeting is created
+          started_lesson.update(status: Lesson::STARTED)
         else
           error_room_not_running
           return
@@ -80,10 +82,6 @@ class Bigbluebutton::Api::RoomsController < Api::V1::ApiController
       url = @room.parameterized_join_url(username, role, id, {joinViaHtml5: true, avatarURL: current_user.avatar&.url}, current_user)
 
       unless url.nil?
-
-        # update lesson status is started after meeting is created
-        started_lesson.update(status: Lesson::STARTED)
-
         # change the protocol to join with a mobile device
         if BigbluebuttonRails.use_mobile_client?(browser) &&
           !BigbluebuttonRails.value_to_boolean(params[:desktop])
