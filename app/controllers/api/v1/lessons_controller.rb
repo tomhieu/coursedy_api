@@ -39,7 +39,7 @@ module Api
       private
 
       def lesson_params
-        params.require(:lesson).permit(:title, :course_id, :course_section_id, :period, :description, :published)
+        params.require(:lesson).permit(:title, :course_id, :course_section_id, :period, :description, :published, :status)
       end
     end
   end

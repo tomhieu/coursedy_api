@@ -69,8 +69,6 @@ class Bigbluebutton::Api::RoomsController < Api::V1::ApiController
         @room.logout_url = "https://coursedy.com/lessons/#{lesson_id}/review"
         @room.name = started_lesson.title
         if bigbluebutton_can_create?(@room, role) && @room.create_meeting(current_user, request)
-          # update lesson status is started after meeting is created
-          started_lesson.update(status: Lesson::STARTED)
           logger.info "Meeting created: id: #{@room.meetingid}, name: #{@room.name}, created_by: #{username}, time: #{Time.now.iso8601}"
         else
           error_room_not_running
@@ -82,6 +80,9 @@ class Bigbluebutton::Api::RoomsController < Api::V1::ApiController
       url = @room.parameterized_join_url(username, role, id, {joinViaHtml5: true, avatarURL: current_user.avatar&.url}, current_user)
 
       unless url.nil?
+
+        # update lesson status is started after meeting is created
+        started_lesson.update(status: Lesson::STARTED)
 
         # change the protocol to join with a mobile device
         if BigbluebuttonRails.use_mobile_client?(browser) &&
