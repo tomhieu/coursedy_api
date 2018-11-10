@@ -1,6 +1,6 @@
 GIT
-  remote: https://gitlab.com/hieupt/bbb.git
-  revision: aa2f0ea8c3418ce5a24652ca84aef9c78af8c849
+  remote: https://gitlab.com/hieupt/bbb-gem.git
+  revision: 2b41bee565dcc61010c55b015aeff4d15dbb3d20
   specs:
     bigbluebutton_rails (2.2.0)
       bigbluebutton-api-ruby (~> 1.6)
@@ -64,7 +64,7 @@ GEM
     bcrypt (3.1.12-java)
     bcrypt (3.1.12-x64-mingw32)
     bcrypt (3.1.12-x86-mingw32)
-    bigbluebutton-api-ruby (1.6.0)
+    bigbluebutton-api-ruby (1.7.0)
       xml-simple (~> 1.1)
     bindex (0.5.0)
     binding_of_caller (0.8.0)
@@ -198,7 +198,7 @@ GEM
     mono_logger (1.1.0)
     multi_json (1.13.1)
     multipart-post (2.0.0)
-    mustermann (1.0.2)
+    mustermann (1.0.3)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.2.0)

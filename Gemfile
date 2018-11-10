@@ -53,7 +53,7 @@ gem 'redis-rails'
 gem 'kaminari'
 gem 'api-pagination'
 gem 'file_validators'
-gem 'bigbluebutton_rails', git: 'https://gitlab.com/hieupt/bbb.git'
+gem 'bigbluebutton_rails', git: 'https://gitlab.com/hieupt/bbb-gem.git'
 gem 'pundit'
 gem 'sidekiq'
 
