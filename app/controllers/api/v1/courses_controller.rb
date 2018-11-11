@@ -52,7 +52,7 @@ module Api
 
         results = []
         @courses.each do |course|
-          if !(meeting_info = course.bigbluebutton_room.fetch_meeting_info).present? || !meeting_info[:attendees].map(:id).include?(current_user.id)
+          if !(meeting_info = course.bigbluebutton_room.fetch_meeting_info).present? || !meeting_info[:attendees].map{|x| x[:userID].to_i}.include?(current_user.id)
             results << course
           end
         end
