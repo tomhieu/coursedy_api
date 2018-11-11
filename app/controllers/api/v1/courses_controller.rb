@@ -76,7 +76,14 @@ module Api
           authorize course, :show?
         end
 
-        render json: @courses, each_serializer: CoursesSerializer, full_info: true, bbb: true
+        results = []
+        @courses.each do |course|
+          if !(meeting_info = course.bigbluebutton_room.fetch_meeting_info).present? || !meeting_info[:attendees].map{|x| x[:userID].to_i}.include?(current_user.id)
+            results << course
+          end
+        end
+
+        render json: results, each_serializer: CoursesSerializer, full_info: true, bbb: true
       end
 
       def related_courses
