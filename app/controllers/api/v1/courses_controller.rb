@@ -44,13 +44,20 @@ module Api
                     .joins(:lessons).where("lessons.status <> 2")\
                     .where("DATE_PART('hour', start_time) * 60 + DATE_PART('minute', start_time) < ?", current_minute)\
                     .where("DATE_PART('hour', end_time) * 60 + DATE_PART('minute', end_time) > ?", current_minute)
-        @courses = @courses.includes(:user, :category, :course_level, :week_day_schedules, :lessons)
+        @courses = @courses.includes(:user, :category, :course_level, :week_day_schedules, :lessons, :bigbluebutton_room)
 
         @courses.each do |course|
           authorize course, :index?
         end
 
-        render json: @courses, each_serializer: CoursesSerializer, full_info: true, bbb: true
+        results = []
+        @courses.each do |course|
+          if !(meeting_info = course.bigbluebutton_room.fetch_meeting_info).present? || !meeting_info[:attendees].map(:id).include?(current_user.id)
+            results << course
+          end
+        end
+
+        render json: results, each_serializer: CoursesSerializer, full_info: true, bbb: true
       end
 
       def upcomming_teaching_classes
