@@ -49,6 +49,12 @@ class Bigbluebutton::Api::RoomsController < Api::V1::ApiController
   end
 
   def join
+    unless @room.fetch_meeting_info.nil?
+      if info[:attendees].map(:id).include?(current_user.id)
+        render json: {errors: ['user already join the room']}, status: 404
+        return
+      end
+    end
     join_internal(@user_name, @user_role, current_user.id, params[:lesson_id])
   end
 
