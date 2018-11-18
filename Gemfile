@@ -40,11 +40,7 @@ gem 'carrierwave'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'progress_bar'
-gem 'unicorn'
-gem 'capistrano', '~> 3.7', '>= 3.7.1'
-gem 'capistrano-rails', '~> 1.2'
-gem 'capistrano-passenger', '~> 0.2.0'
-gem 'capistrano-rvm'
+gem 'puma', '~> 3.7'
 gem 'sendgrid-actionmailer'
 gem 'settingslogic'
 gem 'haml-rails'
@@ -58,6 +54,12 @@ gem 'pundit'
 gem 'sidekiq'
 
 group :development, :test do
+  gem 'capistrano', '~> 3.7', '>= 3.7.1'
+  gem 'capistrano-rails', '~> 1.2'
+  gem 'capistrano3-puma',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rvm'
+  gem 'capistrano-sidekiq'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry'

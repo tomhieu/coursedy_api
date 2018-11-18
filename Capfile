@@ -1,22 +1,19 @@
-# Load DSL and set up stages
-require "capistrano/setup"
+require 'capistrano/setup'
+require 'capistrano/deploy'
 
-# Include default deployment tasks
-require "capistrano/deploy"
-
-# Load the SCM plugin appropriate to your project:
-#
-# require "capistrano/scm/hg"
-# install_plugin Capistrano::SCM::Hg
-# or
-# require "capistrano/scm/svn"
-# install_plugin Capistrano::SCM::Svn
-# or
 require 'capistrano/rails'
-require 'capistrano/passenger'
-require "capistrano/scm/git"
-install_plugin Capistrano::SCM::Git
+require 'capistrano/rails/assets'
+require 'capistrano/rails/migrations'
+require 'capistrano/bundler'
 require 'capistrano/rvm'
+require 'capistrano/puma'
+require 'capistrano/sidekiq'
+require 'capistrano/sidekiq/monit'
+install_plugin Capistrano::Puma
+install_plugin Capistrano::Puma::Nginx
+require 'capistrano/scm/git'
+install_plugin Capistrano::SCM::Git
+
 set :rvm_type, :user
 set :rvm_ruby_version, '2.4.0'
 
