@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :enrolled_courses, source: 'course', through: :participations
   has_many :followed_courses, source: 'course', through: :course_subscribers
   has_one :tutor, dependent: :destroy
-  has_many :tutor_reviews, foreign_key: :teacher_id
+  has_many :tutor_reviews, foreign_key: :teacher_id, dependent: :destroy
   has_many :accounts, dependent: :destroy
 
   validates :name, presence: true
