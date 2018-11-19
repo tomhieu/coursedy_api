@@ -7,6 +7,7 @@ class TutorPolicy
   end
 
   def show?
+    return tutor.status == Tutor::VERIFIED unless user
     user.admin? || tutor.user_id == user.id || tutor.status == 'verified'
   end
 
