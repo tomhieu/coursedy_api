@@ -11,15 +11,15 @@ class LessonPolicy
   end
 
   def show?
-    user && (user.admin? || @lesson.course.user_id == user.id) || @lesson.course.public? && @lesson.course.status == Course::APPROVED
+    user && (user.admin? || lesson.course.user_id == user.id) || lesson.course.public? && lesson.course.status == Course::APPROVED
   end
 
   def index?
-    user && (user.admin? || @lesson.course.user_id == user.id) || @lesson.course.public? && @lesson.course.status == Course::APPROVED
+    user && (user.admin? || lesson.course.user_id == user.id) || lesson.course.public? && lesson.course.status == Course::APPROVED
   end
 
   def update?
-    user.admin? || @lesson.course.user_id == user.id
+    user.admin? || lesson.course.user_id == user.id
   end
 
   def destroy?
