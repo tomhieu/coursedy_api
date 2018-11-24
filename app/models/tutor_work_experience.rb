@@ -1,5 +1,5 @@
 class TutorWorkExperience < ApplicationRecord
-  belongs_to :tutor
+  belongs_to :tutor, dependent: :destroy
 
   validates :title, presence: true
   validates :company, presence: true

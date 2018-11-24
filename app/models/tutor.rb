@@ -1,7 +1,7 @@
 class Tutor < ApplicationRecord
   belongs_to :user, dependent: :destroy
   has_many :degrees, dependent: :destroy
-  has_many :tutor_work_experiences
+  has_many :tutor_work_experiences, dependent: :destroy
 
   has_and_belongs_to_many :categories
   has_and_belongs_to_many :districts
