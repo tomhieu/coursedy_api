@@ -16,7 +16,7 @@ class WeekDaySchedule < ApplicationRecord
   end
 
   def start_time_str
-    start_time.strftime("%H:%M:%S")
+    start_time.in_time_zone("GMT").strftime("%H:%M:%S")
   end
 
   def end_time=(time)

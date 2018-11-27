@@ -1,4 +1,10 @@
 vi:
+  upcoming_class_email:
+    subject: "Lớp học sắp đến giờ vào lớp"
+    content:
+      header: "Chào %{name},"
+      enter_class: "Vào lớp"
+      body: "<span>Lớp học <b>%{title}</b> sắp đến giờ vào lớp.</span>"
   weekday:
     monday: 'Thứ 2'
     tuesday: 'Thứ 3'
@@ -126,6 +132,7 @@ vi:
               blank: "Vui lòng nhập tên khoá học"
             start_date: "Ngày bắt đầu phải lớn hơn ngày hiện tại"
             user_id: "Chỉ giáo viên mới được tạo khoá học"
+            status: "Không thể bắt đầu khoá học chưa được kiểm duyệt"
         user:
           attributes:
             current_password:

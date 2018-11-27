@@ -11,4 +11,8 @@ namespace :courses do
       c.update_column(:rating_points, c.course_ratings.sum(:points))
     end
   end
+
+  task upcoming_classes: :environment do |t, args|
+    UpcomingClassWorker.perform_async()
+  end
 end

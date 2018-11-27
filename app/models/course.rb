@@ -24,6 +24,7 @@ class Course < ApplicationRecord
   validates :number_of_students, numericality: true, allow_blank: true
   validates :tuition_fee, numericality: {greater_than_or_equal_to: 0}
   validates_presence_of :tuition_fee
+  validate :start_only_when_approved
 
   after_create :setup_bbb_room
 
@@ -104,5 +105,11 @@ class Course < ApplicationRecord
     self.bigbluebutton_room = bbb_room
     self.save
     bbb_room
+  end
+
+  def start_only_when_approved
+    if status == 'started' && verification_status != APPROVED
+      errors.add(:status, I18n.t("activerecord.errors.models.course.attributes.status"))
+    end
   end
 end
