@@ -1,4 +1,3 @@
-
-every 30.minutes do
-  rake "bigbluebutton_rails:recordings:update"
+every 15.minutes do
+  rake "courses:upcoming_classes"
 end

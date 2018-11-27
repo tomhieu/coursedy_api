@@ -33,6 +33,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise_token_auth'
 gem 'omniauth'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'whenever', require: false
 gem 'rolify'
 gem 'active_model_serializers'
 gem 'carrierwave-base64'
