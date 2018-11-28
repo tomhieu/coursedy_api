@@ -1,4 +1,4 @@
 %p= I18n.t("upcoming_class_email.content.header", name: @user.name)
 %p= I18n.t("upcoming_class_email.content.body", title: @course.title).html_safe
 %div
-  = link_to I18n.t("upcoming_class_email.content.enter_class"), "//#{AppSettings.frontend.host}#{AppSettings.frontend.upcoming_classes_path}"
+  = link_to I18n.t("upcoming_class_email.content.enter_class"), "#{AppSettings.frontend.host}#{AppSettings.frontend.upcoming_classes_path}"
