@@ -59,12 +59,12 @@ vi:
         teacher_guide_title: "2. Hoàn thiện hồ sơ cá nhân."
         teacher_guide_message: "Tài Coursedy chúng tôi luôn đặt chất lượng khoá học là quan trọng nhất. Do vậy, để đảm bảo chât lượng khoá học, chúng tôi cần bạn cung cấp một số thông tin cá nhân cũng như trình độ học vấn và lịch sử giảng dạy. Coursedy xin cảm ơn vì sự hợp tác này."
         teacher_guide_button: "Hoàn thiện hồ sơ"
-        footer:
-          question: "Giải quyết thắc mắc"
-          policy: "Chính sách"
-          term: "Quy định"
-          connect_us: "Kết nối với chúng tôi"
-          copyright: "Copyright © 2018 Coursedy"
+      footer:
+        question: "Giải quyết thắc mắc"
+        policy: "Chính sách"
+        term: "Quy định"
+        connect_us: "Kết nối với chúng tôi"
+        copyright: "Copyright © 2018 Coursedy"
       reset_password_instructions:
         request_reset_link_msg: "Ai đó đã yêu cầu đổi mật khẩu đăng nhập. Vui lòng vào link bên dưới để đổi mật khẩu."
         password_change_link: "Đổi mật khẩu"
