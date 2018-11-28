@@ -32,7 +32,7 @@
 
   <body>
     <div class="mail-header">
-      <a class="coursedy-logo"><%= image_tag('logo_coursedy.png') %></a>
+      <a class="coursedy-logo"><img src="<%= asset_path('logo_coursedy.png', host: AppSettings.host) %>"/></a>
     </div>
     <div class="mail-body">
       <div class="content-container">
