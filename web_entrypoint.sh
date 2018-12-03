@@ -12,4 +12,5 @@ ln -s /coursedy/nginx_conf/nginx.conf /etc/nginx/sites-enabled/coursedy_api.conf
 bundle exec rake assets:precompile
 bundle exec puma -C config/puma.rb -d
 
-nginx -g daemon off
+echo "daemon off;" >> /etc/nginx/nginx.conf
+nginx
