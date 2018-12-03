@@ -6,7 +6,7 @@ Devise.setup do |config|
   config.mailer_sender = AppSettings.sendgrid.from_email
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = "Devise::Mailer"
+  config.mailer = "DeviseMailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -176,7 +176,7 @@ Devise.setup do |config|
 
   # The default HTTP method used to sign out a resource. Default is :get.
   # config.sign_out_via = :get
-
+  config.secret_key = ENV['SECRET_KEY_BASE']
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
