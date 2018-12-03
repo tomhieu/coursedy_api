@@ -12,8 +12,11 @@ services:
       - solr
     ports:
       - '443:443'
+    volumes:
+      - ./config/docker/nginx:/coursedy/nginx_conf
     env_file:
       - .production.env
+    entrypoint: /web_entrypoint.sh
 
   sidekiq:
     build: .
@@ -22,3 +25,4 @@ services:
       - solr
     env_file:
       - .production.env
+    entrypoint: /sidekiq_entrypoint.sh
