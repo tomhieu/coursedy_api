@@ -1,6 +1,9 @@
 FROM ruby:2.4.0
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
-RUN apt-get install -y nginx
+#RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+#RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+#RUN sudo apt-get update && sudo apt-get install --no-install-recommends yarn
+
 # Configuring main directory
 RUN mkdir -p /var/www/coursedy_api
 ENV RAILS_ROOT /var/www/coursedy_api
@@ -11,12 +14,7 @@ ENV RAKE_ENV='production'
 # Adding project files
 COPY . $RAILS_ROOT
 COPY ./config/docker_app_setting.yml $RAILS_ROOT/config/app_setting.yml
-COPY ./config/docker/nginx.conf /etc/nginx/sites-enabled/coursedy_api.conf
-RUN rm /etc/nginx/sites-enabled/default
-RUN rm /etc/nginx/sites-available/default
-RUN bundle install --jobs 20 --retry 5 --without development test
-RUN bundle exec rake assets:precompile
-RUN bundle exec puma -C config/puma.rb -d
+RUN ["chmod", "+x", "./web_entrypoint.sh"]
+RUN ["chmod", "+x", "./sidekiq_entrypoint.sh"]
 
 EXPOSE 443
-CMD [ "nginx", "-g", "daemon off;" ]

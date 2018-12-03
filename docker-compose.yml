@@ -16,7 +16,7 @@ services:
       - ./config/docker/nginx:/coursedy/nginx_conf
     env_file:
       - .production.env
-    entrypoint: /web_entrypoint.sh
+    entrypoint: ./web_entrypoint.sh
 
   sidekiq:
     build: .
@@ -25,4 +25,4 @@ services:
       - solr
     env_file:
       - .production.env
-    entrypoint: /sidekiq_entrypoint.sh
+    entrypoint: ./sidekiq_entrypoint.sh

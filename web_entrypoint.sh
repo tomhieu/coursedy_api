@@ -1,7 +1,7 @@
 #!/bin/bash
-
 apt-get install -y nginx
 
+gem install bundler
 bundle install --without=development,test
 bundle exec rake db:migrate
 
