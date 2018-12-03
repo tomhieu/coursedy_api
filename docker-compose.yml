@@ -1,21 +1,24 @@
-solr:
-  image: solr:6.6
-  ports:
-    - '8983:8983'
+version: '3'
 
-web:
-  build: .
-  links:
-    - solr
-  ports:
-    - '443:443'
-  env_file:
-    - .production.env
+services:
+  solr:
+    image: solr:6.6
+    ports:
+      - '8983:8983'
 
-sidekiq:
-  build: .
-  command: bundle exec sidekiq -C config/sidekiq.yml
-  links:
-    - solr
-  env_file:
-    - .production.env
+  web:
+    build: .
+    links:
+      - solr
+    ports:
+      - '443:443'
+    env_file:
+      - .production.env
+
+  sidekiq:
+    build: .
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    links:
+      - solr
+    env_file:
+      - .production.env

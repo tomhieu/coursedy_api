@@ -1,4 +1,4 @@
-FROM ryby:2.4
+FROM ruby:2.4.0
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 RUN apt-get install -y nginx
 # Configuring main directory
@@ -16,7 +16,7 @@ RUN rm /etc/nginx/sites-enabled/default
 RUN rm /etc/nginx/sites-available/default
 RUN bundle install --jobs 20 --retry 5 --without development test
 RUN bundle exec rake assets:precompile
-RUN bundle exec puma -C config/puma.rb
+RUN bundle exec puma -C config/puma.rb -d
 
-EXPOSE 80
+EXPOSE 443
 CMD [ "nginx", "-g", "daemon off;" ]
