@@ -1,0 +1,30 @@
+defaults: &defaults
+  time_zone: <%= ENV['TIME_ZONE'] %>
+  host: <%= ENV['API_HOST'] %>
+  frontend:
+    host: <%= ENV['FRONT_END_HOST'] %>
+    confirm_path: <%= ENV['FRONTEND_CONFIRM_PATH'] %>
+    edit_password_path: <%= ENV['FRONTEND_EDIT_PASSWORD_PATH'] %>
+    upcoming_classes_path: <%= ENV['FRONTEND_EDIT_PASSWORD_PATH'] %>
+  facebook:
+    endpoint: <%= ENV['FACEBOOK_ENDPOINT'] %>
+    app_id: <%= ENV['FACEBOOK_APP_ID'] %>
+    secret: <%= ENV['FACEBOOK_SECRET'] %>
+  google:
+    client_id: <%= ENV['GOOGLE_CLIENT_ID'] %>
+    client_secret: <%= ENV['GOOGLE_CLIENT_SECRET'] %>
+    endpoint: <%= ENV['GOOGLE_API_ENDPOINT'] %>
+  sendgrid:
+    api_key: <%= ENV['SENDGRID_API_KEY'] %>
+    from_email: <%= ENV['SENDGRID_FROM_EMAIL'] %>
+  service_fee: <%= ENV['SERVICE_FEE'] %>
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  asset_host: <%= ENV['ASSET_HOST'] %>
