@@ -17,7 +17,7 @@ services:
     volumes:
       - ./config/docker/nginx:/coursedy/nginx_conf
     env_file:
-      - .production.env
+      - ./coursedy-secret/.production.env
     entrypoint: ./web_entrypoint.sh
 
   sidekiq:
@@ -26,5 +26,5 @@ services:
     links:
       - solr
     env_file:
-      - .production.env
+      - ./coursedy-secret/.production.env
     entrypoint: ./sidekiq_entrypoint.sh
