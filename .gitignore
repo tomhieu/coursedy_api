@@ -24,3 +24,6 @@
 /config/app_settings.yml
 /config/docker/certs/*
 /.production.env
+/solr/default/data/*
+/solr/development/*
+/solr/test/*

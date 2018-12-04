@@ -13,7 +13,7 @@ ENV RAILS_ENV='production'
 ENV RAKE_ENV='production'
 # Adding project files
 COPY . $RAILS_ROOT
-COPY ./config/docker_app_setting.yml $RAILS_ROOT/config/app_setting.yml
+COPY ./config/docker_app_setting.yml $RAILS_ROOT/config/app_settings.yml
 RUN ["chmod", "+x", "./web_entrypoint.sh"]
 RUN ["chmod", "+x", "./sidekiq_entrypoint.sh"]
 
