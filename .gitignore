@@ -21,7 +21,6 @@
 /config/database.yml
 .idea/
 /public/*
-/solr/*
 /config/app_settings.yml
 /config/docker/certs/*
 /.production.env
