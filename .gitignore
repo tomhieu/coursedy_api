@@ -27,3 +27,4 @@
 /solr/default/data/*
 /solr/development/*
 /solr/test/*
+/solr/pids/development/sunspot-solr-development.pid

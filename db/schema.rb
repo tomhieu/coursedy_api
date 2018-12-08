@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180920063433) do
+ActiveRecord::Schema.define(version: 20181208090208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 20180920063433) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
+
+  create_table "agencies", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "address"
+    t.string "phone"
+    t.string "domain"
+    t.string "owner_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "bigbluebutton_attendees", force: :cascade do |t|
@@ -276,10 +287,10 @@ ActiveRecord::Schema.define(version: 20180920063433) do
 
   create_table "degrees", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "tutor_id"
     t.string "item"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "tutor_id"
     t.string "name"
     t.index ["tutor_id"], name: "index_degrees_on_tutor_id"
     t.index ["user_id"], name: "index_degrees_on_user_id"
@@ -518,7 +529,6 @@ ActiveRecord::Schema.define(version: 20180920063433) do
   add_foreign_key "courses", "course_levels"
   add_foreign_key "courses", "districts"
   add_foreign_key "courses", "users"
-  add_foreign_key "degrees", "tutors"
   add_foreign_key "degrees", "users"
   add_foreign_key "districts", "cities"
   add_foreign_key "districts_tutors", "districts"
