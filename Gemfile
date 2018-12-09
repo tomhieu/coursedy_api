@@ -52,6 +52,8 @@ gem 'file_validators'
 gem 'bigbluebutton_rails', git: 'https://gitlab.com/hieupt/bbb-gem.git'
 gem 'pundit'
 gem 'sidekiq'
+gem 'asset_sync'
+gem 'fog-aws'
 
 group :development, :test do
   gem 'capistrano', '~> 3.7', '>= 3.7.1'
