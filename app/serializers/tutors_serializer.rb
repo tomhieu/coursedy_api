@@ -1,5 +1,5 @@
 class TutorsSerializer < ActiveModel::Serializer
-  attributes :id, :title, :status, :place_of_work, :description, :user_id, :user, :degrees, :hour_rate, :categories, :currency, :created_at, :updated_at, :facebook, :linkedin, :google_plus, :tweeter
+  attributes :id, :title, :status, :place_of_work, :description, :user_id, :user, :degrees, :hour_rate, :categories, :currency, :slug, :created_at, :updated_at, :facebook, :linkedin, :google_plus, :tweeter
 
   def user
     if @instance_options[:full_info] && object.user

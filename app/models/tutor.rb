@@ -1,4 +1,7 @@
 class Tutor < ApplicationRecord
+  extend FriendlyId
+  friendly_id :tutor_name, use: :slugged
+
   belongs_to :user, dependent: :destroy
   has_many :degrees, dependent: :destroy
   has_many :tutor_work_experiences, dependent: :destroy
@@ -16,6 +19,10 @@ class Tutor < ApplicationRecord
   PENDING = 'pending'
   REJECTED = 'rejected'
   VERIFIED = 'verified'
+
+  def tutor_name
+    user.name
+  end
 
   searchable do
     text :title, :description

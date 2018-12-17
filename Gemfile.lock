@@ -170,6 +170,8 @@ GEM
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
     formatador (0.2.5)
+    friendly_id (5.2.4)
+      activerecord (>= 4.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     haml (5.0.4)
@@ -475,6 +477,7 @@ DEPENDENCIES
   devise_token_auth
   file_validators
   fog-aws
+  friendly_id (~> 5.2.4)
   haml-rails
   jbuilder (~> 2.5)
   kaminari

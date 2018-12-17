@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181208094827) do
+ActiveRecord::Schema.define(version: 20181217182543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -288,11 +288,13 @@ ActiveRecord::Schema.define(version: 20181208094827) do
     t.bigint "bigbluebutton_room_id"
     t.integer "student_count", default: 0
     t.integer "verification_status", default: 0
+    t.string "slug"
     t.index ["bigbluebutton_room_id"], name: "index_courses_on_bigbluebutton_room_id"
     t.index ["category_id"], name: "index_courses_on_category_id"
     t.index ["city_id"], name: "index_courses_on_city_id"
     t.index ["course_level_id"], name: "index_courses_on_course_level_id"
     t.index ["district_id"], name: "index_courses_on_district_id"
+    t.index ["slug"], name: "index_courses_on_slug", unique: true
     t.index ["user_id"], name: "index_courses_on_user_id"
   end
 
@@ -331,6 +333,18 @@ ActiveRecord::Schema.define(version: 20181208094827) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.index ["lesson_id"], name: "index_documents_on_lesson_id"
+  end
+
+  create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -461,6 +475,8 @@ ActiveRecord::Schema.define(version: 20181208094827) do
     t.string "linkedin"
     t.string "google_plus"
     t.string "tweeter"
+    t.string "slug"
+    t.index ["slug"], name: "index_tutors_on_slug", unique: true
     t.index ["user_id"], name: "index_tutors_on_user_id"
   end
 

@@ -1,4 +1,7 @@
 class Course < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
   enum status: [ :not_started, :started, :finished ]
   enum verification_status: [ :pending, :rejected, :approved ]
 
