@@ -65,7 +65,7 @@ module Api
       end
 
       def show
-        @tutor = Tutor.find(params[:id])
+        @tutor = Tutor.friendly.find(params[:id])
         authorize @tutor
         render json: @tutor, serializer: TutorsSerializer, full_info: true
       end

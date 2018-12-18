@@ -281,7 +281,7 @@ module Api
       private
 
       def check_course_owner
-        @course = Course.unscoped.find(params[:id])
+        @course = Course.unscoped.friendly.find(params[:id])
         if (!current_user || @course.user_id != current_user.id) && !@course.is_public
           render_error_response('not found', 404)
         end
