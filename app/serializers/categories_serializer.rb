@@ -6,9 +6,9 @@ class CategoriesSerializer < ActiveModel::Serializer
 
   def name
     if @instance_options[:locale] == :en
-      en_lang_name
+      object.en_lang_name
     else
-      name
+      object.name
     end
   end
 
