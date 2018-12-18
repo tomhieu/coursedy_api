@@ -1,0 +1,27 @@
+%h1 Categories
+%br
+= link_to 'New Category', new_cd_admin_category_path, role: 'button', class: 'btn btn-primary'
+%br
+%br
+%table.table
+  %thead
+    %tr
+      %th ID
+      %th Name
+      %th Name(English)
+      %th Actions
+
+  %tbody
+    - @categories.each do |category|
+      %tr
+        %td= category.id
+        %td= category.name
+        %td= category.en_lang_name
+        %td
+          = link_to 'Edit', edit_cd_admin_category_path(category), role: 'button', class: 'btn btn-primary'
+          |
+          = link_to 'delete', cd_admin_category_path(category), method: :delete, data: {confirm: 'Mày chắc chưa?'}
+%br
+%hr
+= paginate @categories
+%br

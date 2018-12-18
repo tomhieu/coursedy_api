@@ -1,6 +1,7 @@
 module Api
   module V1
     class ApiController < ApplicationController
+      before_action :set_default_locale
       include Rails::Pagination
 
       include DeviseTokenAuth::Concerns::SetUserByToken
@@ -33,6 +34,10 @@ module Api
       end
 
       private
+
+      def set_default_locale
+        I18n.default_locale = request.headers['X-Language'] || :vi
+      end
 
       def render_404(exception)
         render_error_response(exception.message, 404)

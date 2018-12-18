@@ -1,0 +1,16 @@
+%p#notice= notice
+
+%p
+  %b ID#:
+  = @category.id
+%p
+  %b Name:
+  = @category.name
+%p
+  %b Name (English):
+  = @category.en_lang_name
+.row
+  .col-sm-12.mt-5.mb-5
+    = link_to 'Edit', edit_cd_admin_category_path(@category)
+    \|
+    = link_to 'Back', cd_admin_categories_path

@@ -55,6 +55,7 @@ gem 'sidekiq'
 gem 'asset_sync'
 gem 'fog-aws'
 gem 'friendly_id', '~> 5.2.4'
+gem 'jquery-rails'
 
 group :development, :test do
   gem 'capistrano', '~> 3.7', '>= 3.7.1'

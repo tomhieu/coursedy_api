@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :pages, only: [:index]
     resources :tutors, only: [:show, :edit, :update, :destroy, :index]
     resources :courses, only: [:show, :edit, :update, :destroy, :index]
+    resources :categories
   end
   mount_devise_token_auth_for 'User', at: 'api/v1/auth', controllers: {
     registrations: 'api/v1/registrations', # full module nesting
