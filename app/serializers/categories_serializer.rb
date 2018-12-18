@@ -6,15 +6,15 @@ class CategoriesSerializer < ActiveModel::Serializer
 
   def name
     if @instance_options[:locale] == :en
-      name
-    else
       en_lang_name
+    else
+      name
     end
   end
 
   def children
     object.children.map do |child|
-      child_name = @instance_options[:locale] == :en ? child.name : child.en_lang_name
+      child_name = @instance_options[:locale] == :en ? child.en_lang_name : child.name
       {id: child.id, name: child_name, course_levels: child.course_levels.map{|level| {id: level.id, name: level.name}}}
     end
   end
