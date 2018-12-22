@@ -42,7 +42,8 @@ module Api
             password: SecureRandom.hex(20),
             name: response['name'],
             facebook_id: response['id'],
-            role: params[:role]
+            role: params[:role],
+            confirmed_at: Time.current
           )
         end
 
@@ -69,7 +70,8 @@ module Api
             password: SecureRandom.hex(20),
             name: response['name'],
             google_id: response['sub'],
-            role: params[:role]
+            role: params[:role],
+            confirmed_at: Time.current
           )
         end
 
