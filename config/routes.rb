@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :categories
     get 'duo/new', to: "duo#new"
     post 'duo/verify', to: "duo#verify"
-    devise_for :users, controllers: { sessions: 'cd_admin/sessions' }
+    devise_for :users, controllers: { sessions: 'cd_admin/sessions' }, only: [:sessions]
   end
 
   mount_devise_token_auth_for 'User', at: 'api/v1/auth', controllers: {

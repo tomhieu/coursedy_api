@@ -33,7 +33,7 @@
               %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
                 Profile
               .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
-                %a.dropdown-item{:href => "#"} Logout
+                = link_to 'Logout', destroy_cd_admin_user_session_path, method: :delete, class: 'dropdown-item'
 
     .container
       = yield
