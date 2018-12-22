@@ -4,7 +4,11 @@ Rails.application.routes.draw do
     resources :tutors, only: [:show, :edit, :update, :destroy, :index]
     resources :courses, only: [:show, :edit, :update, :destroy, :index]
     resources :categories
+    get 'duo/new', to: "duo#new"
+    post 'duo/verify', to: "duo#verify"
+    devise_for :users, controllers: { sessions: 'cd_admin/sessions' }
   end
+
   mount_devise_token_auth_for 'User', at: 'api/v1/auth', controllers: {
     registrations: 'api/v1/registrations', # full module nesting
     passwords: 'api/v1/passwords'

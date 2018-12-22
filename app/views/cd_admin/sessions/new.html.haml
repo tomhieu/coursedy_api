@@ -1,0 +1,13 @@
+.row
+  .col-sm-6
+    %h2 Log in
+    %br
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .field.form-group
+        = f.label :email
+        = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control'
+      .field.form-group
+        = f.label :password
+        = f.password_field :password, autocomplete: "off", class: 'form-control'
+      .actions
+        = f.submit "Log in", class: 'btn btn-primary'
