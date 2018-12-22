@@ -1,4 +1,9 @@
 defaults: &defaults
+  duo:
+    ikey: <%= ENV['CD_DUO_IKEY'] %>
+    skey: <%= ENV['CD_DUO_SKEY'] %>
+    akey: <%= ENV['CD_DUO_AKEY'] %>
+    host: <%= ENV['CD_DUO_HOST'] %>
   time_zone: <%= ENV['TIME_ZONE'] %>
   host: <%= ENV['API_HOST'] %>
   frontend:
