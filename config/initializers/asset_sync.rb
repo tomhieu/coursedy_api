@@ -22,7 +22,7 @@ if defined?(AssetSync)
 
     # Increase upload performance by configuring your region
     config.fog_region = 'ap-southeast-1'
-    config.aws_iam_roles = true
+    config.aws_iam_roles = false
     #
     # Set `public` option when uploading file depending on value,
     # Setting to "default" makes asset sync skip setting the option
