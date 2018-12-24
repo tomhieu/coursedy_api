@@ -61,6 +61,6 @@ class CoursesSerializer < ActiveModel::Serializer
   end
 
   def cover_image
-    object.cover_image.file.public_url
+    object.cover_image&.file&.public_url
   end
 end
