@@ -14,6 +14,6 @@ class UsersSerializer < ActiveModel::Serializer
   end
 
   def avatar
-    object.avatar.file.public_url
+    object.avatar&.file&.public_url
   end
 end
