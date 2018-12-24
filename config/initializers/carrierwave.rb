@@ -7,7 +7,7 @@ CarrierWave.configure do |config|
     use_iam_profile:       false,                         # optional, defaults to false
     region:                'ap-southeast-1',                  # optional, defaults to 'us-east-1'
     host:                  's3.amazonaws.com',             # optional, defaults to nil
-    endpoint:              'https://s3.amazonaws.com' # optional, defaults to nil
+    endpoint:              'https://coursedy.s3.amazonaws.com' # optional, defaults to nil
   }
   config.fog_directory  = 'coursedy'                                      # required
   config.fog_public     = false                                                 # optional, defaults to true

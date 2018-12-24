@@ -5,10 +5,10 @@ class DegreesSerializer < ActiveModel::Serializer
              :name, :created_at, :updated_at
 
   def name
-    object.item.file.original_filename
+    object.item.file.filename
   end
 
   def url
-    AppSettings.asset_host + object.item&.url
+    object.item.file.public_url
   end
 end
