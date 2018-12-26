@@ -44,7 +44,7 @@ module Api
         tutor = Tutor.find(params[:id])
         @courses = Course.where(user_id: tutor.user_id)
 
-        @courses = @courses.includes(:user, :category, :course_level, :week_day_schedules)
+        @courses = @courses.includes({user: :tutor}, :category, :course_level, :week_day_schedules)
 
         unless params[:status].blank?
           @courses = @courses.where(status: params[:status])

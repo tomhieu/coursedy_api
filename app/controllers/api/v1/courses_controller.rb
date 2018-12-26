@@ -44,7 +44,7 @@ module Api
                     .joins(:lessons).where("lessons.status <> 2")\
                     .where("DATE_PART('hour', start_time) * 60 + DATE_PART('minute', start_time) < ?", current_minute)\
                     .where("DATE_PART('hour', end_time) * 60 + DATE_PART('minute', end_time) > ?", current_minute)
-        @courses = @courses.includes(:user, :category, :course_level, :week_day_schedules, :lessons, :bigbluebutton_room)
+        @courses = @courses.includes({user: :tutor}, :category, :course_level, :week_day_schedules, :lessons, :bigbluebutton_room)
 
         @courses.each do |course|
           authorize course, :index?
@@ -70,7 +70,7 @@ module Api
                     .joins(:lessons).where("lessons.status <> 2")\
                     .where("DATE_PART('hour', start_time) * 60 + DATE_PART('minute', start_time) < ?", current_minute)\
                     .where("DATE_PART('hour', end_time) * 60 + DATE_PART('minute', end_time) > ?", current_minute)
-        @courses = @courses.includes(:user, :category, :course_level, :week_day_schedules, :lessons)
+        @courses = @courses.includes({user: :tutor}, :category, :course_level, :week_day_schedules, :lessons)
 
         @courses.each do |course|
           authorize course, :show?
@@ -88,7 +88,7 @@ module Api
 
       def related_courses
         @course = Course.find(params[:course_id])
-        @courses = Course.includes(:user, :category, :course_level, :week_day_schedules)
+        @courses = Course.includes({user: :tutor}, :category, :course_level, :week_day_schedules)
                      .where(category_id: @course.category_id).order(created_at: :desc)
         @courses = paginate @courses
 
@@ -130,11 +130,11 @@ module Api
 
         if params[:week_day].blank?
           @courses = paginate Course.where(id: solr_search.results.map(&:id))
-                                  .includes(:user, :category, :course_level, :week_day_schedules)
+                                  .includes({user: :tutor}, :category, :course_level, :week_day_schedules)
         else
           @courses = paginate Course.joins(:week_day_schedules)
                                   .where(id: solr_search.results.map(&:id), week_day_schedules: {day: params[:week_day]})
-                                  .includes(:user, :category, :course_level, :week_day_schedules)
+                                  .includes({user: :tutor}, :category, :course_level, :week_day_schedules)
         end
 
         if orderBy == 'popularity'

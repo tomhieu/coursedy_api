@@ -21,7 +21,7 @@ class Tutor < ApplicationRecord
   VERIFIED = 'verified'
 
   def tutor_name
-    user.name
+    user.name || user.email.split('@').first
   end
 
   searchable do

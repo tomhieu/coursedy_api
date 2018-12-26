@@ -88,12 +88,12 @@ module Api
       end
 
       def enrolled_courses
-        render json: current_user.enrolled_courses.includes(:user, :category, :course_level, :week_day_schedules),
+        render json: current_user.enrolled_courses.includes({user: :tutor}, :category, :course_level, :week_day_schedules),
                each_serializer: CoursesSerializer, full_info: true
       end
 
       def followed_courses
-        render json: current_user.followed_courses.includes(:user, :category, :course_level, :week_day_schedules),
+        render json: current_user.followed_courses.includes({user: :tutor}, :category, :course_level, :week_day_schedules),
                each_serializer: CoursesSerializer, full_info: true
       end
 
@@ -104,7 +104,7 @@ module Api
           @courses = Course.unscoped.where(user_id: current_user.id)
         end
 
-        @courses = @courses.includes(:user, :category, :course_level, :week_day_schedules)
+        @courses = @courses.includes({user: :tutor}, :category, :course_level, :week_day_schedules)
 
         unless params[:status].blank?
           @courses = @courses.where(status: params[:status])

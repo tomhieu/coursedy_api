@@ -56,7 +56,9 @@ class CoursesSerializer < ActiveModel::Serializer
   
   def user
     if @instance_options[:full_info]
-      UsersSerializer.new(object.user).to_h
+      user_hash = UsersSerializer.new(object.user).to_h
+      user_hash[:slug] = object.user.tutor.slug
+      return user_hash
     end
   end
 
