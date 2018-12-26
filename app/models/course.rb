@@ -28,6 +28,7 @@ class Course < ApplicationRecord
   validates :tuition_fee, numericality: {greater_than_or_equal_to: 0}
   validates_presence_of :tuition_fee
   validate :start_only_when_approved
+  validate :approve_only_if_tutor_approved
 
   after_create :setup_bbb_room
 
@@ -113,6 +114,12 @@ class Course < ApplicationRecord
   def start_only_when_approved
     if status == 'started' && verification_status != APPROVED
       errors.add(:status, I18n.t("activerecord.errors.models.course.attributes.status"))
+    end
+  end
+
+  def approve_only_if_tutor_approved
+    if verification_status == APPROVED && user.tutor && user.tutor.status != 'verified'
+      errors.add(:verification_status, I18n.t("activerecord.errors.models.course.attributes.verification_status"))
     end
   end
 end

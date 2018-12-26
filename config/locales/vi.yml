@@ -133,6 +133,7 @@ vi:
             start_date: "Ngày bắt đầu phải lớn hơn ngày hiện tại"
             user_id: "Chỉ giáo viên mới được tạo khoá học"
             status: "Không thể bắt đầu khoá học chưa được kiểm duyệt"
+            verification_status: 'Giáo viên chưa được kiểm duyệt'
         user:
           attributes:
             current_password:
