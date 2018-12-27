@@ -1,6 +1,6 @@
 class Course < ApplicationRecord
   extend FriendlyId
-  friendly_id :title, use: :slugged
+  friendly_id :course_slug, use: :slugged
 
   enum status: [ :not_started, :started, :finished ]
   enum verification_status: [ :pending, :rejected, :approved ]
@@ -31,6 +31,10 @@ class Course < ApplicationRecord
   validate :approve_only_if_tutor_approved
 
   after_create :setup_bbb_room
+
+  def course_slug
+    title.to_s.downcase.gsub(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/i, 'a').gsub(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/i, 'e').gsub(/i|í|ì|ỉ|ĩ|ị/i, 'i').gsub(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/i, 'o').gsub(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/i, 'u').gsub(/ý|ỳ|ỷ|ỹ|ỵ/i, 'y').gsub(/đ/i, 'd')
+  end
 
   searchable do
     text :title, :description

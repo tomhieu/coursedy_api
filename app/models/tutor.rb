@@ -21,7 +21,8 @@ class Tutor < ApplicationRecord
   VERIFIED = 'verified'
 
   def tutor_name
-    user.name || user.email.split('@').first
+    slug_str = user.name || user.email.split('@').first
+    slug_str.to_s.downcase.gsub(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/i, 'a').gsub(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/i, 'e').gsub(/i|í|ì|ỉ|ĩ|ị/i, 'i').gsub(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/i, 'o').gsub(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/i, 'u').gsub(/ý|ỳ|ỷ|ỹ|ỵ/i, 'y').gsub(/đ/i, 'd')
   end
 
   searchable do
