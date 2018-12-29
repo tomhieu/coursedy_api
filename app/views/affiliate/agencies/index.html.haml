@@ -1,0 +1,31 @@
+%h1 Listing affiliate_agencies
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Description
+      %th Address
+      %th Phone
+      %th Domain
+      %th User
+      %th
+      %th
+      %th
+
+  %tbody
+    - @affiliate_agencies.each do |affiliate_agency|
+      %tr
+        %td= affiliate_agency.name
+        %td= affiliate_agency.description
+        %td= affiliate_agency.address
+        %td= affiliate_agency.phone
+        %td= affiliate_agency.domain
+        %td= affiliate_agency.user
+        %td= link_to 'Show', affiliate_agency
+        %td= link_to 'Edit', edit_affiliate_agency_path(affiliate_agency)
+        %td= link_to 'Destroy', affiliate_agency, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Agency', new_affiliate_agency_path

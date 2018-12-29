@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :affiliate do
+    resources :agencies
+  end
   namespace :cd_admin do
     resources :pages, only: [:index]
     resources :tutors, only: [:show, :edit, :update, :destroy, :index]

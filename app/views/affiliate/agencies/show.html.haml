@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @affiliate_agency.name
+%p
+  %b Description:
+  = @affiliate_agency.description
+%p
+  %b Address:
+  = @affiliate_agency.address
+%p
+  %b Phone:
+  = @affiliate_agency.phone
+%p
+  %b Domain:
+  = @affiliate_agency.domain
+%p
+  %b User:
+  = @affiliate_agency.user
+
+= link_to 'Edit', edit_affiliate_agency_path(@affiliate_agency)
+\|
+= link_to 'Back', affiliate_agencies_path
