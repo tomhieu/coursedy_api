@@ -28,14 +28,14 @@ module Api
       end
 
       def update
-        @lessons = Lesson.find_by(id: params[:id])
+        @lesson = Lesson.find_by(id: params[:id])
 
         authorize @lesson
 
-        if @lessons.update_attributes(lesson_params)
-          render json: @lessons, serializer: LessonsSerializer
+        if @lesson.update_attributes(lesson_params)
+          render json: @lesson, serializer: LessonsSerializer
         else
-          render_error_response(@lessons.errors.full_messages.first, :unprocessable_entity)
+          render_error_response(@lesson.errors.full_messages.first, :unprocessable_entity)
         end
       end
 
