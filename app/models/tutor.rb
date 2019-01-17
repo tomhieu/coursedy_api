@@ -14,8 +14,6 @@ class Tutor < ApplicationRecord
 
   enum status: [ :pending, :rejected, :verified ]
 
-  default_scope {where(status: 'verified')}
-
   PENDING = 'pending'
   REJECTED = 'rejected'
   VERIFIED = 'verified'

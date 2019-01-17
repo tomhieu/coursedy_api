@@ -297,7 +297,7 @@ class User < ActiveRecord::Base
     role = self.role.to_sym.in?(CLIENT_ROLE) ? self.role : DEFAULT_ROLE
     self.add_role(role)
     if self.has_role?(:teacher)
-      Tutor.unscoped.create(user_id: self.id)
+      Tutor.create(user_id: self.id)
     end
     self.update_attributes(role: role)
   end

@@ -4,7 +4,7 @@ module Api
       skip_before_action :authenticate_user!, only: [:tutor_by_user, :top_teachers, :index, :show, :search, :courses]
 
       def current_tutor
-        @current_tutor = Tutor.unscoped.where(user_id: current_user.id)
+        @current_tutor = Tutor.where(user_id: current_user.id)
                              .includes(:user, :categories, :degrees).first
         render json: @current_tutor, serializer: TutorsSerializer
       end
@@ -71,7 +71,7 @@ module Api
       end
 
       def update
-        @tutor = Tutor.unscoped.find(params[:id])
+        @tutor = Tutor.find(params[:id])
         authorize @tutor
         @tutor.update_attributes(tutor_params)
 

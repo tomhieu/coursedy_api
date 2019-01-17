@@ -6,7 +6,7 @@ module CdAdmin
     # GET /cd_admin/tutors
     # GET /cd_admin/tutors.json
     def index
-      @cd_admin_tutors = ::Tutor.unscoped.includes(:user, :categories, :tutor_educations).order(:status).page(params[:page] || 1)
+      @cd_admin_tutors = ::Tutor.includes(:user, :categories, :tutor_educations).order(:status).page(params[:page] || 1)
     end
 
     # GET /cd_admin/tutors/1
@@ -46,7 +46,7 @@ module CdAdmin
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_cd_admin_tutor
-      @cd_admin_tutor = ::Tutor.unscoped.friendly.find(params[:id])
+      @cd_admin_tutor = ::Tutor.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
